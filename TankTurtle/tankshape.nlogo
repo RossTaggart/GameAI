@@ -1,12 +1,95 @@
+;; A breed of turtle (bots)
+breed [ bots bot ]
+;;bots-own [
+
+;; A breed of turtle (player)
+breed [ players player ]
+players-own [ new-heading ]
+
+;; A breed of turtle (ammo)
+breed [ ammos ammo ]
+
+;; A breed of turtle (fuel)
+breed [ fuels fuel ]
+
+globals [
+  score         ;; current score
+  lives         ;; remaining lives
+  ammo          ;; current ammo
+  max-ammo      ;; maximum ammo you can carry
+  fuel          ;; current fuel
+  max-fuel      ;; maximum fuel you can carry
+  dead?         ;; are you dead
+]
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Setup Procedures ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+
+to new
+  clear-all
+  
+  load-map ;; load map procedure
+  
+  set score 0
+  set lives 3
+end
+
+to load-map
+  ;; load tiles from file?
+  
+  ;; choose which tiles to use
+  ;;         1 2 3
+  ;;         4 5 6
+  ;;         7 8 9
+  ;; let = local variable
+  let tiles (list random 10 random 10 random 10 random 10 random 10 random 10 random 10 random 10 random 10)
+end
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Runtime Procedures ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+to play ;; Forever button
+end
+
+to move-player
+end
+
+to pickup-item
+  ;; is the item fuel
+  ;; is the item ammo
+end
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Interface Procedures ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+to move-up
+  ask players [ set new-heading 0 ]
+end
+
+to move-right
+  ask players [ set new-heading 90 ]
+end
+
+to move-down
+  ask players [ set new-heading 180 ]
+end
+
+to move-left
+  ask players [ set new-heading 270 ]
+end
+  
 @#$#@#$#@
 GRAPHICS-WINDOW
-1014
-14
-1684
-705
+237
+21
+742
+547
 16
 16
-20.0
+15.0
 1
 10
 1
@@ -25,6 +108,108 @@ GRAPHICS-WINDOW
 1
 ticks
 30.0
+
+BUTTON
+11
+22
+119
+62
+New
+new
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+124
+22
+232
+62
+Play
+play
+T
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+455
+574
+510
+607
+Up
+move-up
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+455
+609
+510
+642
+Down
+move-down
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+512
+609
+567
+642
+Right
+move-right
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+398
+609
+453
+642
+Left
+move-left
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -295,7 +480,6 @@ Rectangle -2674135 true false 135 120 150 135
 Rectangle -2674135 true false 135 90 150 105
 Rectangle -2674135 true false 105 135 180 225
 Rectangle -16777216 false false 135 90 150 165
-Circle -16777216 false false 150 165 0
 
 target
 false
