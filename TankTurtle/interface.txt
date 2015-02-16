@@ -1,0 +1,19 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Interface Procedures ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+to move-up
+  ask players [ set new-heading 0 ]
+end
+
+to move-right
+  ask players [ set new-heading 90 ]
+end
+
+to move-down
+  ask players [ set new-heading 180 ]
+end
+
+to move-left
+  ask players [ set new-heading 270 ]
+end

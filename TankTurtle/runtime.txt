@@ -1,0 +1,41 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Runtime Procedures ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+to input-player  ;; Observer Procedure
+  ask players
+  [
+    ;; move forward unless blocked
+    let old-heading heading
+    set heading new-heading
+    if [pcolor] of patch-ahead 1 != black
+    [ set heading old-heading ]
+    if [pcolor] of patch-ahead 1 = black
+    [ fd 1 ]
+    player-collisions ;; check for player collisions with other turtles
+  ]
+end
+
+to input-bots  ;; Observer Procedure
+  ask bots
+  [
+    ;; move/fire
+  ]
+end
+
+to player-collisions  ;; Player Procedure
+  ;; Check for other turtles occupying the same patch as the player
+  if any? fuels-here ;; is the turtle a fuel
+  [
+    ;; clamp fuel between 0 and 100
+    set fuel median (list 0 (fuel + 50) 100)
+  ]
+  if any? ammos here ;; is the turtle an ammo
+  [
+    set ammo ammo + 5
+  ]
+  if any? bullets here ;; is the turtle a bullet
+  [
+    set lives lives - 1
+  ]
+end

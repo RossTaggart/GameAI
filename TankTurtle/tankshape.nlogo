@@ -1,3 +1,5 @@
+__includes [ "setup.nls" ]
+
 ;; A breed of turtle (bots)
 breed [ bots bot ]
 ;;bots-own [
@@ -12,6 +14,9 @@ breed [ ammos ammo ]
 ;; A breed of turtle (fuel)
 breed [ fuels fuel ]
 
+;; A breed of turtle (bullet)
+breed [ bullets bullet ]
+
 globals [
   score         ;; current score
   lives         ;; remaining lives
@@ -22,65 +27,18 @@ globals [
   dead?         ;; are you dead
 ]
 
-;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Setup Procedures ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;
-
-to new
-  clear-all
-  
-  load-map ;; load map procedure
-  
-  set score 0
-  set lives 3
-end
-
-to load-map
-  ;; load tiles from file?
-  
-  ;; choose which tiles to use
-  ;;         1 2 3
-  ;;         4 5 6
-  ;;         7 8 9
-  ;; let = local variable
-  let tiles (list random 10 random 10 random 10 random 10 random 10 random 10 random 10 random 10 random 10)
-end
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Runtime Procedures ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 to play ;; Forever button
-end
-
-to move-player
-end
-
-to pickup-item
-  ;; is the item fuel
-  ;; is the item ammo
-end
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Interface Procedures ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-to move-up
-  ask players [ set new-heading 0 ]
-end
-
-to move-right
-  ask players [ set new-heading 90 ]
-end
-
-to move-down
-  ask players [ set new-heading 180 ]
-end
-
-to move-left
-  ask players [ set new-heading 270 ]
-end
+  if dead?
+  [ stop ]
+  every ( 1 )
+  [ 
+    input-player ;; Player move/fire
+    input-bots ;; Bots move/fire
+  ]
   
+  
+end
 @#$#@#$#@
 GRAPHICS-WINDOW
 237
