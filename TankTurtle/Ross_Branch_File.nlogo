@@ -15,7 +15,7 @@ to draw
     [
       if mouse-down?
       [
-        if [pcolor] of patch mouse-xcor mouse-ycor = black 
+        if [pcolor] of patch mouse-xcor mouse-ycor = black or [pcolor] of patch mouse-xcor mouse-ycor = red
         [
           ask patch mouse-xcor mouse-ycor
           [
@@ -39,6 +39,45 @@ to draw
         ]
       ]
     ]
+    
+    ;draw player spawn
+    if DrawElements = "Player Spawn"
+    [
+      if mouse-down?
+      [
+        if [pcolor] of patch mouse-xcor mouse-ycor = white or [pcolor] of patch mouse-xcor mouse-ycor = red
+        [
+          ask patches with [plabel = "playerSpawn"]
+          [
+            set pcolor white
+            set plabel ""  
+          ]  
+          ask patch mouse-xcor mouse-ycor
+          [
+            set pcolor blue
+            set plabel "playerSpawn"
+            set plabel-color red
+          ]
+        ]
+      ]
+    ]
+    
+    ;draw tank spawn
+    if DrawElements = "Tank Spawn"
+    [
+      if mouse-down?
+      [
+        if [pcolor] of patch mouse-xcor mouse-ycor = white
+        [
+          ask patch mouse-xcor mouse-ycor
+          [
+            set pcolor green
+            set plabel "tankSpawn"
+            set plabel-color red
+          ]
+        ]
+      ]
+    ]
   ]
   
 end
@@ -48,6 +87,14 @@ to clear-screen
   ask patches with [pcolor != black]
   [
     set pcolor black
+  ]
+  ask patches with [plabel = "tankSpawn"]
+  [
+    set plabel ""
+  ]
+  ask patches with [plabel = "playerSpawn"]
+  [
+   set plabel "" 
   ]
   
 end
