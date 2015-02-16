@@ -1,11 +1,64 @@
+to draw
+  if mouse-inside?
+  [
+    ask patch mouse-xcor mouse-ycor
+    [
+      sprout 1
+      [
+        set shape "square"
+        die
+      ]
+    ]
+    
+    ;draw path
+    if DrawElements = "Path"
+    [
+      if mouse-down?
+      [
+        if [pcolor] of patch mouse-xcor mouse-ycor = black 
+        [
+          ask patch mouse-xcor mouse-ycor
+          [
+            set pcolor white
+          ]
+        ]
+      ]
+    ]
+    
+    ;draw obstacles
+    if DrawElements = "Obstacle"
+    [
+      if mouse-down?
+      [
+        if [pcolor] of patch mouse-xcor mouse-ycor = white
+        [
+          ask patch mouse-xcor mouse-ycor
+          [
+            set pcolor red
+          ]
+        ]
+      ]
+    ]
+  ]
+  
+end
+
+to clear-screen
+  cd
+  ask patches with [pcolor != black]
+  [
+    set pcolor black
+  ]
+  
+end
 @#$#@#$#@
 GRAPHICS-WINDOW
-1014
-14
-1684
-705
-16
-16
+155
+10
+905
+781
+18
+18
 20.0
 1
 10
@@ -16,15 +69,59 @@ GRAPHICS-WINDOW
 1
 1
 1
--16
-16
--16
-16
+-18
+18
+-18
+18
 0
 0
 1
 ticks
 30.0
+
+CHOOSER
+15
+86
+153
+131
+DrawElements
+DrawElements
+"Path" "Obstacle" "Player Spawn" "Tank Spawn"
+1
+
+BUTTON
+22
+132
+135
+165
+Draw Elements
+draw
+T
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+30
+183
+132
+216
+Clear Screen
+clear-screen
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -295,7 +392,6 @@ Rectangle -2674135 true false 135 120 150 135
 Rectangle -2674135 true false 135 90 150 105
 Rectangle -2674135 true false 105 135 180 225
 Rectangle -16777216 false false 135 90 150 165
-Circle -16777216 false false 150 165 0
 
 target
 false
