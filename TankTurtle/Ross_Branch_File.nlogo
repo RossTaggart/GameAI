@@ -1,4 +1,24 @@
 extensions[bitmap]
+globals 
+[
+  lengthOfTile    ;Length of tile in patches
+  breadthOfTile   ;Breadth of tile in patches
+  
+  
+]
+
+to setup
+
+setup-globals
+
+end
+
+to setup-globals
+  
+set lengthOfTile world-height / 3
+set breadthOfTile world-width / 3
+  
+end
 
 to draw
   if mouse-inside?
@@ -101,12 +121,6 @@ to clear-screen
   
 end
 
-to load-level
-  
-  ;method does nothing right now
-  
-end
-
 to random-colour
   ;This method will evolve into the start of the map loading
   ;Work out size of the screen based on number of patches
@@ -118,60 +132,106 @@ to random-colour
   ;Load the tile into its position (fire into another method)
   ;BLAMO WE DONE FOOL
   
+  clear-screen
   
-  
-  random-seed new-seed
-  let chance random 7
-  
-  if chance = 0
+  ask patches
   [
-    ask patches with [pcolor = white]
-    [
-      set pcolor blue
-    ]
-  ]
-  if chance = 1
-  [
-   ask patches with [pcolor = white] 
+   if pxcor <= 12 and pycor <= 12 ;tile1 bottom row
+   [
+     set pcolor blue
+   ]
+   if pxcor > 12 and pxcor <= 24 and pycor <= 12 ;tile2 bottomm row
+   [
+     set pcolor pink 
+   ]
+   if pxcor > 24 and pycor <= 12 ;tile3 bottom row
+   [
+    set pcolor red 
+   ]
+   if pxcor <= 12 and pycor > 12 and pycor <= 24 ;tile4 middle row
+   [
+    set pcolor yellow 
+   ]
+   if pxcor > 12 and pxcor <= 24 and pycor > 12 and pycor <= 24 ;tile5 middle row
+   [
+     set pcolor black
+   ]
+   if pxcor > 24 and pycor > 12 and pycor <= 24 ;tile6 middle row
    [
     set pcolor orange 
    ]
-  ]
-  if chance = 2
-  [
-   ask patches with [pcolor = white]
+   if pxcor <= 12 and pycor > 24 ;tile7 top row
    [
-    set pcolor yellow 
-   ] 
-  ]
-  if chance = 3
-  [
-   ask patches with [pcolor = white]
+    set pcolor brown 
+   ]
+   if pxcor > 12 and pxcor <= 24 and pycor > 24 ;tile8 top row
    [
-    set pcolor red 
-   ] 
-  ]
-  if chance = 4
-  [
-   ask patches with [pcolor = white]
+    set pcolor green 
+   ]
+   if pxcor > 24 and pycor > 24 ;tile9 top row
    [
-     set pcolor green
-   ] 
+    set pcolor cyan 
+   ]
+;   if (pxcor < 36 and pycor = 0) or (pxcor = 0 and pycor < 36)
+;   [
+;    set pcolor white 
+;   ]
   ]
-  if chance = 5
-  [
-   ask patches with [pcolor = white]
-   [
-    set pcolor cyan
-   ] 
-  ]
-  if chance = 6
-  [
-   ask patches with [pcolor = white]
-   [
-    set pcolor pink 
-   ] 
-  ]
+  
+  let tile 1
+  
+;  random-seed new-seed
+;  let chance random 7
+;  
+;  if chance = 0
+;  [
+;    ask patches with [pcolor = white]
+;    [
+;      set pcolor blue
+;    ]
+;  ]
+;  if chance = 1
+;  [
+;   ask patches with [pcolor = white] 
+;   [
+;    set pcolor orange 
+;   ]
+;  ]
+;  if chance = 2
+;  [
+;   ask patches with [pcolor = white]
+;   [
+;    set pcolor yellow 
+;   ] 
+;  ]
+;  if chance = 3
+;  [
+;   ask patches with [pcolor = white]
+;   [
+;    set pcolor red 
+;   ] 
+;  ]
+;  if chance = 4
+;  [
+;   ask patches with [pcolor = white]
+;   [
+;     set pcolor green
+;   ] 
+;  ]
+;  if chance = 5
+;  [
+;   ask patches with [pcolor = white]
+;   [
+;    set pcolor cyan
+;   ] 
+;  ]
+;  if chance = 6
+;  [
+;   ask patches with [pcolor = white]
+;   [
+;    set pcolor pink 
+;   ] 
+;  ]
   
   
   
@@ -249,12 +309,12 @@ NIL
 1
 
 BUTTON
-34
-248
-128
-281
-Load Level
-load-level
+36
+305
+140
+338
+Random Test
+random-colour
 NIL
 1
 T
@@ -266,12 +326,12 @@ NIL
 1
 
 BUTTON
-36
-305
-140
-338
-Random Test
-random-colour
+159
+44
+223
+77
+Setup
+setup
 NIL
 1
 T
