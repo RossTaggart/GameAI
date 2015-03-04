@@ -1,3 +1,5 @@
+extensions[bitmap]
+
 to draw
   if mouse-inside?
   [
@@ -15,13 +17,13 @@ to draw
     [
       if mouse-down?
       [
-        if [pcolor] of patch mouse-xcor mouse-ycor = black or [pcolor] of patch mouse-xcor mouse-ycor = red
-        [
+        ;if [pcolor] of patch mouse-xcor mouse-ycor = black or [pcolor] of patch mouse-xcor mouse-ycor = red
+        ;[
           ask patch mouse-xcor mouse-ycor
           [
             set pcolor white
           ]
-        ]
+        ;]
       ]
     ]
     
@@ -84,9 +86,9 @@ end
 
 to clear-screen
   cd
-  ask patches with [pcolor != black]
+  ask patches with [pcolor != white]
   [
-    set pcolor black
+    set pcolor white
   ]
   ask patches with [plabel = "tankSpawn"]
   [
@@ -98,28 +100,104 @@ to clear-screen
   ]
   
 end
+
+to load-level
+  
+  ;method does nothing right now
+  
+end
+
+to random-colour
+  ;This method will evolve into the start of the map loading
+  ;Work out size of the screen based on number of patches
+  ;Divide the sections of the screen up into 9 relatively equal parts
+  ;Start random number generator for tile used
+  ;Decide which tile will be used
+  ;Start random number generator for position of tile
+  ;Decide which position the tile will exist in
+  ;Load the tile into its position (fire into another method)
+  ;BLAMO WE DONE FOOL
+  
+  
+  
+  random-seed new-seed
+  let chance random 7
+  
+  if chance = 0
+  [
+    ask patches with [pcolor = white]
+    [
+      set pcolor blue
+    ]
+  ]
+  if chance = 1
+  [
+   ask patches with [pcolor = white] 
+   [
+    set pcolor orange 
+   ]
+  ]
+  if chance = 2
+  [
+   ask patches with [pcolor = white]
+   [
+    set pcolor yellow 
+   ] 
+  ]
+  if chance = 3
+  [
+   ask patches with [pcolor = white]
+   [
+    set pcolor red 
+   ] 
+  ]
+  if chance = 4
+  [
+   ask patches with [pcolor = white]
+   [
+     set pcolor green
+   ] 
+  ]
+  if chance = 5
+  [
+   ask patches with [pcolor = white]
+   [
+    set pcolor cyan
+   ] 
+  ]
+  if chance = 6
+  [
+   ask patches with [pcolor = white]
+   [
+    set pcolor pink 
+   ] 
+  ]
+  
+  
+  
+end
 @#$#@#$#@
 GRAPHICS-WINDOW
-155
-10
-905
-781
-18
-18
-20.0
+319
+14
+797
+513
+-1
+-1
+13.0
 1
 10
 1
 1
 1
 0
+0
+0
 1
-1
-1
--18
-18
--18
-18
+0
+35
+0
+35
 0
 0
 1
@@ -133,8 +211,8 @@ CHOOSER
 131
 DrawElements
 DrawElements
-"Path" "Obstacle" "Player Spawn" "Tank Spawn"
-1
+"Path" "Obstacle" "Player Spawn" "Tank Spawn" "Waypoint"
+0
 
 BUTTON
 22
@@ -160,6 +238,40 @@ BUTTON
 216
 Clear Screen
 clear-screen
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+34
+248
+128
+281
+Load Level
+load-level
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+36
+305
+140
+338
+Random Test
+random-colour
 NIL
 1
 T
