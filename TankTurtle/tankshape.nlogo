@@ -1,4 +1,4 @@
-__includes [ "setup.nls" ]
+__includes [ "setup.nls" "interface.nls" "runtime.nls" ]
 
 ;; A breed of turtle (bots)
 breed [ bots bot ]
