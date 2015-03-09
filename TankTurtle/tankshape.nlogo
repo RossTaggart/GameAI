@@ -1,12 +1,41 @@
 __includes [ "setup.nls" "interface.nls" "runtime.nls" ]
 
+; global variables used
+globals [
+  score         ; current score
+  lives         ; remaining lives
+  range         ; tank fire range
+  current-ammo  ; current ammo
+  max-ammo      ; maximum ammo you can carry
+  current-fuel  ; current fuel
+  max-fuel      ; maximum fuel you can carry
+  dead?         ; are you dead
+]
+
+patches-own
+[
+  parent-patch ; patch's predecessor
+  f ; g + h
+  g ; distance so far (knowledge)
+  h ; estimated distance to go (heuristic)
+]
+  
 ;; A breed of turtle (bots)
 breed [ bots bot ]
-;;bots-own [
+bots-own 
+[
+  open ; open list of patches
+  closed ; closed list of patches
+  optimal-path ; optimal path to destination (a list of patches)
+]
 
 ;; A breed of turtle (player)
 breed [ players player ]
-players-own [ new-heading ]
+players-own 
+[ 
+  state
+  new-heading
+]
 
 ;; A breed of turtle (ammo)
 breed [ ammos ammo ]
@@ -17,17 +46,6 @@ breed [ fuels fuel ]
 ;; A breed of turtle (bullet)
 breed [ bullets bullet ]
 
-globals [
-  score         ;; current score
-  lives         ;; remaining lives
-  ammo          ;; current ammo
-  max-ammo      ;; maximum ammo you can carry
-  fuel          ;; current fuel
-  max-fuel      ;; maximum fuel you can carry
-  dead?         ;; are you dead
-]
-
-
 to play ;; Forever button
   if dead?
   [ stop ]
@@ -36,7 +54,6 @@ to play ;; Forever button
     input-player ;; Player move/fire
     input-bots ;; Bots move/fire
   ]
-  
   
 end
 @#$#@#$#@

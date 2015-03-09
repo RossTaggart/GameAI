@@ -3,21 +3,36 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;
 
 to new
-  clear-all
+  __clear-all-and-reset-ticks ;; clear everything (the view and all the variables)
+  load-map ; load map procedure
+  setup-player ; initialise player
+  setup-bots ; initialise bots
   
-  load-map ;; load map procedure
-  
+  set dead? false
   set score 0
   set lives 3
+  set range 4
 end
 
 to load-map
-  ;; load tiles from file?
-  
-  ;; choose which tiles to use
-  ;;         1 2 3
-  ;;         4 5 6
-  ;;         7 8 9
-  ;; let = local variable
-  let tiles (list random 10 random 10 random 10 random 10 random 10 random 10 random 10 random 10 random 10)
+  ask one-of patches with [pcolor = black]
+  [
+    set plabel "spawn"
+  ]
+end
+
+to setup-player
+  create-players 1
+  ask players [ setxy random-xcor random-ycor ]
+end
+
+to setup-bots
+  ask one-of patches with [plabel = "spawn"]
+  [
+    sprout-bots 1
+    [
+      set color red
+      pd
+    ]
+  ]
 end
