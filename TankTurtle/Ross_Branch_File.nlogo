@@ -1,10 +1,12 @@
-extensions[bitmap]
 globals 
 [
   lengthOfTile    ;Length of tile in patches
-  breadthOfTile   ;Breadth of tile in patches
-  
-  
+  breadthOfTile   ;Breadth of tile in patches  
+]
+
+patches-own
+[
+  tileNumber
 ]
 
 to setup
@@ -121,6 +123,93 @@ to clear-screen
   
 end
 
+to-report calc-tile-colour
+  
+  random-seed new-seed
+  let chance random 9
+  
+  if chance = 0
+  [
+    report blue
+  ]
+  if chance = 1
+  [
+    report pink
+  ]
+  if chance = 2
+  [
+    report red
+  ]
+  if chance = 3
+  [
+    report yellow
+  ]
+  if chance = 4
+  [
+   report black 
+  ]
+  if chance = 5
+  [
+    report orange
+  ]
+  if chance = 6
+  [
+   report brown 
+  ]
+  if chance = 7
+  [
+   report green 
+  ]
+  if chance = 8
+  [
+   report cyan 
+  ]
+  
+end
+
+to set-tile-number
+  ask patches
+  [    
+   if pxcor < 12 and pycor <= 12 ;tile1 bottom row
+   [
+     set tileNumber 1
+   ]
+   if pxcor >= 12 and pxcor <= 24 and pycor <= 12 ;tile2 bottomm row
+   [
+     set tileNumber 2
+   ]
+   if pxcor > 24 and pycor <= 12 ;tile3 bottom row
+   [
+    set tileNumber 3
+   ]
+   if pxcor < 12 and pycor > 12 and pycor <= 24 ;tile4 middle row
+   [
+    set tileNumber 4 
+   ]
+   if pxcor >= 12 and pxcor <= 24 and pycor > 12 and pycor <= 24 ;tile5 middle row
+   [
+     set tileNumber 5
+   ]
+   if pxcor > 24 and pycor > 12 and pycor <= 24 ;tile6 middle row
+   [
+    set tileNumber 6
+   ]
+   if pxcor < 12 and pycor > 24 ;tile7 top row
+   [
+    set tileNumber 7
+   ]
+   if pxcor >= 12 and pxcor <= 24 and pycor > 24 ;tile8 top row
+   [
+    set tileNumber 8
+   ]
+   if pxcor > 24 and pycor > 24 ;tile9 top row
+   [
+    set tileNumber 9
+   ]
+  ]
+  
+end
+
 to random-colour
   ;This method will evolve into the start of the map loading
   ;Work out size of the screen based on number of patches
@@ -134,51 +223,59 @@ to random-colour
   
   clear-screen
   
+  let tileColour1 calc-tile-colour
+  let tileColour2 calc-tile-colour
+  let tileColour3 calc-tile-colour
+  let tileColour4 calc-tile-colour
+  let tileColour5 calc-tile-colour
+  let tileColour6 calc-tile-colour
+  let tileColour7 calc-tile-colour
+  let tileColour8 calc-tile-colour
+  let tileColour9 calc-tile-colour
+    
+  
+  set-tile-number
+  
   ask patches
   [
-   if pxcor <= 12 and pycor <= 12 ;tile1 bottom row
+   if tileNumber = 1
    [
-     set pcolor blue
-   ]
-   if pxcor > 12 and pxcor <= 24 and pycor <= 12 ;tile2 bottomm row
+    set pcolor tileColour1 
+   ] 
+   if tileNumber = 2
    [
-     set pcolor pink 
+    set pcolor tileColour2 
    ]
-   if pxcor > 24 and pycor <= 12 ;tile3 bottom row
+   if tileNumber = 3
    [
-    set pcolor red 
+    set pcolor tileColour3 
    ]
-   if pxcor <= 12 and pycor > 12 and pycor <= 24 ;tile4 middle row
+   if tileNumber = 4
    [
-    set pcolor yellow 
+    set pcolor tileColour4 
    ]
-   if pxcor > 12 and pxcor <= 24 and pycor > 12 and pycor <= 24 ;tile5 middle row
+   if tileNumber = 5
    [
-     set pcolor black
+    set pcolor tileColour5 
    ]
-   if pxcor > 24 and pycor > 12 and pycor <= 24 ;tile6 middle row
+   if tileNumber = 6
    [
-    set pcolor orange 
+    set pcolor tileColour6 
    ]
-   if pxcor <= 12 and pycor > 24 ;tile7 top row
+   if tileNumber = 7
    [
-    set pcolor brown 
+    set pcolor tileColour7 
    ]
-   if pxcor > 12 and pxcor <= 24 and pycor > 24 ;tile8 top row
+   if tileNumber = 8
    [
-    set pcolor green 
+    set pcolor tileColour8 
    ]
-   if pxcor > 24 and pycor > 24 ;tile9 top row
+   if tileNumber = 9
    [
-    set pcolor cyan 
+    set pcolor tileColour9 
    ]
-;   if (pxcor < 36 and pycor = 0) or (pxcor = 0 and pycor < 36)
-;   [
-;    set pcolor white 
-;   ]
   ]
   
-  let tile 1
   
 ;  random-seed new-seed
 ;  let chance random 7
@@ -240,8 +337,8 @@ end
 GRAPHICS-WINDOW
 319
 14
-797
-513
+810
+526
 -1
 -1
 13.0
@@ -255,9 +352,9 @@ GRAPHICS-WINDOW
 0
 1
 0
-35
+36
 0
-35
+36
 0
 0
 1
