@@ -10,6 +10,10 @@ globals [
   current-fuel  ; current fuel
   max-fuel      ; maximum fuel you can carry
   dead?         ; are you dead
+  
+  open ; the open list of patches
+  closed ; the closed list of patches
+  optimal-path ; the optimal path, list of patches from source to destination
 ]
 
 patches-own
@@ -24,9 +28,8 @@ patches-own
 breed [ bots bot ]
 bots-own 
 [
-  open ; open list of patches
-  closed ; closed list of patches
-  optimal-path ; optimal path to destination (a list of patches)
+  path ; optimal path from source to destination
+  current-path ; the remaining part of the path
 ]
 
 ;; A breed of turtle (player)
@@ -54,6 +57,7 @@ to play ;; Forever button
     input-player ;; Player move/fire
     input-bots ;; Bots move/fire
   ]
+  
   
 end
 @#$#@#$#@
@@ -176,6 +180,23 @@ BUTTON
 642
 Left
 move-left
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+88
+181
+171
+214
+Find path
+find-shortest-path-to-destination
 NIL
 1
 T

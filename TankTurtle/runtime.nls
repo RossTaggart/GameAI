@@ -93,14 +93,12 @@ end
 
 to find-shortest-path-to-destination
   reset-ticks
-  ask one-of turtles 
+  ask bots 
   [
-    move-to one-of patches with [plabel = "source"]
-    set path find-a-path one-of patches with [plabel = "source"] one-of patches with [plabel = "destination"]
+    set path find-a-path patch-here one-of patches with [plabel = "destination"]
     set optimal-path path
     set current-path path
   ]
-  output-show (word "Shortest path length : " length optimal-path)
   move
 end
 
@@ -207,7 +205,7 @@ end
 
 ; make the turtle traverse (move through) the path all the way to the destination patch
 to move
-  ask one-of turtles 
+  ask bots 
   [
     while [length current-path != 0]
     [
