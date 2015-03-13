@@ -31,7 +31,6 @@ end
 to go
   move
   updateGlobals
-  display
   if (%playerHealth = 0)
   [
    user-message "YOU FAILED. YOU FAILURE"
@@ -171,6 +170,16 @@ to updateGlobals
     if (%playerFuelLevel > 100)
   [
     set %playerFuelLevel 100
+  ]
+  
+    if (%playerHealth < 0)
+  [
+    set %playerHealth 0
+  ]
+  
+    if (%playerHealth > 100)
+  [
+    set %playerHealth 100
   ]
 end
 
