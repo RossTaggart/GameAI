@@ -1,9 +1,3 @@
-globals 
-[
-  lengthOfTile    ;Length of tile in patches
-  breadthOfTile   ;Breadth of tile in patches  
-]
-
 patches-own
 [
   tileNumber
@@ -11,15 +5,8 @@ patches-own
 
 to setup
 
-setup-globals
+generate-map
 
-end
-
-to setup-globals
-  
-set lengthOfTile world-height / 3
-set breadthOfTile world-width / 3
-  
 end
 
 to draw
@@ -123,47 +110,51 @@ to clear-screen
   
 end
 
-to-report calc-tile-colour
+
+;This is the random number generator that decides which tile will be
+;loaded. Based upon what number this method generates, the tile corresponding
+;to it will load. For example, 0 will load tile-1, 1 will load tile-2, etc.
+to-report calc-tile
   
   random-seed new-seed
-  let chance random 9
+  let chance random 2
   
   if chance = 0
   [
-    report blue
+    report 0
   ]
   if chance = 1
   [
-    report pink
+    report 1
   ]
   if chance = 2
   [
-    report red
+    report 2
   ]
-  if chance = 3
-  [
-    report yellow
-  ]
-  if chance = 4
-  [
-   report black 
-  ]
-  if chance = 5
-  [
-    report orange
-  ]
-  if chance = 6
-  [
-   report brown 
-  ]
-  if chance = 7
-  [
-   report green 
-  ]
-  if chance = 8
-  [
-   report cyan 
-  ]
+;  if chance = 3
+;  [
+;    report yellow
+;  ]
+;  if chance = 4
+;  [
+;   report black 
+;  ]
+;  if chance = 5
+;  [
+;    report orange
+;  ]
+;  if chance = 6
+;  [
+;   report brown 
+;  ]
+;  if chance = 7
+;  [
+;   report green 
+;  ]
+;  if chance = 8
+;  [
+;   report cyan 
+;  ]
   
 end
 
@@ -215,28 +206,31 @@ to set-tile-number
   
 end
 
-to random-colour
-  ;This method will evolve into the start of the map loading
-  ;Work out size of the screen based on number of patches
-  ;Divide the sections of the screen up into 9 relatively equal parts
-  ;Start random number generator for tile used
-  ;Decide which tile will be used
-  ;Start random number generator for position of tile
-  ;Decide which position the tile will exist in
-  ;Load the tile into its position (fire into another method)
-  ;BLAMO WE DONE FOOL
+to generate-map
+  ;This method is triggered by the setup button being pressed
+  ;and generates our game level for us. It does the following:
+  ;Calls the clear-screen method to make sure that we're working
+  ;with a blank canvas, as it were.
+  ;Defines the 9 random tiles that will combine to create the
+  ;game level by calling a method that does this for us.
+  ;Sets which tile a patch is assigned to based upon its position
+  ;in coordinate space
+  ;Then all the patches are polled by the program. This is where,
+  ;depending on which tile it has been assigned to, the tiles are
+  ;"loaded" in randomly, i.e. the patch colours are changed to
+  ;generate our map.
   
   clear-screen
   
-  let tileColour1 calc-tile-colour
-  let tileColour2 calc-tile-colour
-  let tileColour3 calc-tile-colour
-  let tileColour4 calc-tile-colour
-  let tileColour5 calc-tile-colour
-  let tileColour6 calc-tile-colour
-  let tileColour7 calc-tile-colour
-  let tileColour8 calc-tile-colour
-  let tileColour9 calc-tile-colour
+  let chosenTile1 calc-tile
+  let chosenTile2 calc-tile
+  let chosenTile3 calc-tile
+  let chosenTile4 calc-tile
+  let chosenTile5 calc-tile
+  let chosenTile6 calc-tile
+  let chosenTile7 calc-tile
+  let chosenTile8 calc-tile
+  let chosenTile9 calc-tile
     
   set-tile-number
   
@@ -244,41 +238,78 @@ to random-colour
   [
    if tileNumber = 1
    [
-    ;set pcolor tileColour1
-    defined-tile-1 0 0
+    
+    if (chosenTile1 = 0)
+    [
+     defined-tile-1 0 0 
+    ]
+    if (chosenTile1 = 1)
+    [
+     defined-tile-2 0 0 
+    ]
+    if (chosenTile1 = 2)
+    [
+     defined-tile-3 0 0 
+    ]
+    
    ] 
    if tileNumber = 2
    [
-    set pcolor tileColour2
-    ;defined-tile-2 12 0
+    
+    if (chosenTile2 = 0)
+    [
+     defined-tile-1 12 0 
+    ]
+    if (chosenTile2 = 1)
+    [
+     defined-tile-2 12 0 
+    ]
+    if (chosenTile1 = 2)
+    [
+     defined-tile-3 12 0 
+    ]
+    
    ]
    if tileNumber = 3
    [
-    set pcolor tileColour3 
+    
+    if (chosenTile3 = 0)
+    [
+     defined-tile-1 24 0 
+    ]
+    if (chosenTile3 = 1)
+    [
+     defined-tile-2 24 0 
+    ]
+    if (chosenTile3 = 2)
+    [
+     defined-tile-3 24 0 
+    ]
+    
    ]
    if tileNumber = 4
    [
-    set pcolor tileColour4 
+     
    ]
    if tileNumber = 5
    [
-    set pcolor tileColour5 
+     
    ]
    if tileNumber = 6
    [
-    set pcolor tileColour6 
+    
    ]
    if tileNumber = 7
    [
-    set pcolor tileColour7 
+    
    ]
    if tileNumber = 8
    [
-    set pcolor tileColour8 
+     
    ]
    if tileNumber = 9
    [
-    set pcolor tileColour9 
+     
    ]
   ]
 end
@@ -362,14 +393,328 @@ to defined-tile-1 [xoff yoff]
   
 end
 
+;Holds the definition of tile-2.
+;Whilst this tile will look the same wherever it appears in the
+;game, an offset is needed so that all of the patches are drawn
+;in their correct locations regardless of where they will appear.
+;For clarity, the positions of the obstacles (before any offsets
+;have been applied) are as follows:
+;(5,1) (6,1) (2,2) (3,2) (5,2) (6,2) (8,2) (9,2) (2,3) (9,3) (2,4)
+;(9,4) (5,5) (6,5) (5,6) (6,6) (2,7) (9,7) (2,8) (9,8) (2,9) (3,9)
+;(5,9) (6,9) (8,9) (9,9) (5,10) (6,10)
 to defined-tile-2 [xoff yoff]
   
-  
+  if ((pxcor - xoff = 5) and (pycor - yoff = 1)) ;coordinate (5,1)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 6) and (pycor - yoff = 1)) ;coordinate (6,1)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 2) and (pycor - yoff = 2)) ;coordinate (2,2)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 3) and (pycor - yoff = 2)) ;coordinate (3,2)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 5) and (pycor - yoff = 2)) ;coordinate (5,2)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 6) and (pycor - yoff = 2)) ;coordinate (6,2)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 8) and (pycor - yoff = 2)) ;coordinate (8,2)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 9) and (pycor - yoff = 2)) ;coordinate (9,2)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 2) and (pycor - yoff = 3)) ;coordinate (2,3)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 9) and (pycor - yoff = 3)) ;coordinate (9,3)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 2) and (pycor - yoff = 4)) ;coordinate (2,4)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 9) and (pycor - yoff = 4)) ;coordinate (9,4)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 5) and (pycor - yoff = 5)) ;coordinate (5,5)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 6) and (pycor - yoff = 5)) ;coordinate (6,5)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 5) and (pycor - yoff = 6)) ;coordinate (5,6)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 6) and (pycor - yoff = 6)) ;coordinate (6,6)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 2) and (pycor - yoff = 7)) ;coordinate (2,7)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 9) and (pycor - yoff = 7)) ;coordinate (9,7)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 2) and (pycor - yoff = 8)) ;coordinate (2,8)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 9) and (pycor - yoff = 8)) ;coordinate (9,8)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 2) and (pycor - yoff = 9)) ;coordinate (2,9)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 3) and (pycor - yoff = 9)) ;coordinate (3,9)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 5) and (pycor - yoff = 9)) ;coordinate (5,9)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 6) and (pycor - yoff = 9)) ;coordinate (6,9)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 8) and (pycor - yoff = 9)) ;coordinate (8,9)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 9) and (pycor - yoff = 9)) ;coordinate (9,9)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 5) and (pycor - yoff = 10)) ;coordinate (5,10)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 6) and (pycor - yoff = 10)) ;coordinate (6,10)
+  [
+   set pcolor red 
+  ]
   
 end
 
+;Holds the definition of tile-3.
+;Whilst this tile will look the same wherever it appears in the
+;game, an offset is needed so that all of the patches are drawn
+;in their correct locations regardless of where they will appear.
+;For clarity, the positions of the obstacles (before any offsets
+;have been applied) are as follows:
+;(3,2) (4,2) (7,2) (8,2) (3,3) (4,3) (7,3) (8,3) (3,4) (4,4) (5,4)
+;(6,4) (7,4) (8,4) (3,5) (4,5) (5,5) (6,5) (7,5) (8,5) (3,6) (4,6)
+;(5,6) (6,6) (7,6) (8,6) (3,7) (4,7) (5,7) (6,7) (7,7) (8,7) (3,8)
+;(4,8) (5,8) (6,8) (7,8) (8,8) (3,9) (4,9) (7,9) (8,9) (3,10) (4,10)
+;(7,10) (8,10)
 to defined-tile-3 [xoff yoff]
-  
+  if ((pxcor - xoff = 3) and (pycor - yoff = 2)) ;coordinate (3,2)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 4) and (pycor - yoff = 2)) ;coordinate (4,2)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 7) and (pycor - yoff = 2)) ;coordinate (7,2)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 8) and (pycor - yoff = 2)) ;coordinate (8,2)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 3) and (pycor - yoff = 3)) ;coordinate (3,3)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 4) and (pycor - yoff = 3)) ;coordinate (4,3)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 7) and (pycor - yoff = 3)) ;coordinate (7,3)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 8) and (pycor - yoff = 3)) ;coordinate (8,3)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 3) and (pycor - yoff = 4)) ;coordinate (3,4)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 4) and (pycor - yoff = 4)) ;coordinate (4,4)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 5) and (pycor - yoff = 4)) ;coordinate (5,4)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 6) and (pycor - yoff = 4)) ;coordinate (6,4)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 7) and (pycor - yoff = 4)) ;coordinate (7,4)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 8) and (pycor - yoff = 4)) ;coordinate (8,4)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 3) and (pycor - yoff = 5)) ;coordinate (3,5)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 4) and (pycor - yoff = 5)) ;coordinate (4,5)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 5) and (pycor - yoff = 5)) ;coordinate (5,5)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 6) and (pycor - yoff = 5)) ;coordinate (6,5)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 7) and (pycor - yoff = 5)) ;coordinate (7,5)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 8) and (pycor - yoff = 5)) ;coordinate (8,5)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 3) and (pycor - yoff = 6)) ;coordinate (3,6)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 4) and (pycor - yoff = 6)) ;coordinate (4,6)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 5) and (pycor - yoff = 6)) ;coordinate (5,6)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 6) and (pycor - yoff = 6)) ;coordinate (6,6)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 7) and (pycor - yoff = 6)) ;coordinate (7,6)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 8) and (pycor - yoff = 6)) ;coordinate (8,6)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 3) and (pycor - yoff = 7)) ;coordinate (3,7)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 4) and (pycor - yoff = 7)) ;coordinate (4,7)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 5) and (pycor - yoff = 7)) ;coordinate (5,7)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 6) and (pycor - yoff = 7)) ;coordinate (6,7)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 7) and (pycor - yoff = 7)) ;coordinate (7,7)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 8) and (pycor - yoff = 7)) ;coordinate (8,7)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 3) and (pycor - yoff = 8)) ;coordinate (3,8)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 4) and (pycor - yoff = 8)) ;coordinate (4,8)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 5) and (pycor - yoff = 8)) ;coordinate (5,8)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 6) and (pycor - yoff = 8)) ;coordinate (6,8)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 7) and (pycor - yoff = 8)) ;coordinate (7,8)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 8) and (pycor - yoff = 8)) ;coordinate (8,8)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 3) and (pycor - yoff = 9)) ;coordinate (3,9)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 4) and (pycor - yoff = 9)) ;coordinate (4,9)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 7) and (pycor - yoff = 9)) ;coordinate (7,9)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 8) and (pycor - yoff = 9)) ;coordinate (8,9)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 3) and (pycor - yoff = 10)) ;coordinate (3,10)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 4) and (pycor - yoff = 10)) ;coordinate (4,10)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 7) and (pycor - yoff = 10)) ;coordinate (7,10)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 8) and (pycor - yoff = 10)) ;coordinate (8,10)
+  [
+   set pcolor red 
+  ]
   
 end
 @#$#@#$#@
@@ -445,27 +790,10 @@ NIL
 1
 
 BUTTON
-36
-305
-140
-338
-Random Test
-random-colour
-NIL
-1
-T
-OBSERVER
-NIL
-NIL
-NIL
-NIL
-1
-
-BUTTON
-159
-44
-223
-77
+49
+43
+113
+76
 Setup
 setup
 NIL
