@@ -3,6 +3,8 @@ breed [ tanks tank ]
 breed [fuels fuel]
 fuels-own [eaten?]
 
+breed [bombs bomb]
+
 
 ;;;;;;;;;;;;;;;
 ;; Variables ;;
@@ -11,37 +13,59 @@ fuels-own [eaten?]
 globals
 [
   action            ;; Last button pressed. Prevent the player from moving the frog until the
-  %playerFuelLevel  ;; fuel remaining on player
+  %playerFuelLevel  ;; fuel remaining of player
+  %playerHealth     ;; remaining health of player
 ]
 
 to setup              ;; Initializes the game
   clear-all
   set action 0
   set %playerFuelLevel 100
+  set %playerHealth 100
   setupFuels
   setupTank
+  setupBombs
   reset-ticks
 end
 
 to go
   move
-  updateFuel
+  updateGlobals
+  display
+  if (%playerHealth = 0)
+  [
+   user-message "YOU FAILED. YOU FAILURE"
+   stop
+  ]
+  
+    if (%playerFuelLevel = 0)
+  [
+   user-message "YOU FAILED. YOU FAILURE" 
+   stop
+  ]
 end
 
 to move
   move-tank
   eatFuel
+  damagePlayer
   display
 end
 
 to setupFuels
   set-default-shape fuels "target"
-  create-turtles 5 [setxy random-xcor random-ycor set size 1.0 set breed fuels]
+  create-turtles 1 [setxy -12 12 set size 1.0 set breed fuels]
+  create-turtles 1 [setxy 12 -12 set size 1.0 set breed fuels]
 end
 
 to setupTank
   set-default-shape tanks "tank"
-  create-turtles 1 [setxy random-xcor random-ycor set size 5.0 set breed tanks] 
+  create-turtles 1 [setxy 0 0 set size 5.0 set breed tanks] 
+end
+
+to setupBombs ;; method to create temp bombs
+  create-turtles 1 [setxy 12 12 set size 1.0 set breed bombs]
+  create-turtles 1 [setxy -12 -12 set size 1.0 set breed bombs]
 end
 
 to move-tank
@@ -138,7 +162,7 @@ to decrementFuel
   ]
 end
 
-to updateFuel 
+to updateGlobals 
     if (%playerFuelLevel < 0)
   [
     set %playerFuelLevel 0
@@ -147,6 +171,32 @@ to updateFuel
     if (%playerFuelLevel > 100)
   [
     set %playerFuelLevel 100
+  ]
+end
+
+to damagePlayer
+    ask tanks
+  [
+    if any? bombs-here
+    [
+      ask bombs
+      [
+        if any? tanks-here
+        [
+          set %playerHealth %playerHealth - 50
+          if (%playerHealth = 0)
+          [
+            explode
+          ]
+          
+          if (%playerHealth != 0)
+          [
+            damage
+          ]
+          die
+        ]
+      ]
+    ]
   ]
 end
 @#$#@#$#@
@@ -178,10 +228,10 @@ ticks
 30.0
 
 BUTTON
-704
-43
-787
-76
+217
+585
+300
+618
 move left
 set action 1
 NIL
@@ -195,10 +245,10 @@ NIL
 1
 
 BUTTON
-882
-43
-972
-76
+395
+585
+485
+618
 move right
 set action 2
 NIL
@@ -212,10 +262,10 @@ NIL
 1
 
 BUTTON
-794
-10
-873
-43
+307
+552
+386
+585
 move up
 set action 4
 NIL
@@ -229,10 +279,10 @@ NIL
 1
 
 BUTTON
-787
-43
-882
-76
+300
+585
+395
+618
 move down
 set action 3
 NIL
@@ -280,10 +330,10 @@ NIL
 1
 
 BUTTON
-1006
-18
-1109
-51
+559
+104
+662
+137
 explode tank
 explode
 NIL
@@ -297,10 +347,10 @@ NIL
 1
 
 BUTTON
-1005
-61
-1108
-94
+558
+147
+661
+180
 damage tank
 damage
 NIL
@@ -314,13 +364,24 @@ NIL
 1
 
 MONITOR
-42
-540
-154
-585
-NIL
+39
+543
+162
+588
+Fuel Level
 %playerFuelLevel
 0
+1
+11
+
+MONITOR
+38
+594
+162
+639
+Health
+%playerHealth
+17
 1
 11
 
