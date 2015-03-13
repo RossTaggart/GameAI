@@ -233,7 +233,6 @@ to random-colour
   let tileColour8 calc-tile-colour
   let tileColour9 calc-tile-colour
     
-  
   set-tile-number
   
   ask patches
