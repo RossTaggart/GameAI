@@ -1,4 +1,8 @@
-breed [ tanks tank ]
+;;;;;;;;;;
+;;breeds;;
+;;;;;;;;;;
+
+breed [ playerTanks playerTank ]
 
 breed [fuels fuel]
 fuels-own [eaten?]
@@ -12,10 +16,34 @@ breed [bombs bomb]
 
 globals
 [
-  action            ;; Last button pressed. Prevent the player from moving the frog until the
+  action            ;; Last button pressed.
   %playerFuelLevel  ;; fuel remaining of player
   %playerHealth     ;; remaining health of player
 ]
+
+;;;;;;;;;;;;;;;;
+;;set up stuff;;
+;;;;;;;;;;;;;;;;
+
+to setupFuels
+  set-default-shape fuels "target"
+  create-turtles 1 [setxy -12 12 set size 1.0 set breed fuels]
+  create-turtles 1 [setxy 12 -12 set size 1.0 set breed fuels]
+end
+
+to setupPlayerTank
+  set-default-shape playerTanks "tank"
+  create-turtles 1 [setxy 0 0 set size 5.0 set breed playerTanks] 
+end
+
+to setupBombs ;; method to create temp bombs
+  create-turtles 1 [setxy 12 12 set size 1.0 set breed bombs]
+  create-turtles 1 [setxy -12 -12 set size 1.0 set breed bombs]
+end
+
+;;;;;;;;;;;;;;;;;;;
+;;Game-Loop stuff;;
+;;;;;;;;;;;;;;;;;;;
 
 to setup              ;; Initializes the game
   clear-all
@@ -23,7 +51,7 @@ to setup              ;; Initializes the game
   set %playerFuelLevel 100
   set %playerHealth 100
   setupFuels
-  setupTank
+  setupPlayerTank
   setupBombs
   reset-ticks
 end
@@ -45,120 +73,10 @@ to go
 end
 
 to move
-  move-tank
+  move-player
   eatFuel
   damagePlayer
   display
-end
-
-to setupFuels
-  set-default-shape fuels "target"
-  create-turtles 1 [setxy -12 12 set size 1.0 set breed fuels]
-  create-turtles 1 [setxy 12 -12 set size 1.0 set breed fuels]
-end
-
-to setupTank
-  set-default-shape tanks "tank"
-  create-turtles 1 [setxy 0 0 set size 5.0 set breed tanks] 
-end
-
-to setupBombs ;; method to create temp bombs
-  create-turtles 1 [setxy 12 12 set size 1.0 set breed bombs]
-  create-turtles 1 [setxy -12 -12 set size 1.0 set breed bombs]
-end
-
-to move-tank
-  if (action != 0)
-    [
-      if (%playerFuelLevel > 0)
-      [
-       if (action = 1)
-        [ move-left decrementFuel ]
-      if (action = 2)
-        [ move-right decrementFuel ]
-      if (action = 3)
-        [ move-down decrementFuel ]
-      if (action = 4)
-        [ move-up decrementFuel ]
-      set action 0
-      ]
-    ]
-end
-
-to move-left
-  ask tanks with [xcor != min-pxcor]
-    [ set heading 270
-      fd 1
-    ]
-end
-
-to move-right
-  ask tanks with [xcor != max-pxcor]
-    [ set heading 90
-      fd 1
-    ]
-end
-
-to move-up
-  ask tanks with [ycor != max-pycor]
-    [ set heading 0
-      fd 1
-    ]
-end
-
-to move-down
-  ask tanks with [ycor != min-pycor]
-    [ set heading 180
-      fd 1
-    ]
-end
-
-to explode
- ask tanks [set shape "tank_dead_1"]
- wait 0.2
-  ask tanks [set shape "tank_dead_2"]
- wait 0.2
-  ask tanks [set shape "tank_dead_3"]
- wait 0.2
-  ask tanks [set shape "tank_dead_2"]
- wait 0.2
-  ask tanks [set shape "tank_dead_1"]
- wait 0.2
- ask tanks [set shape "tank_dead"]
-end
-
-to damage
-   ask tanks [set shape "tank_dead_1"]
- wait 0.2
-   ask tanks [set shape "tank_dead_2"]
- wait 0.2
-    ask tanks [set shape "tank_dead_1"]
- wait 0.2
-  ask tanks [set shape "tank"]
-end
-
-to eatFuel
-  ask tanks
-  [
-    if any? fuels-here
-    [
-      ask fuels
-      [
-        if any? tanks-here
-        [
-          set %playerFuelLevel %playerFuelLevel + 25
-          die
-        ]
-      ]
-    ]
-  ]
-end
-
-to decrementFuel
-  if (%playerFuelLevel > 0)
-  [
-    set %playerFuelLevel %playerFuelLevel - 1
-  ]
 end
 
 to updateGlobals 
@@ -183,24 +101,126 @@ to updateGlobals
   ]
 end
 
+;;;;;;;;;;;;;;;;
+;;player stuff;;
+;;;;;;;;;;;;;;;;
+
+to move-player
+  if (action != 0)
+    [
+      if (%playerFuelLevel > 0)
+      [
+       if (action = 1)
+         [ move-left decrementFuel ]
+       if (action = 2)
+         [ move-right decrementFuel ]
+       if (action = 3)
+         [ move-down decrementFuel ]
+       if (action = 4)
+         [ move-up decrementFuel ]
+       set action 0
+      ]
+    ]
+end
+
+to move-left
+  ask playerTanks with [xcor != min-pxcor]
+    [ set heading 270
+      fd 1
+    ]
+end
+
+to move-right
+  ask playerTanks with [xcor != max-pxcor]
+    [ set heading 90
+      fd 1
+    ]
+end
+
+to move-up
+  ask playerTanks with [ycor != max-pycor]
+    [ set heading 0
+      fd 1
+    ]
+end
+
+to move-down
+  ask playerTanks with [ycor != min-pycor]
+    [ set heading 180
+      fd 1
+    ]
+end
+
+;;;;;;;;;;;;;;;;;;;;;
+;;player animations;;
+;;;;;;;;;;;;;;;;;;;;;
+
+to explodePlayerAnimation
+ ask playerTanks [set shape "tank_dead_1"]
+ wait 0.2
+  ask playerTanks [set shape "tank_dead_2"]
+ wait 0.2
+  ask playerTanks [set shape "tank_dead_3"]
+ wait 0.2
+  ask playerTanks [set shape "tank_dead_2"]
+ wait 0.2
+  ask playerTanks [set shape "tank_dead_1"]
+ wait 0.2
+ ask playerTanks [set shape "tank_dead"]
+end
+
+to damagePlayerAnimation
+   ask playerTanks [set shape "tank_dead_1"]
+ wait 0.2
+   ask playerTanks [set shape "tank_dead_2"]
+ wait 0.2
+    ask playerTanks [set shape "tank_dead_1"]
+ wait 0.2
+  ask playerTanks [set shape "tank"]
+end
+
+to eatFuel
+  ask playerTanks
+  [
+    if any? fuels-here
+    [
+      ask fuels
+      [
+        if any? playerTanks-here
+        [
+          set %playerFuelLevel %playerFuelLevel + 25
+          die
+        ]
+      ]
+    ]
+  ]
+end
+
+to decrementFuel
+  if (%playerFuelLevel > 0)
+  [
+    set %playerFuelLevel %playerFuelLevel - 1
+  ]
+end
+
 to damagePlayer
-    ask tanks
+    ask playerTanks
   [
     if any? bombs-here
     [
       ask bombs
       [
-        if any? tanks-here
+        if any? playerTanks-here
         [
           set %playerHealth %playerHealth - 50
           if (%playerHealth = 0)
           [
-            explode
+            explodePlayerAnimation
           ]
           
           if (%playerHealth != 0)
           [
-            damage
+            damagePlayerAnimation
           ]
           die
         ]
@@ -344,7 +364,7 @@ BUTTON
 662
 137
 explode tank
-explode
+explodePlayerAnimation
 NIL
 1
 T
@@ -361,7 +381,7 @@ BUTTON
 661
 180
 damage tank
-damage
+damagePlayerAnimation
 NIL
 1
 T
