@@ -4,8 +4,12 @@ patches-own
 ]
 
 to setup
+  
+clear-all
 
 generate-map
+
+reset-ticks
 
 end
 
@@ -117,7 +121,7 @@ end
 to-report calc-tile
   
   random-seed new-seed
-  let chance random 2
+  let chance random 3
   
   if chance = 0
   [
@@ -287,30 +291,30 @@ to generate-map
     ]
     
    ]
-   if tileNumber = 4
-   [
-     
-   ]
-   if tileNumber = 5
-   [
-     
-   ]
-   if tileNumber = 6
-   [
-    
-   ]
-   if tileNumber = 7
-   [
-    
-   ]
-   if tileNumber = 8
-   [
-     
-   ]
-   if tileNumber = 9
-   [
-     
-   ]
+;   if tileNumber = 4
+;   [
+;     
+;   ]
+;   if tileNumber = 5
+;   [
+;     
+;   ]
+;   if tileNumber = 6
+;   [
+;    
+;   ]
+;   if tileNumber = 7
+;   [
+;    
+;   ]
+;   if tileNumber = 8
+;   [
+;     
+;   ]
+;   if tileNumber = 9
+;   [
+;     
+;   ]
   ]
 end
 
