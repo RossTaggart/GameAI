@@ -167,42 +167,47 @@ to-report calc-tile-colour
   
 end
 
+;This method, based upon where the patches exist in coordinate space,
+;sets the variable tileNumber to be the tile which they are split up
+;into within the game. This helps with the procedural generation as
+;patches which belong to these tiles can be updated accordingly.
+
 to set-tile-number
   ask patches
   [    
-   if pxcor < 12 and pycor <= 12 ;tile1 bottom row
+   if pxcor < 12 and pycor <= 12 ;bottom left tile
    [
      set tileNumber 1
    ]
-   if pxcor >= 12 and pxcor <= 24 and pycor <= 12 ;tile2 bottomm row
+   if pxcor >= 12 and pxcor <= 24 and pycor <= 12 ;bottom middle tile
    [
      set tileNumber 2
    ]
-   if pxcor > 24 and pycor <= 12 ;tile3 bottom row
+   if pxcor > 24 and pycor <= 12 ;tile3 bottom right tile
    [
     set tileNumber 3
    ]
-   if pxcor < 12 and pycor > 12 and pycor <= 24 ;tile4 middle row
+   if pxcor < 12 and pycor > 12 and pycor <= 24 ;middle left
    [
     set tileNumber 4 
    ]
-   if pxcor >= 12 and pxcor <= 24 and pycor > 12 and pycor <= 24 ;tile5 middle row
+   if pxcor >= 12 and pxcor <= 24 and pycor > 12 and pycor <= 24 ;middle tile
    [
      set tileNumber 5
    ]
-   if pxcor > 24 and pycor > 12 and pycor <= 24 ;tile6 middle row
+   if pxcor > 24 and pycor > 12 and pycor <= 24 ;middle right tile
    [
     set tileNumber 6
    ]
-   if pxcor < 12 and pycor > 24 ;tile7 top row
+   if pxcor < 12 and pycor > 24 ;top left tile
    [
     set tileNumber 7
    ]
-   if pxcor >= 12 and pxcor <= 24 and pycor > 24 ;tile8 top row
+   if pxcor >= 12 and pxcor <= 24 and pycor > 24 ;top middle tile
    [
     set tileNumber 8
    ]
-   if pxcor > 24 and pycor > 24 ;tile9 top row
+   if pxcor > 24 and pycor > 24 ;top right tile
    [
     set tileNumber 9
    ]
@@ -239,11 +244,13 @@ to random-colour
   [
    if tileNumber = 1
    [
-    set pcolor tileColour1 
+    ;set pcolor tileColour1
+    defined-tile-1 0 0
    ] 
    if tileNumber = 2
    [
-    set pcolor tileColour2 
+    set pcolor tileColour2
+    ;defined-tile-2 12 0
    ]
    if tileNumber = 3
    [
@@ -274,61 +281,94 @@ to random-colour
     set pcolor tileColour9 
    ]
   ]
+end
+
+;Holds the definition of tile-1.
+;Whilst this tile will look the same wherever it appears in the
+;game, an offset is needed so that all of the patches are drawn
+;in their correct locations regardless of where they will appear.
+;For clarity, the positions of the obstacles (before any offsets
+;have been applied) are as follows:
+;(2,2) (5,1) (6,1) (9,2) (2,5) (5,5) (6,5) (9,5) (2,6) (5,6) (6,6)
+;(9,6) (2,9) (9,9) (5,10) (6,10)
+
+to defined-tile-1 [xoff yoff]
+  
+  set pcolor white
+  if ((pxcor - xoff = 2) and (pycor - yoff = 2)) ;coordinate (2,2)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 5) and (pycor - yoff = 1)) ;coordinate (5,1)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 6) and (pycor - yoff = 1)) ;coordinate (6,1)
+  [
+    set pcolor red
+  ]
+  if ((pxcor - xoff = 9) and (pycor - yoff = 2)) ;coordinate (9,2)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 2) and (pycor - yoff = 5)) ;coordinate (2,5)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 5) and (pycor - yoff = 5)) ;coordinate (5,5)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 6) and (pycor - yoff = 5)) ;coordinate (6,5)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 9) and (pycor - yoff = 5)) ;coordinate (9,5)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 2) and (pycor - yoff = 6)) ;coordinate (2,6)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 5) and (pycor - yoff = 6)) ;coordinate (5,6)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 6) and (pycor - yoff = 6)) ;coordinate (6,6)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 9) and (pycor - yoff = 6)) ;coordinate (9,6)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 2) and (pycor - yoff = 9)) ;coordinate (2,9)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 9) and (pycor - yoff = 9)) ;coordinate (9,9)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 5) and (pycor - yoff = 10)) ;coordinate (5,10)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 6) and (pycor - yoff = 10)) ;coordinate (6,10)
+  [
+   set pcolor red 
+  ]
+  
+end
+
+to defined-tile-2 [xoff yoff]
   
   
-;  random-seed new-seed
-;  let chance random 7
-;  
-;  if chance = 0
-;  [
-;    ask patches with [pcolor = white]
-;    [
-;      set pcolor blue
-;    ]
-;  ]
-;  if chance = 1
-;  [
-;   ask patches with [pcolor = white] 
-;   [
-;    set pcolor orange 
-;   ]
-;  ]
-;  if chance = 2
-;  [
-;   ask patches with [pcolor = white]
-;   [
-;    set pcolor yellow 
-;   ] 
-;  ]
-;  if chance = 3
-;  [
-;   ask patches with [pcolor = white]
-;   [
-;    set pcolor red 
-;   ] 
-;  ]
-;  if chance = 4
-;  [
-;   ask patches with [pcolor = white]
-;   [
-;     set pcolor green
-;   ] 
-;  ]
-;  if chance = 5
-;  [
-;   ask patches with [pcolor = white]
-;   [
-;    set pcolor cyan
-;   ] 
-;  ]
-;  if chance = 6
-;  [
-;   ask patches with [pcolor = white]
-;   [
-;    set pcolor pink 
-;   ] 
-;  ]
   
+end
+
+to defined-tile-3 [xoff yoff]
   
   
 end
