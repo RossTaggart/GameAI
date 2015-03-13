@@ -1,5 +1,8 @@
 breed [ tanks tank ]
 
+breed [fuels fuel]
+fuels-own [eaten?]
+
 
 ;;;;;;;;;;;;;;;
 ;; Variables ;;
@@ -8,42 +11,54 @@ breed [ tanks tank ]
 globals
 [
   action            ;; Last button pressed. Prevent the player from moving the frog until the
-                    ;; the game is running.  Checks the status of this button every loop.
+  %playerFuelLevel  ;; fuel remaining on player
 ]
 
 to setup              ;; Initializes the game
   clear-all
   set action 0
-  ;;set-default-shape tanks "turtle"
-  create-turtles 1 [setxy random-xcor random-ycor set size 5.0 set breed tanks] 
-  set-default-shape tanks "tank"
+  set %playerFuelLevel 100
+  setupFuels
+  setupTank
   reset-ticks
 end
 
 to go
   move
+  updateFuel
 end
 
 to move
-  move-frog
+  move-tank
+  eatFuel
   display
 end
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Interface Procedures ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+to setupFuels
+  set-default-shape fuels "target"
+  create-turtles 5 [setxy random-xcor random-ycor set size 1.0 set breed fuels]
+end
 
-to move-frog
+to setupTank
+  set-default-shape tanks "tank"
+  create-turtles 1 [setxy random-xcor random-ycor set size 5.0 set breed tanks] 
+end
+
+to move-tank
   if (action != 0)
-    [ if (action = 1)
-        [ move-left ]
+    [
+      if (%playerFuelLevel > 0)
+      [
+       if (action = 1)
+        [ move-left decrementFuel ]
       if (action = 2)
-        [ move-right ]
+        [ move-right decrementFuel ]
       if (action = 3)
-        [ move-down ]
+        [ move-down decrementFuel ]
       if (action = 4)
-        [ move-up ]
+        [ move-up decrementFuel ]
       set action 0
+      ]
     ]
 end
 
@@ -97,6 +112,42 @@ to damage
     ask tanks [set shape "tank_dead_1"]
  wait 0.2
   ask tanks [set shape "tank"]
+end
+
+to eatFuel
+  ask tanks
+  [
+    if any? fuels-here
+    [
+      ask fuels
+      [
+        if any? tanks-here
+        [
+          set %playerFuelLevel %playerFuelLevel + 25
+          die
+        ]
+      ]
+    ]
+  ]
+end
+
+to decrementFuel
+  if (%playerFuelLevel > 0)
+  [
+    set %playerFuelLevel %playerFuelLevel - 1
+  ]
+end
+
+to updateFuel 
+    if (%playerFuelLevel < 0)
+  [
+    set %playerFuelLevel 0
+  ]
+  
+    if (%playerFuelLevel > 100)
+  [
+    set %playerFuelLevel 100
+  ]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -261,6 +312,17 @@ NIL
 NIL
 NIL
 1
+
+MONITOR
+42
+540
+154
+585
+NIL
+%playerFuelLevel
+0
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
