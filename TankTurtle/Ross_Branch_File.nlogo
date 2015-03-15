@@ -128,7 +128,6 @@ end
 ;generate our map.
 to generate-map
   
-  
   clear-screen
   
   set-tile-number
@@ -243,43 +242,8 @@ to-report calc-tile
   
   random-seed new-seed
   let chance random 4
-  
-  if chance = 0
-  [
-    report 0
-  ]
-  if chance = 1
-  [
-    report 1
-  ]
-  if chance = 2
-  [
-    report 2
-  ]
-  if chance = 3
-  [
-    report 3
-  ]
-;  if chance = 4
-;  [
-;   report black 
-;  ]
-;  if chance = 5
-;  [
-;    report orange
-;  ]
-;  if chance = 6
-;  [
-;   report brown 
-;  ]
-;  if chance = 7
-;  [
-;   report green 
-;  ]
-;  if chance = 8
-;  [
-;   report cyan 
-;  ]
+
+  report chance
   
 end
 
