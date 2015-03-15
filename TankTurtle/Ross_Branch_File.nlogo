@@ -114,52 +114,78 @@ to clear-screen
   
 end
 
-
-;This is the random number generator that decides which tile will be
-;loaded. Based upon what number this method generates, the tile corresponding
-;to it will load. For example, 0 will load tile-1, 1 will load tile-2, etc.
-to-report calc-tile
+;This method is triggered by the setup button being pressed
+;and generates our game level for us. It does the following:
+;Calls the clear-screen method to make sure that we're working
+;with a blank canvas.
+;Defines the 9 random tiles that will combine to create the
+;game level by calling a method that does this for us.
+;Sets which tile a patch is assigned to based upon its position
+;in coordinate space
+;Then all the patches are polled by the program. This is where,
+;depending on which tile it has been assigned to, the tiles are
+;"loaded" in randomly, i.e. the patch colours are changed to
+;generate our map.
+to generate-map
   
-  random-seed new-seed
-  let chance random 3
   
-  if chance = 0
-  [
-    report 0
-  ]
-  if chance = 1
-  [
-    report 1
-  ]
-  if chance = 2
-  [
-    report 2
-  ]
-;  if chance = 3
-;  [
-;    report yellow
-;  ]
-;  if chance = 4
-;  [
-;   report black 
-;  ]
-;  if chance = 5
-;  [
-;    report orange
-;  ]
-;  if chance = 6
-;  [
-;   report brown 
-;  ]
-;  if chance = 7
-;  [
-;   report green 
-;  ]
-;  if chance = 8
-;  [
-;   report cyan 
-;  ]
+  clear-screen
   
+  set-tile-number
+  
+  let chosenTile1 calc-tile
+  let chosenTile2 calc-tile
+  let chosenTile3 calc-tile
+  let chosenTile4 calc-tile
+  let chosenTile5 calc-tile
+  let chosenTile6 calc-tile
+  let chosenTile7 calc-tile
+  let chosenTile8 calc-tile
+  let chosenTile9 calc-tile
+ 
+  ask patches
+  [
+   
+   if tileNumber = 1
+   [
+     load-tile chosenTile1 0 0
+   ] 
+   
+   if tileNumber = 2
+   [
+     load-tile chosenTile2 12 0
+   ]
+   
+   if tileNumber = 3
+   [
+     load-tile chosenTile3 24 0
+   ]
+   
+   if tileNumber = 4
+   [
+     load-tile chosenTile4 0 12
+   ]
+;   if tileNumber = 5
+;   [
+;     
+;   ]
+;   if tileNumber = 6
+;   [
+;    
+;   ]
+;   if tileNumber = 7
+;   [
+;    
+;   ]
+;   if tileNumber = 8
+;   [
+;     
+;   ]
+;   if tileNumber = 9
+;   [
+;     
+;   ]
+  ]
 end
 
 ;This method, based upon where the patches exist in coordinate space,
@@ -210,112 +236,77 @@ to set-tile-number
   
 end
 
-to generate-map
-  ;This method is triggered by the setup button being pressed
-  ;and generates our game level for us. It does the following:
-  ;Calls the clear-screen method to make sure that we're working
-  ;with a blank canvas, as it were.
-  ;Defines the 9 random tiles that will combine to create the
-  ;game level by calling a method that does this for us.
-  ;Sets which tile a patch is assigned to based upon its position
-  ;in coordinate space
-  ;Then all the patches are polled by the program. This is where,
-  ;depending on which tile it has been assigned to, the tiles are
-  ;"loaded" in randomly, i.e. the patch colours are changed to
-  ;generate our map.
+;This is the random number generator that decides which tile will be
+;loaded. Based upon what number this method generates, the tile corresponding
+;to it will load. For example, 0 will load tile-1, 1 will load tile-2, etc.
+to-report calc-tile
   
-  clear-screen
+  random-seed new-seed
+  let chance random 4
   
-  let chosenTile1 calc-tile
-  let chosenTile2 calc-tile
-  let chosenTile3 calc-tile
-  let chosenTile4 calc-tile
-  let chosenTile5 calc-tile
-  let chosenTile6 calc-tile
-  let chosenTile7 calc-tile
-  let chosenTile8 calc-tile
-  let chosenTile9 calc-tile
-    
-  set-tile-number
-  
-  ask patches
+  if chance = 0
   [
-   if tileNumber = 1
-   [
-    
-    if (chosenTile1 = 0)
-    [
-     defined-tile-1 0 0 
-    ]
-    if (chosenTile1 = 1)
-    [
-     defined-tile-2 0 0 
-    ]
-    if (chosenTile1 = 2)
-    [
-     defined-tile-3 0 0 
-    ]
-    
-   ] 
-   if tileNumber = 2
-   [
-    
-    if (chosenTile2 = 0)
-    [
-     defined-tile-1 12 0 
-    ]
-    if (chosenTile2 = 1)
-    [
-     defined-tile-2 12 0 
-    ]
-    if (chosenTile1 = 2)
-    [
-     defined-tile-3 12 0 
-    ]
-    
-   ]
-   if tileNumber = 3
-   [
-    
-    if (chosenTile3 = 0)
-    [
-     defined-tile-1 24 0 
-    ]
-    if (chosenTile3 = 1)
-    [
-     defined-tile-2 24 0 
-    ]
-    if (chosenTile3 = 2)
-    [
-     defined-tile-3 24 0 
-    ]
-    
-   ]
-;   if tileNumber = 4
-;   [
-;     
-;   ]
-;   if tileNumber = 5
-;   [
-;     
-;   ]
-;   if tileNumber = 6
-;   [
-;    
-;   ]
-;   if tileNumber = 7
-;   [
-;    
-;   ]
-;   if tileNumber = 8
-;   [
-;     
-;   ]
-;   if tileNumber = 9
-;   [
-;     
-;   ]
+    report 0
   ]
+  if chance = 1
+  [
+    report 1
+  ]
+  if chance = 2
+  [
+    report 2
+  ]
+  if chance = 3
+  [
+    report 3
+  ]
+;  if chance = 4
+;  [
+;   report black 
+;  ]
+;  if chance = 5
+;  [
+;    report orange
+;  ]
+;  if chance = 6
+;  [
+;   report brown 
+;  ]
+;  if chance = 7
+;  [
+;   report green 
+;  ]
+;  if chance = 8
+;  [
+;   report cyan 
+;  ]
+  
+end
+
+;This method loads the tile into its chosen slot, based upon
+;the value of the chosenTile variable passed into the method.
+;This method will call the defined-tile method corresponding to
+;the needed tile, as well as its x and y offset, making sure that
+;it will load into the correct place in the scene.
+to load-tile [chosenTile xoff yoff]
+  
+  if (chosenTile = 0)
+    [
+     defined-tile-1 xoff yoff 
+    ]
+    if (chosenTile = 1)
+    [
+     defined-tile-2 xoff yoff 
+    ]
+    if (chosenTile = 2)
+    [
+     defined-tile-3 xoff yoff 
+    ]
+    if (chosenTile = 3)
+    [
+     defined-tile-4 xoff yoff 
+    ]
+  
 end
 
 ;Holds the definition of tile-1.
@@ -716,6 +707,67 @@ to defined-tile-3 [xoff yoff]
    set pcolor red 
   ]
   if ((pxcor - xoff = 8) and (pycor - yoff = 10)) ;coordinate (8,10)
+  [
+   set pcolor red 
+  ]
+  
+end
+
+;Holds the definition of tile-4.
+;Whilst this tile will look the same wherever it appears in the
+;game, an offset is needed so that all of the patches are drawn
+;in their correct locations regardless of where they will appear.
+;For clarity, the positions of the obstacles (before any offsets
+;have been applied) are as follows:
+;(2,2) (9,2) (5,3) (6,3) (2,5) (9,5) (2,6) (9,6) (5,7) (6,7) (2,9)
+;(9,9)
+to defined-tile-4 [xoff yoff]
+  
+  if ((pxcor - xoff = 2) and (pycor - yoff = 2)) ;coordinate (2,2)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 9) and (pycor - yoff = 2)) ;coordinate (9,2)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 5) and (pycor - yoff = 3)) ;coordinate (5,3)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 6) and (pycor - yoff = 3)) ;coordinate (6,3)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 2) and (pycor - yoff = 5)) ;coordinate (2,5)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 9) and (pycor - yoff = 5)) ;coordinate (9,5)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 2) and (pycor - yoff = 6)) ;coordinate (2,6)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 9) and (pycor - yoff = 6)) ;coordinate (9,6)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 5) and (pycor - yoff = 7)) ;coordinate (5,7)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 6) and (pycor - yoff = 7)) ;coordinate (6,7)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 2) and (pycor - yoff = 9)) ;coordinate (2,9)
+  [
+   set pcolor red 
+  ]
+  if ((pxcor - xoff = 9) and (pycor - yoff = 9)) ;coordinate (8,10)
   [
    set pcolor red 
   ]
