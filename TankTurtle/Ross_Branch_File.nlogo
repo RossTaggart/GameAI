@@ -176,15 +176,21 @@ to generate-map
    [
     load-tile chosenTile7 0 24
    ]
-;   if tileNumber = 8
-;   [
-;     
-;   ]
-;   if tileNumber = 9
-;   [
-;     
-;   ]
+   if tileNumber = 8
+   [
+     load-tile chosenTile8 12 24
+   ]
+   if tileNumber = 9
+   [
+     load-tile chosenTile9 24 24
+   ]
   ]
+  
+  place-ammo
+  place-fuel
+  
+  reset-ticks
+  
 end
 
 ;This method, based upon where the patches exist in coordinate space,
@@ -282,6 +288,75 @@ to load-tile [chosenTile xoff yoff]
     [
      defined-tile-7 xoff yoff 
     ]
+  
+end
+
+
+;This method will randomly spawn positions where ammo will
+;appear within the game world. This will randomly place 4 
+;ammo spawns across the game, only placing them on an available patch
+;that isn't taken up by an obstacle. Due to the method being semi-random
+;this also keep the game different every time.
+to place-ammo
+  
+  let xcord random-pxcor
+  let ycord random-pycor
+  
+  let no-of-ammo-spawns 4
+  let no-of-ammo-spawned 0
+  
+  while [no-of-ammo-spawned < no-of-ammo-spawns]
+  [
+    ask patches
+    [
+     if (pcolor = white)
+     [
+      ifelse (pxcor = xcord and pycor = ycord)
+      [
+        set pcolor green
+        set no-of-ammo-spawned no-of-ammo-spawned + 1
+      ]
+      [
+       set xcord random-pxcor
+       set ycord random-pycor 
+      ]
+     ] 
+    ]
+  ] 
+    
+end
+
+;This method will randomly spawn positions where fuel will
+;appear within the game world. This will randomly place 4 
+;fuel spawns across the game, only placing them on an available patch
+;that isn't taken up by an obstacle. Due to the method being semi-random
+;this also keep the game different every time.
+to place-fuel
+  
+  let xcord random-pxcor
+  let ycord random-pycor
+  
+  let no-of-fuel-spawns 4
+  let no-of-fuel-spawned 0
+  
+  while [no-of-fuel-spawned < no-of-fuel-spawns]
+  [
+    ask patches
+    [
+     if (pcolor = white)
+     [
+      ifelse (pxcor = xcord and pycor = ycord)
+      [
+        set pcolor black
+        set no-of-fuel-spawned no-of-fuel-spawned + 1
+      ]
+      [
+       set xcord random-pxcor
+       set ycord random-pycor 
+      ]
+     ] 
+    ]
+  ] 
   
 end
 
