@@ -360,6 +360,15 @@ to place-fuel
   
 end
 
+to draw-obstacle [patchxcor xoff xcord patchycor yoff ycord]
+  
+  if ((patchxcor - xoff = xcord) and (patchycor - yoff = ycord))
+    [
+     set pcolor red 
+    ]
+  
+end
+
 ;Holds the definition of tile-1.
 ;Whilst this tile will look the same wherever it appears in the
 ;game, an offset is needed so that all of the patches are drawn
@@ -372,70 +381,23 @@ end
 to defined-tile-1 [xoff yoff]
   
   set pcolor white
-  if ((pxcor - xoff = 2) and (pycor - yoff = 2)) ;coordinate (2,2)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 5) and (pycor - yoff = 1)) ;coordinate (5,1)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 6) and (pycor - yoff = 1)) ;coordinate (6,1)
-  [
-    set pcolor red
-  ]
-  if ((pxcor - xoff = 9) and (pycor - yoff = 2)) ;coordinate (9,2)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 2) and (pycor - yoff = 5)) ;coordinate (2,5)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 5) and (pycor - yoff = 5)) ;coordinate (5,5)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 6) and (pycor - yoff = 5)) ;coordinate (6,5)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 9) and (pycor - yoff = 5)) ;coordinate (9,5)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 2) and (pycor - yoff = 6)) ;coordinate (2,6)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 5) and (pycor - yoff = 6)) ;coordinate (5,6)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 6) and (pycor - yoff = 6)) ;coordinate (6,6)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 9) and (pycor - yoff = 6)) ;coordinate (9,6)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 2) and (pycor - yoff = 9)) ;coordinate (2,9)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 9) and (pycor - yoff = 9)) ;coordinate (9,9)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 5) and (pycor - yoff = 10)) ;coordinate (5,10)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 6) and (pycor - yoff = 10)) ;coordinate (6,10)
-  [
-   set pcolor red 
-  ]
+  
+  draw-obstacle pxcor xoff 2 pycor yoff 2
+  draw-obstacle pxcor xoff 5 pycor yoff 1
+  draw-obstacle pxcor xoff 6 pycor yoff 1
+  draw-obstacle pxcor xoff 9 pycor yoff 2
+  draw-obstacle pxcor xoff 2 pycor yoff 5
+  draw-obstacle pxcor xoff 5 pycor yoff 5
+  draw-obstacle pxcor xoff 6 pycor yoff 5
+  draw-obstacle pxcor xoff 9 pycor yoff 5
+  draw-obstacle pxcor xoff 2 pycor yoff 6
+  draw-obstacle pxcor xoff 5 pycor yoff 6
+  draw-obstacle pxcor xoff 6 pycor yoff 6
+  draw-obstacle pxcor xoff 9 pycor yoff 6
+  draw-obstacle pxcor xoff 2 pycor yoff 9
+  draw-obstacle pxcor xoff 9 pycor yoff 9
+  draw-obstacle pxcor xoff 5 pycor yoff 10
+  draw-obstacle pxcor xoff 6 pycor yoff 10
   
 end
 
@@ -450,119 +412,35 @@ end
 ;(5,9) (6,9) (8,9) (9,9) (5,10) (6,10)
 to defined-tile-2 [xoff yoff]
   
-  if ((pxcor - xoff = 5) and (pycor - yoff = 1)) ;coordinate (5,1)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 6) and (pycor - yoff = 1)) ;coordinate (6,1)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 2) and (pycor - yoff = 2)) ;coordinate (2,2)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 3) and (pycor - yoff = 2)) ;coordinate (3,2)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 5) and (pycor - yoff = 2)) ;coordinate (5,2)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 6) and (pycor - yoff = 2)) ;coordinate (6,2)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 8) and (pycor - yoff = 2)) ;coordinate (8,2)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 9) and (pycor - yoff = 2)) ;coordinate (9,2)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 2) and (pycor - yoff = 3)) ;coordinate (2,3)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 9) and (pycor - yoff = 3)) ;coordinate (9,3)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 2) and (pycor - yoff = 4)) ;coordinate (2,4)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 9) and (pycor - yoff = 4)) ;coordinate (9,4)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 5) and (pycor - yoff = 5)) ;coordinate (5,5)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 6) and (pycor - yoff = 5)) ;coordinate (6,5)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 5) and (pycor - yoff = 6)) ;coordinate (5,6)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 6) and (pycor - yoff = 6)) ;coordinate (6,6)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 2) and (pycor - yoff = 7)) ;coordinate (2,7)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 9) and (pycor - yoff = 7)) ;coordinate (9,7)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 2) and (pycor - yoff = 8)) ;coordinate (2,8)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 9) and (pycor - yoff = 8)) ;coordinate (9,8)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 2) and (pycor - yoff = 9)) ;coordinate (2,9)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 3) and (pycor - yoff = 9)) ;coordinate (3,9)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 5) and (pycor - yoff = 9)) ;coordinate (5,9)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 6) and (pycor - yoff = 9)) ;coordinate (6,9)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 8) and (pycor - yoff = 9)) ;coordinate (8,9)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 9) and (pycor - yoff = 9)) ;coordinate (9,9)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 5) and (pycor - yoff = 10)) ;coordinate (5,10)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 6) and (pycor - yoff = 10)) ;coordinate (6,10)
-  [
-   set pcolor red 
-  ]
-  
+  draw-obstacle pxcor xoff 5 pycor yoff 1
+  draw-obstacle pxcor xoff 6 pycor yoff 1
+  draw-obstacle pxcor xoff 2 pycor yoff 2
+  draw-obstacle pxcor xoff 3 pycor yoff 2
+  draw-obstacle pxcor xoff 5 pycor yoff 2
+  draw-obstacle pxcor xoff 6 pycor yoff 2
+  draw-obstacle pxcor xoff 8 pycor yoff 2
+  draw-obstacle pxcor xoff 9 pycor yoff 2
+  draw-obstacle pxcor xoff 2 pycor yoff 3
+  draw-obstacle pxcor xoff 9 pycor yoff 3
+  draw-obstacle pxcor xoff 2 pycor yoff 4
+  draw-obstacle pxcor xoff 9 pycor yoff 4
+  draw-obstacle pxcor xoff 5 pycor yoff 5
+  draw-obstacle pxcor xoff 6 pycor yoff 5
+  draw-obstacle pxcor xoff 5 pycor yoff 6
+  draw-obstacle pxcor xoff 6 pycor yoff 6
+  draw-obstacle pxcor xoff 2 pycor yoff 7
+  draw-obstacle pxcor xoff 9 pycor yoff 7
+  draw-obstacle pxcor xoff 2 pycor yoff 8
+  draw-obstacle pxcor xoff 9 pycor yoff 8
+  draw-obstacle pxcor xoff 2 pycor yoff 9
+  draw-obstacle pxcor xoff 3 pycor yoff 9
+  draw-obstacle pxcor xoff 5 pycor yoff 9
+  draw-obstacle pxcor xoff 6 pycor yoff 9
+  draw-obstacle pxcor xoff 8 pycor yoff 9
+  draw-obstacle pxcor xoff 9 pycor yoff 9
+  draw-obstacle pxcor xoff 5 pycor yoff 10
+  draw-obstacle pxcor xoff 6 pycor yoff 10
+
 end
 
 ;Holds the definition of tile-3.
@@ -577,190 +455,53 @@ end
 ;(4,8) (5,8) (6,8) (7,8) (8,8) (3,9) (4,9) (7,9) (8,9) (3,10) (4,10)
 ;(7,10) (8,10)
 to defined-tile-3 [xoff yoff]
-  if ((pxcor - xoff = 3) and (pycor - yoff = 2)) ;coordinate (3,2)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 4) and (pycor - yoff = 2)) ;coordinate (4,2)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 7) and (pycor - yoff = 2)) ;coordinate (7,2)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 8) and (pycor - yoff = 2)) ;coordinate (8,2)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 3) and (pycor - yoff = 3)) ;coordinate (3,3)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 4) and (pycor - yoff = 3)) ;coordinate (4,3)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 7) and (pycor - yoff = 3)) ;coordinate (7,3)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 8) and (pycor - yoff = 3)) ;coordinate (8,3)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 3) and (pycor - yoff = 4)) ;coordinate (3,4)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 4) and (pycor - yoff = 4)) ;coordinate (4,4)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 5) and (pycor - yoff = 4)) ;coordinate (5,4)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 6) and (pycor - yoff = 4)) ;coordinate (6,4)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 7) and (pycor - yoff = 4)) ;coordinate (7,4)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 8) and (pycor - yoff = 4)) ;coordinate (8,4)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 3) and (pycor - yoff = 5)) ;coordinate (3,5)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 4) and (pycor - yoff = 5)) ;coordinate (4,5)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 5) and (pycor - yoff = 5)) ;coordinate (5,5)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 6) and (pycor - yoff = 5)) ;coordinate (6,5)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 7) and (pycor - yoff = 5)) ;coordinate (7,5)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 8) and (pycor - yoff = 5)) ;coordinate (8,5)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 3) and (pycor - yoff = 6)) ;coordinate (3,6)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 4) and (pycor - yoff = 6)) ;coordinate (4,6)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 5) and (pycor - yoff = 6)) ;coordinate (5,6)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 6) and (pycor - yoff = 6)) ;coordinate (6,6)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 7) and (pycor - yoff = 6)) ;coordinate (7,6)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 8) and (pycor - yoff = 6)) ;coordinate (8,6)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 3) and (pycor - yoff = 7)) ;coordinate (3,7)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 4) and (pycor - yoff = 7)) ;coordinate (4,7)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 5) and (pycor - yoff = 7)) ;coordinate (5,7)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 6) and (pycor - yoff = 7)) ;coordinate (6,7)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 7) and (pycor - yoff = 7)) ;coordinate (7,7)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 8) and (pycor - yoff = 7)) ;coordinate (8,7)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 3) and (pycor - yoff = 8)) ;coordinate (3,8)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 4) and (pycor - yoff = 8)) ;coordinate (4,8)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 5) and (pycor - yoff = 8)) ;coordinate (5,8)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 6) and (pycor - yoff = 8)) ;coordinate (6,8)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 7) and (pycor - yoff = 8)) ;coordinate (7,8)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 8) and (pycor - yoff = 8)) ;coordinate (8,8)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 3) and (pycor - yoff = 9)) ;coordinate (3,9)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 4) and (pycor - yoff = 9)) ;coordinate (4,9)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 7) and (pycor - yoff = 9)) ;coordinate (7,9)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 8) and (pycor - yoff = 9)) ;coordinate (8,9)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 3) and (pycor - yoff = 10)) ;coordinate (3,10)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 4) and (pycor - yoff = 10)) ;coordinate (4,10)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 7) and (pycor - yoff = 10)) ;coordinate (7,10)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 8) and (pycor - yoff = 10)) ;coordinate (8,10)
-  [
-   set pcolor red 
-  ]
+  
+  draw-obstacle pxcor xoff 3 pycor yoff 2
+  draw-obstacle pxcor xoff 4 pycor yoff 2
+  draw-obstacle pxcor xoff 7 pycor yoff 2
+  draw-obstacle pxcor xoff 8 pycor yoff 2
+  draw-obstacle pxcor xoff 3 pycor yoff 3
+  draw-obstacle pxcor xoff 4 pycor yoff 3
+  draw-obstacle pxcor xoff 7 pycor yoff 3
+  draw-obstacle pxcor xoff 8 pycor yoff 3
+  draw-obstacle pxcor xoff 3 pycor yoff 4
+  draw-obstacle pxcor xoff 4 pycor yoff 4
+  draw-obstacle pxcor xoff 5 pycor yoff 4
+  draw-obstacle pxcor xoff 6 pycor yoff 4
+  draw-obstacle pxcor xoff 7 pycor yoff 4
+  draw-obstacle pxcor xoff 8 pycor yoff 4
+  draw-obstacle pxcor xoff 3 pycor yoff 5
+  draw-obstacle pxcor xoff 4 pycor yoff 5
+  draw-obstacle pxcor xoff 5 pycor yoff 5
+  draw-obstacle pxcor xoff 6 pycor yoff 5
+  draw-obstacle pxcor xoff 7 pycor yoff 5
+  draw-obstacle pxcor xoff 8 pycor yoff 5
+  draw-obstacle pxcor xoff 3 pycor yoff 6
+  draw-obstacle pxcor xoff 4 pycor yoff 6
+  draw-obstacle pxcor xoff 5 pycor yoff 6
+  draw-obstacle pxcor xoff 6 pycor yoff 6
+  draw-obstacle pxcor xoff 7 pycor yoff 6
+  draw-obstacle pxcor xoff 8 pycor yoff 6
+  draw-obstacle pxcor xoff 3 pycor yoff 7
+  draw-obstacle pxcor xoff 4 pycor yoff 7
+  draw-obstacle pxcor xoff 5 pycor yoff 7
+  draw-obstacle pxcor xoff 6 pycor yoff 7
+  draw-obstacle pxcor xoff 7 pycor yoff 7
+  draw-obstacle pxcor xoff 8 pycor yoff 7
+  draw-obstacle pxcor xoff 3 pycor yoff 8
+  draw-obstacle pxcor xoff 4 pycor yoff 8
+  draw-obstacle pxcor xoff 5 pycor yoff 8
+  draw-obstacle pxcor xoff 6 pycor yoff 8
+  draw-obstacle pxcor xoff 7 pycor yoff 8
+  draw-obstacle pxcor xoff 8 pycor yoff 8
+  draw-obstacle pxcor xoff 3 pycor yoff 9
+  draw-obstacle pxcor xoff 4 pycor yoff 9
+  draw-obstacle pxcor xoff 7 pycor yoff 9
+  draw-obstacle pxcor xoff 8 pycor yoff 9
+  draw-obstacle pxcor xoff 3 pycor yoff 10
+  draw-obstacle pxcor xoff 4 pycor yoff 10
+  draw-obstacle pxcor xoff 7 pycor yoff 10
+  draw-obstacle pxcor xoff 8 pycor yoff 10
   
 end
 
@@ -774,55 +515,19 @@ end
 ;(9,9)
 to defined-tile-4 [xoff yoff]
   
-  if ((pxcor - xoff = 2) and (pycor - yoff = 2)) ;coordinate (2,2)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 9) and (pycor - yoff = 2)) ;coordinate (9,2)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 5) and (pycor - yoff = 3)) ;coordinate (5,3)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 6) and (pycor - yoff = 3)) ;coordinate (6,3)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 2) and (pycor - yoff = 5)) ;coordinate (2,5)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 9) and (pycor - yoff = 5)) ;coordinate (9,5)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 2) and (pycor - yoff = 6)) ;coordinate (2,6)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 9) and (pycor - yoff = 6)) ;coordinate (9,6)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 5) and (pycor - yoff = 7)) ;coordinate (5,7)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 6) and (pycor - yoff = 7)) ;coordinate (6,7)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 2) and (pycor - yoff = 9)) ;coordinate (2,9)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 9) and (pycor - yoff = 9)) ;coordinate (9,9)
-  [
-   set pcolor red 
-  ]
-  
+  draw-obstacle pxcor xoff 2 pycor yoff 2
+  draw-obstacle pxcor xoff 9 pycor yoff 2
+  draw-obstacle pxcor xoff 5 pycor yoff 3
+  draw-obstacle pxcor xoff 6 pycor yoff 3
+  draw-obstacle pxcor xoff 2 pycor yoff 5
+  draw-obstacle pxcor xoff 9 pycor yoff 5
+  draw-obstacle pxcor xoff 2 pycor yoff 6
+  draw-obstacle pxcor xoff 9 pycor yoff 6
+  draw-obstacle pxcor xoff 5 pycor yoff 7
+  draw-obstacle pxcor xoff 6 pycor yoff 7
+  draw-obstacle pxcor xoff 2 pycor yoff 9
+  draw-obstacle pxcor xoff 9 pycor yoff 9
+
 end
 
 ;Holds the definition of tile-5.
@@ -835,55 +540,19 @@ end
 ;(6,10)
 to defined-tile-5 [xoff yoff]
   
-  if ((pxcor - xoff = 5) and (pycor - yoff = 1)) ;coordinate (5,1)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 6) and (pycor - yoff = 1)) ;coordinate (6,1)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 2) and (pycor - yoff = 2)) ;coordinate (2,2)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 9) and (pycor - yoff = 2)) ;coordinate (9,2)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 3) and (pycor - yoff = 5)) ;coordinate (3,5)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 8) and (pycor - yoff = 5)) ;coordinate (8,5)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 3) and (pycor - yoff = 6)) ;coordinate (3,6)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 8) and (pycor - yoff = 6)) ;coordinate (8,6)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 2) and (pycor - yoff = 9)) ;coordinate (2,9)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 9) and (pycor - yoff = 9)) ;coordinate (9,9)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 5) and (pycor - yoff = 10)) ;coordinate (5,10)
-  [
-   set pcolor red 
-  ]
-  if ((pxcor - xoff = 6) and (pycor - yoff = 10)) ;coordinate (6,10)
-  [
-   set pcolor red 
-  ]
-  
+  draw-obstacle pxcor xoff 5 pycor yoff 1
+  draw-obstacle pxcor xoff 6 pycor yoff 1
+  draw-obstacle pxcor xoff 2 pycor yoff 2
+  draw-obstacle pxcor xoff 9 pycor yoff 2
+  draw-obstacle pxcor xoff 3 pycor yoff 5
+  draw-obstacle pxcor xoff 8 pycor yoff 5
+  draw-obstacle pxcor xoff 3 pycor yoff 6
+  draw-obstacle pxcor xoff 8 pycor yoff 6
+  draw-obstacle pxcor xoff 2 pycor yoff 9
+  draw-obstacle pxcor xoff 9 pycor yoff 9
+  draw-obstacle pxcor xoff 5 pycor yoff 10
+  draw-obstacle pxcor xoff 6 pycor yoff 10
+
 end
 
 ;Holds the definition of tile-6.
