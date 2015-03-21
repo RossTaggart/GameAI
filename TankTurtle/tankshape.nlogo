@@ -55,17 +55,18 @@ to play ;; Forever button
   every ( 1 )
   [ 
     input-player ;; Player move/fire
+  ]
+  every ( 1.5 )
+  [
     input-bots ;; Bots move/fire
   ]
-  
-  
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-237
-21
-742
-547
+244
+22
+749
+548
 16
 16
 15.0
@@ -191,10 +192,10 @@ NIL
 1
 
 BUTTON
-88
-181
-171
-214
+836
+771
+891
+804
 Find path
 find-shortest-path-to-destination
 NIL
