@@ -13,103 +13,11 @@ reset-ticks
 
 end
 
-to draw
-  if mouse-inside?
-  [
-    ask patch mouse-xcor mouse-ycor
-    [
-      sprout 1
-      [
-        set shape "square"
-        die
-      ]
-    ]
-    
-    ;draw path
-    if DrawElements = "Path"
-    [
-      if mouse-down?
-      [
-        ;if [pcolor] of patch mouse-xcor mouse-ycor = black or [pcolor] of patch mouse-xcor mouse-ycor = red
-        ;[
-          ask patch mouse-xcor mouse-ycor
-          [
-            set pcolor white
-          ]
-        ;]
-      ]
-    ]
-    
-    ;draw obstacles
-    if DrawElements = "Obstacle"
-    [
-      if mouse-down?
-      [
-        if [pcolor] of patch mouse-xcor mouse-ycor = white
-        [
-          ask patch mouse-xcor mouse-ycor
-          [
-            set pcolor red
-          ]
-        ]
-      ]
-    ]
-    
-    ;draw player spawn
-    if DrawElements = "Player Spawn"
-    [
-      if mouse-down?
-      [
-        if [pcolor] of patch mouse-xcor mouse-ycor = white or [pcolor] of patch mouse-xcor mouse-ycor = red
-        [
-          ask patches with [plabel = "playerSpawn"]
-          [
-            set pcolor white
-            set plabel ""  
-          ]  
-          ask patch mouse-xcor mouse-ycor
-          [
-            set pcolor blue
-            set plabel "playerSpawn"
-            set plabel-color red
-          ]
-        ]
-      ]
-    ]
-    
-    ;draw tank spawn
-    if DrawElements = "Tank Spawn"
-    [
-      if mouse-down?
-      [
-        if [pcolor] of patch mouse-xcor mouse-ycor = white
-        [
-          ask patch mouse-xcor mouse-ycor
-          [
-            set pcolor green
-            set plabel "tankSpawn"
-            set plabel-color red
-          ]
-        ]
-      ]
-    ]
-  ]
-  
-end
-
 to clear-screen
   cd
   ask patches with [pcolor != white]
   [
     set pcolor white
-  ]
-  ask patches with [plabel = "tankSpawn"]
-  [
-    set plabel ""
-  ]
-  ask patches with [plabel = "playerSpawn"]
-  [
-   set plabel "" 
   ]
   
 end
@@ -188,6 +96,8 @@ to generate-map
   
   place-ammo
   place-fuel
+  place-player-spawn
+  place-enemy-spawns
   
   reset-ticks
   
@@ -371,6 +281,65 @@ to draw-obstacle [patchxcor xoff xcord patchycor yoff ycord]
      set pcolor red 
     ]
   
+end
+
+;This method generates a random x and y coordinate and, after polling
+;the patches, places the spawn for the player in a valid location (i.e
+;in a patch that is white). This is randomly generated, so this 
+;will change each time the game has run. 
+to place-player-spawn
+  
+  let xcord random-pxcor
+  let ycord random-pycor
+  
+  let no-of-players-spawned 0
+  
+   ask patches with [pcolor = white]
+   [
+    if (no-of-players-spawned = 0)
+    [
+      if (pxcor = xcord and pycor = ycord)
+      [
+        set pcolor blue
+        set no-of-players-spawned 1
+      ]
+     ] 
+    ]
+  
+end
+
+;This method will randomly spawn positions where enemy spawns will
+;appear within the game world. This will randomly place 4 
+;enemy spawns across the game, only placing them on an available patch
+;that isn't taken up by an obstacle. Due to the method being semi-random
+;this also keep the game different every time.
+to place-enemy-spawns
+  
+  let xcord random-pxcor
+  let ycord random-pycor
+  
+  let no-of-enemy-spawns 4
+  let no-of-enemies-spawned 0
+  
+  while [no-of-enemies-spawned < no-of-enemy-spawns]
+  [
+    ask patches
+    [
+     if (pcolor = white)
+     [
+      ifelse (pxcor = xcord and pycor = ycord)
+      [
+        set pcolor yellow
+        set no-of-enemies-spawned no-of-enemies-spawned + 1
+      ]
+      [
+       set xcord random-pxcor
+       set ycord random-pycor 
+      ]
+     ] 
+    ]
+  ] 
+    
 end
 
 ;Holds the definition of tile-1.
@@ -663,63 +632,19 @@ GRAPHICS-WINDOW
 ticks
 30.0
 
-CHOOSER
-15
-86
-153
-131
-DrawElements
-DrawElements
-"Path" "Obstacle" "Player Spawn" "Tank Spawn" "Waypoint"
-0
-
-BUTTON
-22
-132
-135
-165
-Draw Elements
-draw
-T
-1
-T
-OBSERVER
-NIL
-NIL
-NIL
-NIL
-1
-
-BUTTON
-30
-183
-132
-216
-Clear Screen
-clear-screen
-NIL
-1
-T
-OBSERVER
-NIL
-NIL
-NIL
-NIL
-1
-
 BUTTON
 49
 43
-113
+139
 76
-Setup
+Setup Map
 setup
 NIL
 1
 T
 OBSERVER
 NIL
-NIL
+M
 NIL
 NIL
 1
