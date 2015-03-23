@@ -1,3 +1,5 @@
+__includes ["PlayerTankScript.nls"]
+
 ;;;;;;;;;;
 ;;breeds;;
 ;;;;;;;;;;
