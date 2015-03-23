@@ -157,9 +157,13 @@ to-report find-a-path [ source-patch destination-patch]
               set open lput self open
               
               ; update the path finding variables of the eligible patch
+              ; set the parent patch before we assess a new patch
               set parent-patch current-patch 
+              ; set new distance
               set g [g] of parent-patch  + 1
+              ; calculate new estimate heuristic value
               set h distance destination-patch
+              ; calculate patch value
               set f (g + h)
             ]
           ]

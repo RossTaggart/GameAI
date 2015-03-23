@@ -215,46 +215,48 @@ SWITCH
 155
 debug?
 debug?
-1
+0
 1
 -1000
 
 @#$#@#$#@
 ## WHAT IS IT?
 
-(a general understanding of what the model is trying to show or explain)
+A basic A* implementation on 1 agent which follows the player (the player can move around)
 
 ## HOW IT WORKS
 
-(what rules the agents use to create the overall behavior of the model)
+The player and enemy both spawn on random black patches, the bot then uses A* with a distance heuristic to prioritise patches in the open list and calculate a new path towards the player before each movement.
 
 ## HOW TO USE IT
 
-(how to use the model, including a description of each of the items in the Interface tab)
+Press the new button to spawn
+
++ obstacle patches
++ player turtle
++ enemy bot turtle
 
 ## THINGS TO NOTICE
 
-(suggested things for the user to notice while running the model)
+Black patches are walkable
+White patches are obstacles
+Enemy turtle is red
 
 ## THINGS TO TRY
 
-(suggested things for the user to try to do (move sliders, switches, etc.) with the model)
+Enable debug mode to see open/closed lists (note that this will remove some obstacles)
 
 ## EXTENDING THE MODEL
 
-(suggested things to add or change in the Code tab to make the model more complicated, detailed, accurate, etc.)
-
-## NETLOGO FEATURES
-
-(interesting or unusual features of NetLogo that the model uses, particularly in the Code tab; or where workarounds were needed for missing features)
-
-## RELATED MODELS
-
-(models in the NetLogo Models Library and elsewhere which are of related interest)
++ line of sight recognition and behavioural heuristics
++ patches which slow down the enemy bot and consideration of these patches effect on pathing time in a heuristic
++ multiple possible goal nodes, nodes assessed on the fly as potential goals and when more than one goal is found, a heuristic could be used to prioritise one which is found to be more desirable
 
 ## CREDITS AND REFERENCES
 
-(a reference to the model's URL on the web if it has one, as well as any other necessary credits, citations, and links)
+Netlogo dictionary
+Netlogo user-manual
+http://ccl.northwestern.edu/netlogo/models/community/Astardemo1
 @#$#@#$#@
 default
 true
