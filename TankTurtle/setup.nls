@@ -19,6 +19,13 @@ to load-map
   [
     set plabel "spawn"
   ]
+  ask patches with [not any? turtles-here]
+  [
+    if random 10 = 1
+    [
+      set pcolor white
+    ]
+  ]
 end
 
 to setup-player

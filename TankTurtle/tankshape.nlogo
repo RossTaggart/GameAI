@@ -52,11 +52,11 @@ breed [ bullets bullet ]
 to play ;; Forever button
   if dead?
   [ stop ]
-  every ( 1 )
+  every ( 0.25 )
   [ 
     input-player ;; Player move/fire
   ]
-  every ( 1.5 )
+  every ( 0.25 )
   [
     input-bots ;; Bots move/fire
   ]
@@ -207,6 +207,17 @@ NIL
 NIL
 NIL
 1
+
+SWITCH
+67
+122
+170
+155
+debug?
+debug?
+1
+1
+-1000
 
 @#$#@#$#@
 ## WHAT IS IT?
