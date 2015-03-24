@@ -56,7 +56,7 @@ breed [ bullets bullet ]
 breed [ bombs bomb ]
 
 to play ;; Forever button
-  if dead?
+  if dead? or %playerFuelLevel = 0
   [ stop ]
   every ( 0.25 )
   [ 

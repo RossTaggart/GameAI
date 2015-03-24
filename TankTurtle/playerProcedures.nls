@@ -61,8 +61,11 @@ to move-left
       if [pcolor] of patch-ahead 1 = red
       [ set heading old-heading ]
       if [pcolor] of patch-ahead 1 != red
-      [ fd 1 ]
-      decrementFuel
+      [ 
+        fd 1 
+        decrementFuel
+      ]
+      
     ]
 end
 
@@ -74,8 +77,10 @@ to move-right
       if [pcolor] of patch-ahead 1 = red
       [ set heading old-heading ]
       if [pcolor] of patch-ahead 1 != red
-      [ fd 1 ]
-      decrementFuel
+      [ 
+        fd 1 
+        decrementFuel
+      ]
     ]
 end
 
@@ -87,8 +92,10 @@ to move-up
       if [pcolor] of patch-ahead 1 = red
       [ set heading old-heading ]
       if [pcolor] of patch-ahead 1 != red
-      [ fd 1 ]
-      decrementFuel
+      [ 
+        fd 1 
+        decrementFuel
+      ]
     ]
 end
 
@@ -100,8 +107,10 @@ to move-down
       if [pcolor] of patch-ahead 1 = red
       [ set heading old-heading ]
       if [pcolor] of patch-ahead 1 != red
-      [ fd 1 ]
-      decrementFuel
+      [ 
+        fd 1 
+        decrementFuel
+      ]
     ]
 end
 
