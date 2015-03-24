@@ -17,7 +17,7 @@ to input-player  ;; Observer Procedure
 end
 
 to input-bots  ; Observer Procedure
-  find-shortest-path-to-destination
+  find-shortest-path-to-player
   ask bots
   [
     if length current-path != 0
@@ -92,18 +92,18 @@ to-report player-in-LOS? ; bot procedure
   report true
 end
 
-to find-shortest-path-to-destination
+to find-shortest-path-to-player
   reset-ticks
   ask bots 
   [
-    set path find-a-path patch-here one-of players
+    set path find-a-path patch-here (list one-of players)
     set optimal-path path
     set current-path path
   ]
   move
 end
 
-to-report find-a-path [ source-patch destination-patch] 
+to-report find-a-path [ source-patch destination-patches] 
   
   ; initialize all variables to default values
   let search-done? false
@@ -136,7 +136,7 @@ to-report find-a-path [ source-patch destination-patch]
       ask current-patch
       [         
         ; if any of the neighbors is the destination stop the search process
-        ifelse any? neighbors4 with [ (pxcor = [ pxcor ] of destination-patch) and (pycor = [pycor] of destination-patch)]
+        ifelse any? neighbors4 with [ (pxcor = [ pxcor ] of one-of destination-patches) and (pycor = [pycor] of one-of destination-patches)]
         [
           set search-done? true
         ]
@@ -146,7 +146,7 @@ to-report find-a-path [ source-patch destination-patch]
           [
             ; the neighbors to be explored should also not be the source or 
             ; destination patches or already a part of the open list (unexplored patches list)
-            if not member? self open and self != source-patch and self != destination-patch
+            if not member? self open and self != source-patch and self != one-of destination-patches
             [
               if debug?
               [
@@ -161,8 +161,9 @@ to-report find-a-path [ source-patch destination-patch]
               set parent-patch current-patch 
               ; set new distance
               set g [g] of parent-patch  + 1
-              ; calculate new estimate heuristic value
-              set h distance destination-patch
+              ; calculate new estimate heuristic values
+              ; this heuristic calculates the distance to the closest destination
+              set h min (distance destination-patches)
               ; calculate patch value
               set f (g + h)
             ]
@@ -207,7 +208,7 @@ to-report find-a-path [ source-patch destination-patch]
   ]
   
   ; add the destination patch to the front of the search path
-  set search-path fput destination-patch search-path
+  ;set search-path fput destination-patch search-path ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   
   ; reverse the search path so that it starts from a patch adjacent to the
   ; source patch and ends at the destination patch

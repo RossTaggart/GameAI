@@ -191,23 +191,6 @@ NIL
 NIL
 1
 
-BUTTON
-836
-771
-891
-804
-Find path
-find-shortest-path-to-destination
-NIL
-1
-T
-OBSERVER
-NIL
-NIL
-NIL
-NIL
-1
-
 SWITCH
 67
 122
@@ -215,7 +198,7 @@ SWITCH
 155
 debug?
 debug?
-0
+1
 1
 -1000
 
