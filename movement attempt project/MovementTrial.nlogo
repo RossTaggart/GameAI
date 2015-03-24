@@ -1,4 +1,4 @@
-__includes ["PlayerTankScript.nls"]
+__includes ["PlayerTankScript.nls" "FuelScript.nls"]
 
 ;;;;;;;;;;
 ;;breeds;;
