@@ -1,15 +1,19 @@
-__includes [ "setup.nls" "interface.nls" "runtime.nls" ]
+__includes [ "setup.nls" "interface.nls" "runtime.nls" "SetupScript.nls" "PlayerTankScript.nls" ]
 
 ; global variables used
 globals [
-  score         ; current score
-  lives         ; remaining lives
-  range         ; tank fire range
-  current-ammo  ; current ammo
-  max-ammo      ; maximum ammo you can carry
-  current-fuel  ; current fuel
-  max-fuel      ; maximum fuel you can carry
-  dead?         ; are you dead
+  action           ; Last button pressed.
+    
+  score            ; current score
+  lives            ; remaining lives
+  range            ; tank fire range
+  %playerHealth    ; player current health
+  max-health       ; maximum player health
+  current-ammo     ; current ammo
+  max-ammo         ; maximum ammo you can carry
+  %playerFuelLevel ; current fuel
+  max-fuel         ; maximum fuel you can carry
+  dead?            ; are you dead
   
   open ; the open list of patches
   closed ; the closed list of patches
@@ -49,6 +53,9 @@ breed [ fuels fuel ]
 ;; A breed of turtle (bullet)
 breed [ bullets bullet ]
 
+;; A breed of turtle (bomb)
+breed [ bombs bomb ]
+
 to play ;; Forever button
   if dead?
   [ stop ]
@@ -76,8 +83,8 @@ GRAPHICS-WINDOW
 1
 1
 0
-1
-1
+0
+0
 1
 -16
 16
@@ -92,9 +99,9 @@ ticks
 BUTTON
 11
 22
-119
+121
 62
-New
+Setup
 new
 NIL
 1
@@ -135,7 +142,7 @@ NIL
 T
 OBSERVER
 NIL
-NIL
+W
 NIL
 NIL
 1
@@ -152,7 +159,7 @@ NIL
 T
 OBSERVER
 NIL
-NIL
+S
 NIL
 NIL
 1
@@ -169,7 +176,7 @@ NIL
 T
 OBSERVER
 NIL
-NIL
+D
 NIL
 NIL
 1
@@ -186,21 +193,104 @@ NIL
 T
 OBSERVER
 NIL
+A
+NIL
+NIL
+1
+
+BUTTON
+836
+771
+891
+804
+Find path
+find-shortest-path-to-destination
+NIL
+1
+T
+OBSERVER
+NIL
 NIL
 NIL
 NIL
 1
 
 SWITCH
+16
 67
-122
-170
-155
+119
+100
 debug?
 debug?
 1
 1
 -1000
+
+BUTTON
+11
+105
+124
+138
+Draw Elements
+Draw
+T
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+CHOOSER
+10
+144
+148
+189
+DrawElements
+DrawElements
+"Path" "Obstacle" "Player Spawn" "Tank Spawn"
+3
+
+BUTTON
+126
+67
+189
+100
+Clear
+__clear-all-and-reset-ticks
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+MONITOR
+165
+365
+222
+410
+Fuel
+%playerFuelLevel
+17
+1
+11
+
+MONITOR
+103
+365
+160
+410
+Health
+%playerHealth
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -468,11 +558,57 @@ Polygon -7500403 true true 151 1 185 108 298 108 207 175 242 282 151 216 59 282 
 tank
 true
 0
-Rectangle -2674135 true false 135 105 150 120
-Rectangle -2674135 true false 135 120 150 135
-Rectangle -2674135 true false 135 90 150 105
-Rectangle -2674135 true false 105 135 180 225
-Rectangle -16777216 false false 135 90 150 165
+Rectangle -13840069 true false 90 90 195 225
+Rectangle -10899396 true false 105 120 180 195
+Rectangle -10899396 true false 135 45 150 195
+Rectangle -16777216 false false 135 45 150 150
+
+tank_dead
+true
+0
+Rectangle -13840069 true false 135 195 225 255
+Rectangle -16777216 false false 135 45 150 150
+Polygon -13840069 true false 135 75 75 135 105 180 195 150 135 75
+Rectangle -10899396 true false 105 135 165 225
+Rectangle -13840069 true false 30 165 120 180
+Rectangle -16777216 false false 30 165 120 180
+
+tank_dead_1
+true
+0
+Rectangle -13840069 true false 90 90 195 225
+Rectangle -10899396 true false 105 120 180 195
+Rectangle -10899396 true false 135 45 150 195
+Rectangle -16777216 false false 135 45 150 150
+Circle -2674135 true false 88 103 95
+Circle -955883 true false 105 135 60
+Circle -1184463 true false 114 159 42
+
+tank_dead_2
+true
+0
+Rectangle -13840069 true false 90 90 195 225
+Rectangle -10899396 true false 105 120 180 195
+Rectangle -10899396 true false 135 45 150 195
+Rectangle -16777216 false false 135 45 150 150
+Circle -2674135 true false 60 105 150
+Circle -955883 true false 75 120 120
+Circle -1184463 true false 120 135 60
+Circle -2674135 true false 90 150 60
+Circle -955883 true false 114 144 42
+
+tank_dead_3
+true
+0
+Rectangle -13840069 true false 90 90 195 225
+Rectangle -10899396 true false 105 120 180 195
+Rectangle -10899396 true false 135 45 150 195
+Rectangle -16777216 false false 135 45 150 150
+Circle -2674135 true false 30 60 210
+Circle -955883 true false 45 75 150
+Circle -1184463 true false 105 120 150
+Circle -2674135 true false 86 41 127
+Circle -955883 true false 75 90 120
 
 target
 false

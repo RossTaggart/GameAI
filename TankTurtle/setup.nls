@@ -4,6 +4,7 @@
 
 to new
   __clear-all-and-reset-ticks ;; clear everything (the view and all the variables)
+  SetupGame
   load-map ; load map procedure
   setup-player ; initialise player
   setup-bots ; initialise bots
@@ -15,26 +16,148 @@ to new
 end
 
 to load-map
-  ask one-of patches with [pcolor = black]
+  ask patches
   [
-    set plabel "spawn"
+    set pcolor white
   ]
   ask patches with [not any? turtles-here]
   [
     if random 10 = 1
     [
-      set pcolor white
+      set pcolor red
+    ]
+  ]
+  ask one-of patches with [not any? turtles-here]
+  [
+    set pcolor blue
+    set plabel "playerSpawn"
+    set plabel-color red
+  ]
+  ask one-of patches with [not any? turtles-here and pcolor != blue]
+  [
+    set pcolor green
+    set plabel "tankSpawn"
+    set plabel-color red
+  ]
+    
+end
+
+to draw
+  if mouse-inside?
+  [
+    ask patch mouse-xcor mouse-ycor
+    [
+      sprout 1
+      [
+        set shape "square"
+        die
+      ]
+    ]
+   
+    ;draw path
+    if DrawElements = "Path"
+    [
+      if mouse-down?
+      [
+        if [pcolor] of patch mouse-xcor mouse-ycor = black or [pcolor] of patch mouse-xcor mouse-ycor = red
+        [
+          ask patch mouse-xcor mouse-ycor
+          [
+            set pcolor white
+          ]
+        ]
+      ]
+    ]
+   
+    ;draw obstacles
+    if DrawElements = "Obstacle"
+    [
+      if mouse-down?
+      [
+        if [pcolor] of patch mouse-xcor mouse-ycor = white
+        [
+          ask patch mouse-xcor mouse-ycor
+          [
+            set pcolor red
+          ]
+        ]
+      ]
+    ]
+   
+    ;draw player spawn
+    if DrawElements = "Player Spawn"
+    [
+      if mouse-down?
+      [
+        if [pcolor] of patch mouse-xcor mouse-ycor = white or [pcolor] of patch mouse-xcor mouse-ycor = red
+        [
+          ask patches with [plabel = "playerSpawn"]
+          [
+            set pcolor white
+            set plabel ""  
+          ]  
+          ask patch mouse-xcor mouse-ycor
+          [
+            set pcolor blue
+            set plabel "playerSpawn"
+            set plabel-color red
+          ]
+        ]
+      ]
+    ]
+   
+    ;draw tank spawn
+    if DrawElements = "Tank Spawn"
+    [
+      if mouse-down?
+      [
+        if [pcolor] of patch mouse-xcor mouse-ycor = white
+        [
+          ask patch mouse-xcor mouse-ycor
+          [
+            set pcolor green
+            set plabel "tankSpawn"
+            set plabel-color red
+          ]
+        ]
+      ]
+    ]
+  ]
+ 
+end
+ 
+to clear-screen
+  cd
+  ask patches with [pcolor != black]
+  [
+    set pcolor black
+  ]
+  ask patches with [plabel = "tankSpawn"]
+  [
+    set plabel ""
+  ]
+  ask patches with [plabel = "playerSpawn"]
+  [
+   set plabel ""
+  ]
+ 
+end
+
+to setup-player
+  set-default-shape players "tank"
+  ask one-of patches with [plabel = "playerSpawn"]
+  [
+    sprout-players 1
+    [
+      
+      set size 1.0
+      set breed players
     ]
   ]
 end
 
-to setup-player
-  create-players 1
-  ask players [ setxy random-xcor random-ycor ]
-end
-
 to setup-bots
-  ask one-of patches with [plabel = "spawn"]
+  ask one-of patches with [plabel = "tankSpawn"]
   [
     sprout-bots 1
     [
@@ -42,4 +165,34 @@ to setup-bots
       pd
     ]
   ]
+end
+
+;;;;;;;;;;;;;;;;;;;;
+;;Script for setup;;
+;;;;;;;;;;;;;;;;;;;;
+
+to SetupGame
+  setupFuels
+  setupPlayerTank
+  setupBombs
+  setupInput
+end
+
+to setupFuels
+  set-default-shape fuels "target"
+  create-turtles 1 [setxy -12 12 set size 1.0 set breed fuels]
+  create-turtles 1 [setxy 12 -12 set size 1.0 set breed fuels]
+end
+
+to setupPlayerTank
+  
+end
+
+to setupBombs ;; method to create temp bombs
+  create-turtles 1 [setxy 12 12 set size 1.0 set breed bombs]
+  create-turtles 1 [setxy -12 -12 set size 1.0 set breed bombs]
+end
+
+to setupInput
+    set action 0
 end
