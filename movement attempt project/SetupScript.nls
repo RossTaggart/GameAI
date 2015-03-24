@@ -1,0 +1,31 @@
+;;;;;;;;;;;;;;;;;;;;
+;;Script for setup;;
+;;;;;;;;;;;;;;;;;;;;
+
+to SetupGame
+  
+  setupFuels
+  setupPlayerTank
+  setupBombs
+  setupInput
+end
+
+to setupFuels
+  set-default-shape fuels "target"
+  create-turtles 1 [setxy -12 12 set size 1.0 set breed fuels]
+  create-turtles 1 [setxy 12 -12 set size 1.0 set breed fuels]
+end
+
+to setupPlayerTank
+  set-default-shape playerTanks "tank"
+  create-turtles 1 [setxy 0 0 set size 5.0 set breed playerTanks] 
+end
+
+to setupBombs ;; method to create temp bombs
+  create-turtles 1 [setxy 12 12 set size 1.0 set breed bombs]
+  create-turtles 1 [setxy -12 -12 set size 1.0 set breed bombs]
+end
+
+to setupInput
+    set action 0
+end

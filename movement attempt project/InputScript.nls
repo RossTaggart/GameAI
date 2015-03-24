@@ -1,0 +1,33 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;Script for the player input;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+to move-left
+  ask playerTanks with [xcor != min-pxcor]
+    [ set heading 270
+      fd 1
+    ]
+end
+
+to move-right
+  ask playerTanks with [xcor != max-pxcor]
+    [ set heading 90
+      fd 1
+    ]
+end
+
+to move-up
+  ask playerTanks with [ycor != max-pycor]
+    [ set heading 0
+      fd 1
+    ]
+end
+
+to move-down
+  ask playerTanks with [ycor != min-pycor]
+    [ set heading 180
+      fd 1
+    ]
+end

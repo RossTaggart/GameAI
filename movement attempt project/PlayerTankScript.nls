@@ -1,3 +1,133 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Script for the player tank;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+to updateGlobals 
+    if (%playerFuelLevel < 0)
+  [
+    set %playerFuelLevel 0
+  ]
+  
+    if (%playerFuelLevel > 100)
+  [
+    set %playerFuelLevel 100
+  ]
+  
+    if (%playerHealth < 0)
+  [
+    set %playerHealth 0
+  ]
+  
+    if (%playerHealth > 100)
+  [
+    set %playerHealth 100
+  ]
+end
+
+
+to move
+  move-player
+  eatFuel
+  damagePlayer
+  display
+end
+
+;;;;;;;;;;;;;;;;
+;;player stuff;;
+;;;;;;;;;;;;;;;;
+
+to move-player
+  if (action != 0)
+    [
+      if (%playerFuelLevel > 0)
+      [
+       if (action = 1)
+         [ move-left decrementFuel ]
+       if (action = 2)
+         [ move-right decrementFuel ]
+       if (action = 3)
+         [ move-down decrementFuel ]
+       if (action = 4)
+         [ move-up decrementFuel ]
+       set action 0
+      ]
+    ]
+end
+
+to eatFuel
+  ask playerTanks
+  [
+    if any? fuels-here
+    [
+      ask fuels
+      [
+        if any? playerTanks-here
+        [
+          set %playerFuelLevel %playerFuelLevel + 25
+          die
+        ]
+      ]
+    ]
+  ]
+end
+
+to decrementFuel
+  if (%playerFuelLevel > 0)
+  [
+    set %playerFuelLevel %playerFuelLevel - 1
+  ]
+end
+
+to damagePlayer
+    ask playerTanks
+  [
+    if any? bombs-here
+    [
+      ask bombs
+      [
+        if any? playerTanks-here
+        [
+          set %playerHealth %playerHealth - 50
+          if (%playerHealth = 0)
+          [
+            explodePlayerAnimation
+          ]
+          
+          if (%playerHealth != 0)
+          [
+            damagePlayerAnimation
+          ]
+          die
+        ]
+      ]
+    ]
+  ]
+end
+
+;;;;;;;;;;;;;;;;;;;;;
+;;player animations;;
+;;;;;;;;;;;;;;;;;;;;;
+
+to explodePlayerAnimation
+ ask playerTanks [set shape "tank_dead_1"]
+ wait 0.2
+  ask playerTanks [set shape "tank_dead_2"]
+ wait 0.2
+  ask playerTanks [set shape "tank_dead_3"]
+ wait 0.2
+  ask playerTanks [set shape "tank_dead_2"]
+ wait 0.2
+  ask playerTanks [set shape "tank_dead_1"]
+ wait 0.2
+ ask playerTanks [set shape "tank_dead"]
+end
+
+to damagePlayerAnimation
+   ask playerTanks [set shape "tank_dead_1"]
+ wait 0.2
+   ask playerTanks [set shape "tank_dead_2"]
+ wait 0.2
+    ask playerTanks [set shape "tank_dead_1"]
+ wait 0.2
+  ask playerTanks [set shape "tank"]
+end

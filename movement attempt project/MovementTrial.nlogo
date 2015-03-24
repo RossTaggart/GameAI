@@ -1,21 +1,14 @@
-__includes ["PlayerTankScript.nls" "FuelScript.nls"]
-
+__includes ["PlayerTankScript.nls" "InputScript.nls" "SetupScript.nls"]
 ;;;;;;;;;;
 ;;breeds;;
 ;;;;;;;;;;
-
 breed [ playerTanks playerTank ]
-
 breed [fuels fuel]
-fuels-own [eaten?]
-
 breed [bombs bomb]
-
 
 ;;;;;;;;;;;;;;;
 ;; Variables ;;
 ;;;;;;;;;;;;;;;
-
 globals
 [
   action            ;; Last button pressed.
@@ -26,209 +19,25 @@ globals
 ;;;;;;;;;;;;;;;;
 ;;set up stuff;;
 ;;;;;;;;;;;;;;;;
-
-to setupFuels
-  set-default-shape fuels "target"
-  create-turtles 1 [setxy -12 12 set size 1.0 set breed fuels]
-  create-turtles 1 [setxy 12 -12 set size 1.0 set breed fuels]
-end
-
-to setupPlayerTank
-  set-default-shape playerTanks "tank"
-  create-turtles 1 [setxy 0 0 set size 5.0 set breed playerTanks] 
-end
-
-to setupBombs ;; method to create temp bombs
-  create-turtles 1 [setxy 12 12 set size 1.0 set breed bombs]
-  create-turtles 1 [setxy -12 -12 set size 1.0 set breed bombs]
+to setup              ;; Initializes the game
+  clear-all
+  set %playerFuelLevel 100
+  set %playerHealth 100
+  setupGame
+  reset-ticks
 end
 
 ;;;;;;;;;;;;;;;;;;;
 ;;Game-Loop stuff;;
 ;;;;;;;;;;;;;;;;;;;
-
-to setup              ;; Initializes the game
-  clear-all
-  set action 0
-  set %playerFuelLevel 100
-  set %playerHealth 100
-  setupFuels
-  setupPlayerTank
-  setupBombs
-  reset-ticks
-end
-
 to go
   move
   updateGlobals
   if (%playerHealth = 0)
-  [
-   user-message "YOU FAILED. YOU FAILURE"
-   stop
-  ]
+  [user-message "YOU FAILED. YOU FAILURE"   stop]
   
-    if (%playerFuelLevel = 0)
-  [
-   user-message "YOU FAILED. YOU FAILURE" 
-   stop
-  ]
-end
-
-to move
-  move-player
-  eatFuel
-  damagePlayer
-  display
-end
-
-to updateGlobals 
-    if (%playerFuelLevel < 0)
-  [
-    set %playerFuelLevel 0
-  ]
-  
-    if (%playerFuelLevel > 100)
-  [
-    set %playerFuelLevel 100
-  ]
-  
-    if (%playerHealth < 0)
-  [
-    set %playerHealth 0
-  ]
-  
-    if (%playerHealth > 100)
-  [
-    set %playerHealth 100
-  ]
-end
-
-;;;;;;;;;;;;;;;;
-;;player stuff;;
-;;;;;;;;;;;;;;;;
-
-to move-player
-  if (action != 0)
-    [
-      if (%playerFuelLevel > 0)
-      [
-       if (action = 1)
-         [ move-left decrementFuel ]
-       if (action = 2)
-         [ move-right decrementFuel ]
-       if (action = 3)
-         [ move-down decrementFuel ]
-       if (action = 4)
-         [ move-up decrementFuel ]
-       set action 0
-      ]
-    ]
-end
-
-to move-left
-  ask playerTanks with [xcor != min-pxcor]
-    [ set heading 270
-      fd 1
-    ]
-end
-
-to move-right
-  ask playerTanks with [xcor != max-pxcor]
-    [ set heading 90
-      fd 1
-    ]
-end
-
-to move-up
-  ask playerTanks with [ycor != max-pycor]
-    [ set heading 0
-      fd 1
-    ]
-end
-
-to move-down
-  ask playerTanks with [ycor != min-pycor]
-    [ set heading 180
-      fd 1
-    ]
-end
-
-;;;;;;;;;;;;;;;;;;;;;
-;;player animations;;
-;;;;;;;;;;;;;;;;;;;;;
-
-to explodePlayerAnimation
- ask playerTanks [set shape "tank_dead_1"]
- wait 0.2
-  ask playerTanks [set shape "tank_dead_2"]
- wait 0.2
-  ask playerTanks [set shape "tank_dead_3"]
- wait 0.2
-  ask playerTanks [set shape "tank_dead_2"]
- wait 0.2
-  ask playerTanks [set shape "tank_dead_1"]
- wait 0.2
- ask playerTanks [set shape "tank_dead"]
-end
-
-to damagePlayerAnimation
-   ask playerTanks [set shape "tank_dead_1"]
- wait 0.2
-   ask playerTanks [set shape "tank_dead_2"]
- wait 0.2
-    ask playerTanks [set shape "tank_dead_1"]
- wait 0.2
-  ask playerTanks [set shape "tank"]
-end
-
-to eatFuel
-  ask playerTanks
-  [
-    if any? fuels-here
-    [
-      ask fuels
-      [
-        if any? playerTanks-here
-        [
-          set %playerFuelLevel %playerFuelLevel + 25
-          die
-        ]
-      ]
-    ]
-  ]
-end
-
-to decrementFuel
-  if (%playerFuelLevel > 0)
-  [
-    set %playerFuelLevel %playerFuelLevel - 1
-  ]
-end
-
-to damagePlayer
-    ask playerTanks
-  [
-    if any? bombs-here
-    [
-      ask bombs
-      [
-        if any? playerTanks-here
-        [
-          set %playerHealth %playerHealth - 50
-          if (%playerHealth = 0)
-          [
-            explodePlayerAnimation
-          ]
-          
-          if (%playerHealth != 0)
-          [
-            damagePlayerAnimation
-          ]
-          die
-        ]
-      ]
-    ]
-  ]
+  if (%playerFuelLevel = 0)
+  [user-message "YOU FAILED. YOU FAILURE"   stop]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
