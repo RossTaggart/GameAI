@@ -57,7 +57,7 @@ breed [ bombs bomb ]
 
 to play ;; Forever button
   if dead? or %playerFuelLevel = 0
-  [ stop ]
+  [ user-message "YOU FAILED. YOU FAILURE"   stop ]
   every ( 0.25 )
   [ 
     input-player ;; Player move/fire
