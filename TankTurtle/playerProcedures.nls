@@ -1,5 +1,5 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;Script for the player tank;;
+;;;   Player Procedures    ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 to updateGlobals 
@@ -24,8 +24,7 @@ to updateGlobals
   ]
 end
 
-
-to move
+to input-player  ;; Observer Procedure
   move-player
   eatFuel
   damagePlayer
@@ -42,15 +41,67 @@ to move-player
       if (%playerFuelLevel > 0)
       [
        if (action = 1)
-         [ move-left decrementFuel ]
+         [ move-left ]
        if (action = 2)
-         [ move-right decrementFuel ]
+         [ move-right ]
        if (action = 3)
-         [ move-down decrementFuel ]
+         [ move-down ]
        if (action = 4)
-         [ move-up decrementFuel ]
+         [ move-up ]
        set action 0
       ]
+    ]
+end
+
+to move-left
+  ask players with [xcor != min-pxcor]
+    [ 
+      let old-heading heading ; cache old heading
+      set heading 270
+      if [pcolor] of patch-ahead 1 = red
+      [ set heading old-heading ]
+      if [pcolor] of patch-ahead 1 != red
+      [ fd 1 ]
+      decrementFuel
+    ]
+end
+
+to move-right
+  ask players with [xcor != max-pxcor]
+    [ 
+      let old-heading heading ; cache old heading
+      set heading 90
+      if [pcolor] of patch-ahead 1 = red
+      [ set heading old-heading ]
+      if [pcolor] of patch-ahead 1 != red
+      [ fd 1 ]
+      decrementFuel
+    ]
+end
+
+to move-up
+  ask players with [ycor != max-pycor]
+    [ 
+      let old-heading heading ; cache old heading
+      set heading 0
+      if [pcolor] of patch-ahead 1 = red
+      [ set heading old-heading ]
+      if [pcolor] of patch-ahead 1 != red
+      [ fd 1 ]
+      decrementFuel
+    ]
+end
+
+to move-down
+  ask players with [ycor != min-pycor]
+    [ 
+      let old-heading heading ; cache old heading
+      set heading 180
+      if [pcolor] of patch-ahead 1 = red
+      [ set heading old-heading ]
+      if [pcolor] of patch-ahead 1 != red
+      [ fd 1 ]
+      decrementFuel
     ]
 end
 
@@ -79,7 +130,7 @@ to decrementFuel
 end
 
 to damagePlayer
-    ask players
+  ask players
   [
     if any? bombs-here
     [
@@ -91,6 +142,7 @@ to damagePlayer
           if (%playerHealth = 0)
           [
             explodePlayerAnimation
+            set dead? true
           ]
           
           if (%playerHealth != 0)

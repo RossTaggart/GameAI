@@ -1,18 +1,23 @@
-;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Setup Procedures ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;    Setup Procedures    ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 to new
   __clear-all-and-reset-ticks ;; clear everything (the view and all the variables)
-  SetupGame
   load-map ; load map procedure
   setup-player ; initialise player
   setup-bots ; initialise bots
+  setupFuels
+  setupBombs
+  setupInput
   
   set dead? false
   set score 0
   set lives 3
   set range 4
+  set %playerHealth 100
+  set %playerFuelLevel 100
+  set playerAmmo 100
 end
 
 to load-map
@@ -149,8 +154,7 @@ to setup-player
   [
     sprout-players 1
     [
-      
-      set size 1.0
+      set size 2.0
       set breed players
     ]
   ]
@@ -167,25 +171,10 @@ to setup-bots
   ]
 end
 
-;;;;;;;;;;;;;;;;;;;;
-;;Script for setup;;
-;;;;;;;;;;;;;;;;;;;;
-
-to SetupGame
-  setupFuels
-  setupPlayerTank
-  setupBombs
-  setupInput
-end
-
 to setupFuels
   set-default-shape fuels "target"
   create-turtles 1 [setxy -12 12 set size 1.0 set breed fuels]
   create-turtles 1 [setxy 12 -12 set size 1.0 set breed fuels]
-end
-
-to setupPlayerTank
-  
 end
 
 to setupBombs ;; method to create temp bombs

@@ -1,13 +1,6 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Runtime Procedures ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-to input-player  ;; Observer Procedure
-  ask players
-  [
-    player-collisions ;; check for player collisions with other turtles
-  ]
-end
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;     Bot Procedures     ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 to input-bots  ; Observer Procedure
   find-shortest-path-to-destination
@@ -20,24 +13,6 @@ to input-bots  ; Observer Procedure
     ;; move/fire
   ]
 end
-
-to player-collisions  ; Turtle Procedure
-;  ;; Check for other turtles occupying the same patch as the player
-;  if any? fuels-here ;; is the turtle a fuel
-;  [
-;    ;; clamp fuel between 0 and 100
-;    set fuel median (list 0 (fuel + 50) 100)
-;  ]
-;  if any? ammos here ;; is the turtle an ammo
-;  [
-;    set ammo ammo + 5
-;  ]
-;  if any? bullets here ;; is the turtle a bullet
-;  [
-;    set lives lives - 1
-;  ]
-end
-
 
 ; set destination
 to set-destination ; Turtle procedure

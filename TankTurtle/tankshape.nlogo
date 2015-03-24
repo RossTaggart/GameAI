@@ -1,15 +1,15 @@
-__includes [ "setup.nls" "interface.nls" "runtime.nls" "SetupScript.nls" "PlayerTankScript.nls" ]
+__includes [ "setup.nls" "playerProcedures.nls" "botProcedures.nls" ]
 
 ; global variables used
 globals [
-  action           ; Last button pressed.
+  action           ; last button pressed
     
   score            ; current score
   lives            ; remaining lives
   range            ; tank fire range
   %playerHealth    ; player current health
   max-health       ; maximum player health
-  current-ammo     ; current ammo
+  playerAmmo       ; current ammo
   max-ammo         ; maximum ammo you can carry
   %playerFuelLevel ; current fuel
   max-fuel         ; maximum fuel you can carry
@@ -41,7 +41,6 @@ breed [ players player ]
 players-own 
 [ 
   state
-  new-heading
 ]
 
 ;; A breed of turtle (ammo)
@@ -136,7 +135,7 @@ BUTTON
 510
 607
 Up
-move-up
+if dead? != true\n[\nset action 4\ninput-player\n]\n
 NIL
 1
 T
@@ -153,7 +152,7 @@ BUTTON
 510
 642
 Down
-move-down
+if dead? != true\n[\nset action 3\ninput-player\n]\n
 NIL
 1
 T
@@ -170,7 +169,7 @@ BUTTON
 567
 642
 Right
-move-right
+if dead? != true\n[\nset action 2\ninput-player\n]\n
 NIL
 1
 T
@@ -187,30 +186,13 @@ BUTTON
 453
 642
 Left
-move-left
+if dead? != true\n[\nset action 1\ninput-player\n]\n
 NIL
 1
 T
 OBSERVER
 NIL
 A
-NIL
-NIL
-1
-
-BUTTON
-836
-771
-891
-804
-Find path
-find-shortest-path-to-destination
-NIL
-1
-T
-OBSERVER
-NIL
-NIL
 NIL
 NIL
 1
@@ -259,7 +241,7 @@ BUTTON
 189
 100
 Clear
-__clear-all-and-reset-ticks
+__clear-all-and-reset-ticks\nask patches [ set pcolor white ]
 NIL
 1
 T
@@ -271,10 +253,10 @@ NIL
 1
 
 MONITOR
-165
-365
-222
-410
+691
+553
+748
+598
 Fuel
 %playerFuelLevel
 17
@@ -282,10 +264,10 @@ Fuel
 11
 
 MONITOR
-103
-365
-160
-410
+629
+553
+686
+598
 Health
 %playerHealth
 17
