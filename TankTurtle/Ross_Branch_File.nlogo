@@ -100,13 +100,13 @@ to clear-screen
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-155
+234
 10
-905
-781
-18
-18
-20.0
+725
+522
+-1
+-1
+13.0
 1
 10
 1
@@ -116,10 +116,10 @@ GRAPHICS-WINDOW
 1
 1
 1
--18
-18
--18
-18
+0
+36
+0
+36
 0
 0
 1
@@ -134,7 +134,7 @@ CHOOSER
 DrawElements
 DrawElements
 "Path" "Obstacle" "Player Spawn" "Tank Spawn"
-1
+0
 
 BUTTON
 22
