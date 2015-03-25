@@ -15,11 +15,12 @@ to draw
     [
       if mouse-down?
       [
-        if [pcolor] of patch mouse-xcor mouse-ycor = black or [pcolor] of patch mouse-xcor mouse-ycor = red
+        if [pcolor] of patch mouse-xcor mouse-ycor != white
         [
           ask patch mouse-xcor mouse-ycor
           [
             set pcolor white
+            set plabel ""
           ]
         ]
       ]
@@ -125,7 +126,7 @@ CHOOSER
 DrawElements
 DrawElements
 "Path" "Obstacle" "Player Spawn" "Tank Spawn"
-3
+0
 
 BUTTON
 22
