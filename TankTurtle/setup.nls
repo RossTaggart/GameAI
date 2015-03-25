@@ -18,6 +18,7 @@ to new
   set %playerHealth 100
   set %playerFuelLevel 100
   set playerAmmo 100
+  set end-game "false"
 end
 
 to load-map
@@ -154,18 +155,20 @@ to setup-player
   [
     sprout-players 1
     [
-      set size 2.0
+      set size 2.5
       set breed players
     ]
   ]
 end
 
 to setup-bots
+  set-default-shape bots "tank"
   ask one-of patches with [plabel = "tankSpawn"]
   [
     sprout-bots 1
     [
-      set color red
+      set size 2.5
+      set current-enemy-state "idle"
       pd
     ]
   ]

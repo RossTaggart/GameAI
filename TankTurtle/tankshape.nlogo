@@ -2,18 +2,20 @@ __includes [ "setup.nls" "playerProcedures.nls" "botProcedures.nls" ]
 
 ; global variables used
 globals [
-  action           ; last button pressed
+  action              ; last button pressed
     
-  score            ; current score
-  lives            ; remaining lives
-  range            ; tank fire range
-  %playerHealth    ; player current health
-  max-health       ; maximum player health
-  playerAmmo       ; current ammo
-  max-ammo         ; maximum ammo you can carry
-  %playerFuelLevel ; current fuel
-  max-fuel         ; maximum fuel you can carry
-  dead?            ; are you dead
+  score               ; current score
+  lives               ; remaining lives
+  range               ; tank fire range
+  %playerHealth       ; player current health
+  max-health          ; maximum player health
+  playerAmmo          ; current ammo
+  max-ammo            ; maximum ammo you can carry
+  %playerFuelLevel    ; current fuel
+  max-fuel            ; maximum fuel you can carry
+  dead?               ; are you dead
+  current-enemy-state ; the current state of the enemy tank
+  end-game            ; the state of ended game
   
   open ; the open list of patches
   closed ; the closed list of patches
@@ -57,7 +59,12 @@ breed [ bombs bomb ]
 
 to play ;; Forever button
   if dead? or %playerFuelLevel = 0
-  [ user-message "YOU FAILED. YOU FAILURE"   stop ]
+  [ user-message "YOU FAILED. YOU FAILURE"   toggleendgame ]
+  
+  if end-game = "true"
+  [
+    stop 
+  ]
   every ( 0.25 )
   [ 
     input-player ;; Player move/fire
@@ -66,6 +73,14 @@ to play ;; Forever button
   [
     input-bots ;; Bots move/fire
   ]
+end
+
+to toggleendgame
+  if end-game = "true"
+  [set end-game  "false"]
+  
+   if end-game = "false"
+  [set end-game "true"]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -270,6 +285,17 @@ MONITOR
 598
 Health
 %playerHealth
+17
+1
+11
+
+MONITOR
+11
+195
+137
+240
+current enemy state
+current-enemy-state
 17
 1
 11

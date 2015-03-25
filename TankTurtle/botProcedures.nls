@@ -2,30 +2,52 @@
 ;;;     Bot Procedures     ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+to update-states ;; this is going to be the defined states which tell the tank what to do
+  
+  ;; this is the state that the enemy tank will begin in at setup
+  if current-enemy-state = "idle"
+  [ set current-enemy-state "seeking" ]
+  
+  ;; this state is for when the enemy can neither see nor is near the player
+    if current-enemy-state = "seeking"
+  [  ]
+  
+  ;; this state is for when the enemy tank is within "x" blocks of the player and can see him
+    if current-enemy-state = "attacking"
+  [  ]
+  
+  ;; when the player hits the enemy it will set the enemy state to dead
+  if current-enemy-state = "dead"
+     [ user-message "YOU WON, YOU WINNER"   toggleendgame ]
+end
+
+to check-current-state ;; this is going to be the transitions between states
+    
+      ;; if the player is within range
+      if length current-path < 10
+      [set current-enemy-state "attacking"]
+      
+      if length current-path > 10
+      [set current-enemy-state "seeking"]  
+end
+
 to input-bots  ; Observer Procedure
   find-shortest-path-to-destination
   ask bots
   [
-    if length current-path != 0
+    if length current-path != 1 ;; if the enemy tank has not caught the player
     [
       move-bot
+      check-current-state
+      update-states
     ]
-    ;; move/fire
-  ]
-end
-
-; set destination
-to set-destination ; Turtle procedure
-  ask players
-  [
-    if state = "looking for player"
+    
+    if length current-path = 1
     [
+       user-message "YOU FAILED. Tank caught you"   toggleendgame ;; enemy tank has caught the player
     ]
   ]
 end
-
-; find shortest path to destination
-
 
 
 ; move to next patch in patch
