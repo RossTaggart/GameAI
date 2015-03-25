@@ -20,7 +20,7 @@ to start
     ;game can now start
   ]
   [
-    user-message "YOU SUCK"
+    user-message "Either the Enemy or the Player spawn does not exist in the game"
     stop
   ]
   
@@ -77,6 +77,8 @@ to draw
       [
         if [pcolor] of patch mouse-xcor mouse-ycor = white or [pcolor] of patch mouse-xcor mouse-ycor = red
         [
+          ;This removes any other Player Spawn that exists
+          ;in the game as only one is allowed.
           ask patches with [plabel = "playerSpawn"]
           [
             set pcolor white
@@ -99,6 +101,13 @@ to draw
       [
         if [pcolor] of patch mouse-xcor mouse-ycor = white
         [
+          ;This removes any other Tank Spawn that exists
+          ;in the game as only one is allowed.
+          ask patches with [plabel = "tankSpawn"] 
+          [
+            set pcolor white
+            set plabel ""  
+          ] 
           ask patch mouse-xcor mouse-ycor
           [
             set pcolor green
@@ -154,8 +163,8 @@ CHOOSER
 131
 DrawElements
 DrawElements
-"Path" "Obstacle" "Player Spawn" "Tank Spawn"
-2
+"Path" "Obstacle" "Player Spawn" "Tank Spawn" "Ammo" "Fuel"
+3
 
 BUTTON
 22
@@ -215,24 +224,27 @@ This model demonstrates a simple to use Level Editor, that any person could use 
 
 ## HOW IT WORKS
 
-(what rules the agents use to create the overall behavior of the model)
-The model works by providing the user with a drop-down menu which allows them to choose from a list of different things that the Basic version of the game will have in it, namely the spawns and the obstacles, as well as allowing the user to place more of a path should they make a mistake with their tiles.
+The model works by providing the user with a drop-down menu which allows them to choose from a list of different things that the Basic version of the game will have in it, namely the spawns and the obstacles, as well as allowing the user to place more of a path should they make a mistake with their tiles. 
+
+The model also has checks in place so that, should they wish to start the game, that they have a Player Spawn and an Enemy Spawn existing in the game. This makes sure that the game is able to run correctly and cannot start without the spawns.
 
 ## HOW TO USE IT
 
-(how to use the model, including a description of each of the items in the Interface tab)
+In order to use the level editor, the player simply chooses from the Chooser which object they wish to place in the game, be it a Path or an Obstacle etc. Then the player will click on the Draw Elements button, which allows them to be able to draw the object. Finally, the player simply clicks on the game screen where they wish to place the object, and it will appear on-screen. 
 
 ## THINGS TO NOTICE
 
-(suggested things for the user to notice while running the model)
+Upon starting the model, it might be easier for the player to press the Clear Screen button first, so that they are working with a white canvas. This should make it much easier to edit the level. 
 
 ## THINGS TO TRY
 
 (suggested things for the user to try to do (move sliders, switches, etc.) with the model)
 
+BLANK FOR NOW
+
 ## EXTENDING THE MODEL
 
-(suggested things to add or change in the Code tab to make the model more complicated, detailed, accurate, etc.)
+Try extending this Level Editor for your own Netlogo game by adding in or changing the elements within the DrawElements Chooser, and then adding in functionality within the draw method to draw the "object" you wish it to. Simply follow the structure of the draw function and how it draws the different patches so that you are able to draw whatever patch you wish!
 
 ## NETLOGO FEATURES
 
