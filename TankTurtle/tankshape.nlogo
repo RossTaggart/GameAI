@@ -17,6 +17,7 @@ globals [
   current-enemy-state ; the current state of the enemy tank
   end-game            ; the state of ended game
   debug-state         ; debug state for the enemy tank (temp)
+  playerTank          ; global reference for the players tank - will likely need to do one for the enemy as well
   
   open ; the open list of patches
   closed ; the closed list of patches
@@ -146,10 +147,10 @@ NIL
 1
 
 BUTTON
-455
-574
-510
-607
+821
+39
+876
+72
 Up
 if dead? != true\n[\nset action 4\ninput-player\n]\n
 NIL
@@ -163,10 +164,10 @@ NIL
 1
 
 BUTTON
-455
-609
-510
-642
+821
+74
+876
+107
 Down
 if dead? != true\n[\nset action 3\ninput-player\n]\n
 NIL
@@ -180,10 +181,10 @@ NIL
 1
 
 BUTTON
-512
-609
-567
-642
+878
+74
+933
+107
 Right
 if dead? != true\n[\nset action 2\ninput-player\n]\n
 NIL
@@ -197,10 +198,10 @@ NIL
 1
 
 BUTTON
-398
-609
-453
-642
+764
+74
+819
+107
 Left
 if dead? != true\n[\nset action 1\ninput-player\n]\n
 NIL
@@ -249,7 +250,7 @@ CHOOSER
 DrawElements
 DrawElements
 "Path" "Obstacle" "Player Spawn" "Tank Spawn"
-3
+0
 
 BUTTON
 126
@@ -269,10 +270,10 @@ NIL
 1
 
 MONITOR
-691
-553
-748
-598
+847
+117
+904
+162
 Fuel
 %playerFuelLevel
 17
@@ -280,10 +281,10 @@ Fuel
 11
 
 MONITOR
-629
-553
-686
-598
+785
+117
+842
+162
 Health
 %playerHealth
 17
@@ -302,10 +303,10 @@ current-enemy-state
 11
 
 MONITOR
-18
-250
-138
-295
+14
+244
+140
+289
 enemy state debug
 debug-state
 17

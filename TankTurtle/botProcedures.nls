@@ -6,7 +6,7 @@ to update-states ;; this is going to be the defined states which tell the tank w
   
   ;; this is the state that the enemy tank will begin in at setup
   if current-enemy-state = "idle"
-  [ set current-enemy-state "seeking" set debug-state "seeking the player, not in range or sight"]
+  [ set current-enemy-state "seeking"]
   
   ;; this state is for when the enemy can neither see nor is near the player
     if current-enemy-state = "seeking"
@@ -15,7 +15,7 @@ to update-states ;; this is going to be the defined states which tell the tank w
   ;; this state is for when the enemy tank is within "x" blocks of the player and can see him
     if current-enemy-state = "attacking"
   [
-     ;;attack the player
+    ;;ask bots [show [distance playerTank]] ;;attack the player - awaiting implementation
   ]
   
   ;; when the player hits the enemy it will set the enemy state to dead
@@ -27,21 +27,52 @@ to check-current-state ;; this is going to be the transitions between states
     
       ;; if the player is within range
       if length current-path < 10
-      [set current-enemy-state "attacking"]
-      ;      [
-      ;        set debug-state "in range, not in sight"
-      ;        ask bots
-      ;        [
-      ;          ifelse any? turtles-on patch-ahead 10
-      ;          [
-      ;            set current-enemy-state "fired" 
-      ;          ] 
-      ;          
-      ;          [
-      ;           set current-enemy-state "nobody here" 
-      ;          ]
-      ;        ]
-      ;      ]
+      ;;[set current-enemy-state "attacking"] ;; to be removed and replaced with new functionality
+      ;; if length < 10 and in sight - move to attacking else stay in seeking
+        [
+          ;;set debug-state "in range, not in sight"
+          carefully
+            [
+              ask bots
+                [
+                  ;; patches ahead of turtle
+                  if any? turtles-on patch-ahead 3
+                  [
+                    set current-enemy-state "attacking"
+                    stop 
+                  ]
+                  
+                  if any? turtles-on patch-ahead 2
+                  [
+                    set current-enemy-state "attacking"
+                    stop 
+                  ] 
+                  
+                  if any? turtles-on patch-ahead 1
+                  [
+                    set current-enemy-state "attacking"
+                    stop 
+                  ] 
+                  
+                  if not any? turtles-on patch-ahead 3
+                  [
+                    if not any? turtles-on patch-ahead 2
+                    [
+                      if not any? turtles-on patch-ahead 1
+                      [
+                        set current-enemy-state "seeking"
+                        stop 
+                      ]  
+                    ] 
+                  ]
+                ]
+            ]
+          
+            [
+              set debug-state "edge of screen detected"
+              set current-enemy-state "seeking" 
+            ]
+        ]
       
       if length current-path > 10
       [set current-enemy-state "seeking" set debug-state "out of range"]  
@@ -51,13 +82,13 @@ to input-bots  ; Observer Procedure
   find-shortest-path-to-destination
   ask bots
   [
-    if length current-path != 1 ;; if the enemy tank has not caught the player
+    if length current-path != 0 ;; if the enemy tank has not caught the player
     [
       check-current-state
       update-states
     ]
     
-    if length current-path = 1
+    if length current-path = 0
     [
        user-message "YOU FAILED. Tank caught you"   toggleendgame ;; enemy tank has caught the player
     ]
