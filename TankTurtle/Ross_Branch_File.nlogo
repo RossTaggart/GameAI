@@ -1,3 +1,31 @@
+to start
+  
+  let doesEnemySpawnExist false 
+  let doesPlayerSpawnExist false
+  
+  ask patches
+  [
+   if pcolor = blue
+   [
+     set doesPlayerSpawnExist true
+   ]
+   if pcolor = green
+   [
+    set doesEnemySpawnExist true 
+   ]
+  ]
+  
+  ifelse doesEnemySpawnExist = true and doesPlayerSpawnExist = true
+  [
+    ;game can now start
+  ]
+  [
+    user-message "YOU SUCK"
+    stop
+  ]
+  
+end
+
 to draw
   if mouse-inside?
   [
@@ -36,6 +64,7 @@ to draw
           ask patch mouse-xcor mouse-ycor
           [
             set pcolor red
+            set plabel ""
           ]
         ]
       ]
@@ -126,7 +155,7 @@ CHOOSER
 DrawElements
 DrawElements
 "Path" "Obstacle" "Player Spawn" "Tank Spawn"
-0
+2
 
 BUTTON
 22
@@ -152,6 +181,23 @@ BUTTON
 216
 Clear Screen
 clear-screen
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+25
+20
+88
+53
+Start
+start
 NIL
 1
 T
