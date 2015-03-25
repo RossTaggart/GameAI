@@ -10,11 +10,13 @@ to update-states ;; this is going to be the defined states which tell the tank w
   
   ;; this state is for when the enemy can neither see nor is near the player
     if current-enemy-state = "seeking"
-  [  ]
+  [ move-bot ]
   
   ;; this state is for when the enemy tank is within "x" blocks of the player and can see him
     if current-enemy-state = "attacking"
-  [  ]
+  [
+     ;;attack the player 
+  ]
   
   ;; when the player hits the enemy it will set the enemy state to dead
   if current-enemy-state = "dead"
@@ -37,7 +39,6 @@ to input-bots  ; Observer Procedure
   [
     if length current-path != 1 ;; if the enemy tank has not caught the player
     [
-      move-bot
       check-current-state
       update-states
     ]
