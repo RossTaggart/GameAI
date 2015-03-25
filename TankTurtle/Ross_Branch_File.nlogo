@@ -83,20 +83,11 @@ to draw
 end
 
 to clear-screen
-  cd
-  ask patches with [pcolor != black]
+  __clear-all-and-reset-ticks
+  ask patches
   [
-    set pcolor black
+   set pcolor white 
   ]
-  ask patches with [plabel = "tankSpawn"]
-  [
-    set plabel ""
-  ]
-  ask patches with [plabel = "playerSpawn"]
-  [
-   set plabel "" 
-  ]
-  
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -173,11 +164,12 @@ NIL
 @#$#@#$#@
 ## WHAT IS IT?
 
-(a general understanding of what the model is trying to show or explain)
+This model demonstrates a simple to use Level Editor, that any person could use to create a level for our Tank Game. The Level Editor allows the player to create obstacles for the player and the enemy need to work around, as well as placing the spawns for both the player and the enemy.
 
 ## HOW IT WORKS
 
 (what rules the agents use to create the overall behavior of the model)
+The model works by providing the user with a drop-down menu which allows them to choose from a list of different things that the Basic version of the game will have in it, namely the spawns and the obstacles, as well as allowing the user to place more of a path should they make a mistake with their tiles.
 
 ## HOW TO USE IT
 
