@@ -19,6 +19,7 @@ to new
   set %playerFuelLevel 100
   set playerAmmo 100
   set end-game "false"
+  set debug-state "N/A"
 end
 
 to load-map

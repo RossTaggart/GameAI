@@ -16,6 +16,7 @@ globals [
   dead?               ; are you dead
   current-enemy-state ; the current state of the enemy tank
   end-game            ; the state of ended game
+  debug-state         ; debug state for the enemy tank (temp)
   
   open ; the open list of patches
   closed ; the closed list of patches
@@ -290,12 +291,23 @@ Health
 11
 
 MONITOR
-11
-195
-137
-240
+14
+200
+140
+245
 current enemy state
 current-enemy-state
+17
+1
+11
+
+MONITOR
+18
+250
+138
+295
+enemy state debug
+debug-state
 17
 1
 11

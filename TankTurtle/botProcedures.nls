@@ -6,7 +6,7 @@ to update-states ;; this is going to be the defined states which tell the tank w
   
   ;; this is the state that the enemy tank will begin in at setup
   if current-enemy-state = "idle"
-  [ set current-enemy-state "seeking" ]
+  [ set current-enemy-state "seeking" set debug-state "seeking the player, not in range or sight"]
   
   ;; this state is for when the enemy can neither see nor is near the player
     if current-enemy-state = "seeking"
@@ -15,7 +15,7 @@ to update-states ;; this is going to be the defined states which tell the tank w
   ;; this state is for when the enemy tank is within "x" blocks of the player and can see him
     if current-enemy-state = "attacking"
   [
-     ;;attack the player 
+     ;;attack the player
   ]
   
   ;; when the player hits the enemy it will set the enemy state to dead
@@ -28,9 +28,23 @@ to check-current-state ;; this is going to be the transitions between states
       ;; if the player is within range
       if length current-path < 10
       [set current-enemy-state "attacking"]
+      ;      [
+      ;        set debug-state "in range, not in sight"
+      ;        ask bots
+      ;        [
+      ;          ifelse any? turtles-on patch-ahead 10
+      ;          [
+      ;            set current-enemy-state "fired" 
+      ;          ] 
+      ;          
+      ;          [
+      ;           set current-enemy-state "nobody here" 
+      ;          ]
+      ;        ]
+      ;      ]
       
       if length current-path > 10
-      [set current-enemy-state "seeking"]  
+      [set current-enemy-state "seeking" set debug-state "out of range"]  
 end
 
 to input-bots  ; Observer Procedure
