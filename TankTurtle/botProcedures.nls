@@ -27,8 +27,9 @@ to check-current-state ;; this is going to be the transitions between states
     
       ;; if the player is within range
       if length current-path < 10
-      ;;[set current-enemy-state "attacking"] ;; to be removed and replaced with new functionality
-      ;; if length < 10 and in sight - move to attacking else stay in seeking
+      ;; if length < 10 and in sight - move to attacking else stay in seeking 
+      ;; still need to check left and right
+      ;; should try to use patch-at-heading-and-distance heading distance for telling the different sides (-90 = west 90 = east 180 = south 0 = north <- shouldnt need north though)
         [
           ;;set debug-state "in range, not in sight"
           carefully
@@ -36,37 +37,37 @@ to check-current-state ;; this is going to be the transitions between states
               ask bots
                 [
                   ;; patches ahead of turtle
-                  if any? turtles-on patch-ahead 3
+                  if any? players-on patch-ahead 3
                   [
                     set current-enemy-state "attacking"
                     stop 
                   ]
                   
-                  if any? turtles-on patch-ahead 2
+                  if any? players-on patch-ahead 2
                   [
                     set current-enemy-state "attacking"
                     stop 
                   ] 
                   
-                  if any? turtles-on patch-ahead 1
+                  if any? players-on patch-ahead 1
                   [
                     set current-enemy-state "attacking"
                     stop 
                   ] 
                   
-                  if not any? turtles-on patch-ahead 3
+                  if not any? players-on patch-ahead 3
                   [
-                    if not any? turtles-on patch-ahead 2
+                    if not any? players-on patch-ahead 2
                     [
-                      if not any? turtles-on patch-ahead 1
+                      if not any? players-on patch-ahead 1
                       [
                         set current-enemy-state "seeking"
                         stop 
                       ]  
                     ] 
                   ]
-                ]
-            ]
+                ] ;; end ask bots
+            ] ;; end carefully - second command should only run if nobody is returned or if no player turtle
           
             [
               set debug-state "edge of screen detected"
