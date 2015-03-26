@@ -52,8 +52,8 @@ breed [ ammos ammo ]
 ;; A breed of turtle (fuel)
 breed [ fuels fuel ]
 
-;; A breed of turtle (bullet)
-breed [ bullets bullet ]
+;; A breed of turtle (missile)
+breed [ missiles missile ]
 
 ;; A breed of turtle (bomb)
 breed [ bombs bomb ]
@@ -73,6 +73,14 @@ to play ;; Forever button
   every ( 0.25 )
   [
     input-bots ;; Bots move/fire
+  ]
+  every (0.25)
+  [
+    ;;This is put here to stop the missiles from gaining speed whenever the player is moved.
+    ;;If this is put in "input-player" procedure in playerProcedures.nls, the speed of the
+    ;;missiles is increased as the player is moved. Putting this here allows the missiles to
+    ;;move at a steady speed independent of the player movement.
+    shoot-missiles
   ]
 end
 
@@ -312,6 +320,23 @@ debug-state
 1
 11
 
+BUTTON
+158
+111
+221
+144
+Fire
+shoot
+NIL
+1
+T
+OBSERVER
+NIL
+F
+NIL
+NIL
+1
+
 @#$#@#$#@
 ## WHAT IS IT?
 
@@ -365,6 +390,11 @@ arrow
 true
 0
 Polygon -7500403 true true 150 0 0 150 105 150 105 293 195 293 195 150 300 150
+
+arrow 3
+true
+0
+Polygon -7500403 true true 135 255 105 300 105 225 135 195 135 75 105 90 150 0 195 90 165 75 165 195 195 225 195 300 165 255
 
 box
 false
@@ -517,6 +547,11 @@ true
 0
 Line -7500403 true 150 0 150 150
 
+missile
+true
+0
+Polygon -13840069 true false 135 60 143 46 150 60 150 120 158 135 158 146 150 135 150 150 135 150 135 135 128 146 128 135 135 120 135 60
+
 pentagon
 false
 0
@@ -542,6 +577,20 @@ Polygon -7500403 true true 165 180 165 210 225 180 255 120 210 135
 Polygon -7500403 true true 135 105 90 60 45 45 75 105 135 135
 Polygon -7500403 true true 165 105 165 135 225 105 255 45 210 60
 Polygon -7500403 true true 135 90 120 45 150 15 180 45 165 90
+
+rocket
+true
+0
+Polygon -7500403 true true 120 165 75 285 135 255 165 255 225 285 180 165
+Polygon -1 true false 135 285 105 135 105 105 120 45 135 15 150 0 165 15 180 45 195 105 195 135 165 285
+Rectangle -7500403 true true 147 176 153 288
+Polygon -7500403 true true 120 45 180 45 165 15 150 0 135 15
+Line -7500403 true 105 105 135 120
+Line -7500403 true 135 120 165 120
+Line -7500403 true 165 120 195 105
+Line -7500403 true 105 135 135 150
+Line -7500403 true 135 150 165 150
+Line -7500403 true 165 150 195 135
 
 sheep
 false
