@@ -180,6 +180,7 @@ to shoot-missiles
   [
     fd 1
     if xcor >= 16 or xcor <= -16 or ycor >= 16 or ycor <= -16 [die]
+    if [pcolor] of patch-here = red [die]
   ]
   
 end
