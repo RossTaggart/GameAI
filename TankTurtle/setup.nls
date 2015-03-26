@@ -118,6 +118,11 @@ to draw
       [
         if [pcolor] of patch mouse-xcor mouse-ycor = white
         [
+          ask patches with [plabel = "tankSpawn"]
+          [
+            set pcolor white
+            set plabel ""  
+          ]  
           ask patch mouse-xcor mouse-ycor
           [
             set pcolor green

@@ -135,7 +135,7 @@ BUTTON
 510
 607
 Up
-if dead? != true\n[\nset action 4\ninput-player\n]\n
+if dead? != true\n[\nset action 4\n]\n
 NIL
 1
 T
@@ -152,7 +152,7 @@ BUTTON
 510
 642
 Down
-if dead? != true\n[\nset action 3\ninput-player\n]\n
+if dead? != true\n[\nset action 3\n]\n
 NIL
 1
 T
@@ -169,7 +169,7 @@ BUTTON
 567
 642
 Right
-if dead? != true\n[\nset action 2\ninput-player\n]\n
+if dead? != true\n[\nset action 2\n]\n
 NIL
 1
 T
@@ -186,7 +186,7 @@ BUTTON
 453
 642
 Left
-if dead? != true\n[\nset action 1\ninput-player\n]\n
+if dead? != true\n[\nset action 1\n]\n
 NIL
 1
 T
