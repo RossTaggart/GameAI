@@ -173,17 +173,23 @@ to shoot
   ]
 end
 
-;;Actually makes the missiles move and destroys the missiles when they reach
-;;patch 16 of any of the boundaries.
+;;Actually makes the missiles move and destroys the missiles when they: reach
+;;patch 16 of any of the boundaries, hit an obstacle or hit the enemy tank.
+;;If the missiles hit the enemy tank, both the missile and enemy tank are destroyed.
 to shoot-missiles
   ask missiles
   [
     fd 1
     if xcor >= 16 or xcor <= -16 or ycor >= 16 or ycor <= -16 [die]
     if [pcolor] of patch-here = red [die]
+    if any? bots-here
+    [
+      ask bots-here [die]
+      ask missiles-here [die]
+    ]
   ]
-  
 end
+
 ;;;;;;;;;;;;;;;;;;;;;
 ;;player animations;;
 ;;;;;;;;;;;;;;;;;;;;;
