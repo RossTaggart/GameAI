@@ -246,21 +246,12 @@ BLANK FOR NOW
 
 Try extending this Level Editor for your own Netlogo game by adding in or changing the elements within the DrawElements Chooser, and then adding in functionality within the draw method to draw the "object" you wish it to. Simply follow the structure of the draw function and how it draws the different patches so that you are able to draw whatever patch you wish!
 
-## NETLOGO FEATURES
-
-(interesting or unusual features of NetLogo that the model uses, particularly in the Code tab; or where workarounds were needed for missing features)
-
-## RELATED MODELS
-
-(models in the NetLogo Models Library and elsewhere which are of related interest)
 
 ## CREDITS AND REFERENCES
 
-(a reference to the model's URL on the web if it has one, as well as any other necessary credits, citations, and links)
-
 http://ccl.northwestern.edu/netlogo/models/community/Astardemo1
 
-This 
+Whilst this model doesn't necessarily pertain to this model, in that the linked model is about pathfinding, it was useful in the creation of this editor due to how it allows the player to place start and end points for the path. This approach was ultimately how we implemented our level editor as the core concepts are the same in both. Our editor has different options and rules than the A Star Demo, but the basic premise of placing patches is the same.
 @#$#@#$#@
 default
 true
