@@ -200,7 +200,15 @@ to shoot-missiles
       ask bots-here
       [
         set enemyHealth enemyHealth - 25
-        if (enemyHealth = 0) [die]
+        if (enemyHealth = 0) 
+        [
+          explodeEnemyAnimation
+          die
+        ]
+        if (enemyHealth != 0)
+        [
+          damageEnemyAnimation
+        ]
       ]
       ask missiles-here [die]
     ]
@@ -233,4 +241,33 @@ to damagePlayerAnimation
     ask players [set shape "tank_dead_1"]
  wait 0.2
   ask players [set shape "tank"]
+end
+
+
+;;;;;;;;;;;;;;;;;;;;;
+;;enemy animations;;
+;;;;;;;;;;;;;;;;;;;;;
+
+to explodeEnemyAnimation
+ ask bots [set shape "tank_dead_1"]
+ wait 0.2
+  ask bots [set shape "tank_dead_2"]
+ wait 0.2
+  ask bots [set shape "tank_dead_3"]
+ wait 0.2
+  ask bots [set shape "tank_dead_2"]
+ wait 0.2
+  ask bots [set shape "tank_dead_1"]
+ wait 0.2
+ ask bots [set shape "tank_dead"]
+end
+
+to damageEnemyAnimation
+   ask bots [set shape "tank_dead_1"]
+ wait 0.2
+   ask bots [set shape "tank_dead_2"]
+ wait 0.2
+    ask bots [set shape "tank_dead_1"]
+ wait 0.2
+  ask bots [set shape "tank"]
 end
