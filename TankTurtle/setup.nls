@@ -9,6 +9,7 @@ to new
   setup-bots ; initialise bots
   setupFuels
   setupBombs
+  setupAmmo
   setupInput
   
   set dead? false
@@ -17,7 +18,9 @@ to new
   set range 4
   set %playerHealth 100
   set %playerFuelLevel 100
-  set playerAmmo 100
+  set playerAmmo 5
+  set max-ammo 5
+  set enemyHealth 100
   set end-game "false"
   set debug-state "N/A"
 end
@@ -190,6 +193,16 @@ to setupBombs
   create-bombs 2
   [
     move-to one-of patches with [pcolor = white]
+    set size 1.0
+  ]
+end
+
+;;Creates 4 ammo pickups and places them randomly on white patches
+to setupAmmo
+  create-ammos 4
+  [
+    move-to one-of patches with [pcolor = white]
+    set shape "box"
     set size 1.0
   ]
 end

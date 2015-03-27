@@ -14,6 +14,7 @@ globals [
   %playerFuelLevel    ; current fuel
   max-fuel            ; maximum fuel you can carry
   dead?               ; are you dead
+  enemyHealth         ; the current health of the enemy
   current-enemy-state ; the current state of the enemy tank
   end-game            ; the state of ended game
   debug-state         ; debug state for the enemy tank (temp)
@@ -61,6 +62,10 @@ breed [ bombs bomb ]
 to play ;; Forever button
   if dead? or %playerFuelLevel = 0
   [ user-message "YOU FAILED. YOU FAILURE"   toggleendgame ]
+  
+  ;;Displays win message if the enemy is destroyed.
+  if enemyHealth = 0
+  [ user-message "Congratulations, you win!" toggleendgame ]
   
   if end-game = "true"
   [
@@ -154,10 +159,10 @@ NIL
 1
 
 BUTTON
-455
-574
-510
-607
+91
+344
+146
+377
 Up
 if dead? != true\n[\nset action 4\ninput-player\n]\n
 NIL
@@ -171,10 +176,10 @@ NIL
 1
 
 BUTTON
-455
-609
-510
-642
+91
+379
+146
+412
 Down
 if dead? != true\n[\nset action 3\ninput-player\n]\n
 NIL
@@ -188,10 +193,10 @@ NIL
 1
 
 BUTTON
-512
-609
-567
-642
+148
+379
+203
+412
 Right
 if dead? != true\n[\nset action 2\ninput-player\n]\n
 NIL
@@ -205,10 +210,10 @@ NIL
 1
 
 BUTTON
-398
-609
-453
-642
+34
+379
+89
+412
 Left
 if dead? != true\n[\nset action 1\ninput-player\n]\n
 NIL
@@ -336,6 +341,39 @@ F
 NIL
 NIL
 1
+
+MONITOR
+567
+552
+624
+597
+Ammo
+playerAmmo
+17
+1
+11
+
+MONITOR
+461
+554
+562
+599
+Max Ammo Limit
+max-ammo
+17
+1
+11
+
+MONITOR
+366
+553
+455
+598
+Enemy Health
+enemyHealth
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?

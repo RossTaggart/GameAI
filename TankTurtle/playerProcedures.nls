@@ -3,22 +3,22 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 to updateGlobals 
-    if (%playerFuelLevel < 0)
+  if (%playerFuelLevel < 0)
   [
     set %playerFuelLevel 0
   ]
   
-    if (%playerFuelLevel > 100)
+  if (%playerFuelLevel > 100)
   [
     set %playerFuelLevel 100
   ]
   
-    if (%playerHealth < 0)
+  if (%playerHealth < 0)
   [
     set %playerHealth 0
   ]
   
-    if (%playerHealth > 100)
+  if (%playerHealth > 100)
   [
     set %playerHealth 100
   ]
@@ -27,6 +27,7 @@ end
 to input-player  ;; Observer Procedure
   move-player
   eatFuel
+  pickupAmmo
   damagePlayer
   ;;shoot-missiles
   display
@@ -162,20 +163,43 @@ to damagePlayer
   ]
 end
 
-;; Creates the missiles which are fired by the player tank
-to shoot
-  create-missiles 1 
+;;Allows the player to pickup ammo if they have an ammo value of < 5. Each ammo crate
+;;increases ammo by 1 and if the player has the limit of 5 ammo, the ammo will not be picked up.
+to pickupAmmo
+  if (playerAmmo < 5)
   [
-    setxy ([xcor] of player 0) ([ycor] of player 0)
-    set shape "missile"
-    set heading [heading] of player 0
-    set size 2.5
+    ask ammos
+    [
+      if any? players-here
+      [
+        set playerAmmo playerAmmo + 1
+        die
+      ]
+    ]
+  ]
+end
+
+;; Creates the missiles which are fired by the player tank if the player's ammo is > 0.
+;;Decrements the player's ammo by 1 every time a missile is fired. 
+to shoot
+  if (playerAmmo > 0)
+  [
+    create-missiles 1 
+    [
+      setxy ([xcor] of player 0) ([ycor] of player 0)
+      set shape "missile"
+      set heading [heading] of player 0
+      set size 2.5
+      set playerAmmo playerAmmo - 1
+    ]
   ]
 end
 
 ;;Actually makes the missiles move and destroys the missiles when they: reach
 ;;patch 16 of any of the boundaries, hit an obstacle or hit the enemy tank.
-;;If the missiles hit the enemy tank, both the missile and enemy tank are destroyed.
+;;If the missiles hit the enemy tank, the missile is destroyed and the enemy
+;;tank's health is decreased by 25 by each hit. When the enemy tank's health is 
+;;0, the enemy tank is destroyed. 
 to shoot-missiles
   ask missiles
   [
@@ -184,7 +208,11 @@ to shoot-missiles
     if [pcolor] of patch-here = red [die]
     if any? bots-here
     [
-      ask bots-here [die]
+      ask bots-here
+      [
+        set enemyHealth enemyHealth - 25
+        if (enemyHealth = 0) [die]
+      ]
       ask missiles-here [die]
     ]
   ]
