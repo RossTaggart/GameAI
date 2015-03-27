@@ -257,7 +257,7 @@ CHOOSER
 DrawElements
 DrawElements
 "Path" "Obstacle" "Player Spawn" "Tank Spawn"
-3
+2
 
 BUTTON
 126
