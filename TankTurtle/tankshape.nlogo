@@ -1,6 +1,6 @@
 __includes [ "setup.nls" "playerProcedures.nls" "botProcedures.nls" ]
 
-extension [sound]
+extensions [sound]
 
 ; global variables used
 globals [
