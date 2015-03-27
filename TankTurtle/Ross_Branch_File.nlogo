@@ -1,6 +1,6 @@
 patches-own
 [
-  tileNumber
+  gridNumber
 ]
 
 to setup
@@ -26,10 +26,10 @@ end
 ;and generates our game level for us. It does the following:
 ;Calls the clear-screen method to make sure that we're working
 ;with a blank canvas.
+;Sections off the screen into a 3x3 grid, to give us the slots
+;where our pseudo-randomly generated tiles will slot into.
 ;Defines the 9 random tiles that will combine to create the
 ;game level by calling a method that does this for us.
-;Sets which tile a patch is assigned to based upon its position
-;in coordinate space
 ;Then all the patches are polled by the program. This is where,
 ;depending on which tile it has been assigned to, the tiles are
 ;"loaded" in randomly, i.e. the patch colours are changed to
@@ -38,7 +38,7 @@ to generate-map
   
   clear-screen
   
-  set-tile-number
+  set-grid-number
   
   let chosenTile1 calc-tile
   let chosenTile2 calc-tile
@@ -53,42 +53,42 @@ to generate-map
   ask patches
   [
    
-   if tileNumber = 1
+   if gridNumber = 1
    [
      load-tile chosenTile1 0 0
    ] 
    
-   if tileNumber = 2
+   if gridNumber = 2
    [
      load-tile chosenTile2 12 0
    ]
    
-   if tileNumber = 3
+   if gridNumber = 3
    [
      load-tile chosenTile3 24 0
    ]
    
-   if tileNumber = 4
+   if gridNumber = 4
    [
      load-tile chosenTile4 0 12
    ]
-   if tileNumber = 5
+   if gridNumber = 5
    [
      load-tile chosenTile5 12 12
    ]
-   if tileNumber = 6
+   if gridNumber = 6
    [
     load-tile chosenTile6 24 12
    ]
-   if tileNumber = 7
+   if gridNumber = 7
    [
     load-tile chosenTile7 0 24
    ]
-   if tileNumber = 8
+   if gridNumber = 8
    [
      load-tile chosenTile8 12 24
    ]
-   if tileNumber = 9
+   if gridNumber = 9
    [
      load-tile chosenTile9 24 24
    ]
@@ -104,48 +104,47 @@ to generate-map
 end
 
 ;This method, based upon where the patches exist in coordinate space,
-;sets the variable tileNumber to be the tile which they are split up
-;into within the game. This helps with the procedural generation as
-;patches which belong to these tiles can be updated accordingly.
+;sets the variable gridNumber to be the slot in the grid which the
+;patch belongs to.
 
-to set-tile-number
+to set-grid-number
   ask patches
   [    
    if pxcor < 12 and pycor <= 12 ;bottom left tile
    [
-     set tileNumber 1
+     set gridNumber 1
    ]
    if pxcor >= 12 and pxcor <= 24 and pycor <= 12 ;bottom middle tile
    [
-     set tileNumber 2
+     set gridNumber 2
    ]
-   if pxcor > 24 and pycor <= 12 ;tile3 bottom right tile
+   if pxcor > 24 and pycor <= 12 ;bottom right tile
    [
-    set tileNumber 3
+    set gridNumber 3
    ]
    if pxcor < 12 and pycor > 12 and pycor <= 24 ;middle left
    [
-    set tileNumber 4 
+    set gridNumber 4 
    ]
    if pxcor >= 12 and pxcor <= 24 and pycor > 12 and pycor <= 24 ;middle tile
    [
-     set tileNumber 5
+     set gridNumber 5
    ]
    if pxcor > 24 and pycor > 12 and pycor <= 24 ;middle right tile
    [
-    set tileNumber 6
+    set gridNumber 6
    ]
    if pxcor < 12 and pycor > 24 ;top left tile
    [
-    set tileNumber 7
+    set gridNumber 7
    ]
    if pxcor >= 12 and pxcor <= 24 and pycor > 24 ;top middle tile
    [
-    set tileNumber 8
+    set gridNumber 8
    ]
    if pxcor > 24 and pycor > 24 ;top right tile
    [
-    set tileNumber 9
+    set gridNumber 9
    ]
   ]
   
@@ -652,31 +651,39 @@ NIL
 @#$#@#$#@
 ## WHAT IS IT?
 
-(a general understanding of what the model is trying to show or explain)
+This Logo shows an approach to procedurally generate content during the Setup process of a game. Each time this Logo is ran, the map which it generates is different every time due to the way it utilises random number generators and a tileset.
 
 ## HOW IT WORKS
 
-(what rules the agents use to create the overall behavior of the model)
+The model creates a pseudo-randomly generated map by utilising a number of different created methods, as well as functions that Netlogo provides.
+
+When the Setup Map button is pressed by the user, the program firstly sections the map into a 3x3 grid: this is how we determine where the tiles will eventually appear on-screen. 
+
+Then, the program generates 9 randomly generated numbers (derived from the 3x3 grid) that will be a numerical representation of the tile that will occupy the screen in a particular section of the grid (To illustrate this better, the bottom-left section of the grid will be tile number 1, and the top right section will be tile number 9).
+
+Next, the program then asks all the patches in the game what their grid position is and, based upon what the value is, loads in the corresponding tile to that grid space. The program has [INSERT NUMBER OF TILES TOTAL] to choose from in its pseudo-random generation, giving a large number of possibilities for the final map.
+
+Finally, the program places the ammo and fuel spawns, as well as the player and enemy spawns into the game. These are all placed using their own methods which randomly place each spawn onto a random white patch, and then place four ammo and four fuel spawns onto white patches.
 
 ## HOW TO USE IT
 
-(how to use the model, including a description of each of the items in the Interface tab)
+This model is easy to use, simply click on the Setup Map button to see the results of the random generation!
 
 ## THINGS TO NOTICE
 
-(suggested things for the user to notice while running the model)
-
-## THINGS TO TRY
-
-(suggested things for the user to try to do (move sliders, switches, etc.) with the model)
+Notice how pressing the Setup Map button again after pressing it before generates a different map, player spawns et al. This is because all of the code that generated the map the first time is ran again, giving an entirely new layout of the map!
 
 ## EXTENDING THE MODEL
 
-(suggested things to add or change in the Code tab to make the model more complicated, detailed, accurate, etc.)
+The player could add in their own tile definitions using how this model defines them as an example. Plotting the tiles on graph paper between 0-11 on the x and y axes before creating them in code would be the best way to achieve this. Then, simply increasing the value of chance in the calc-tile method and then adding in functionality in the load-tile method to load the new tile will allow the new tile to be added into the tileset and thus be able to appear in the map.
 
 ## NETLOGO FEATURES
 
 (interesting or unusual features of NetLogo that the model uses, particularly in the Code tab; or where workarounds were needed for missing features)
+
+This model relies heavily on the random number generator built into Netlogo that, based upon the seed and the highest number it can generate, allows you to create pseudo-random numbers that can be utilised however you see fit. 
+
+The model also uses the random-pxcor and random-pycor methods built into Netlogo to choose a random patch in the game in order to spawn both spawns and pickups. This was useful as this meant that a method didn't need to be created purely to do this as the functionality already exists.
 
 ## RELATED MODELS
 
