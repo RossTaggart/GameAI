@@ -257,6 +257,10 @@ Try extending this Level Editor for your own Netlogo game by adding in or changi
 ## CREDITS AND REFERENCES
 
 (a reference to the model's URL on the web if it has one, as well as any other necessary credits, citations, and links)
+
+http://ccl.northwestern.edu/netlogo/models/community/Astardemo1
+
+This 
 @#$#@#$#@
 default
 true
