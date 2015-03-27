@@ -3,16 +3,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 to updateGlobals 
-  if (%playerFuelLevel < 0)
-  [
-    set %playerFuelLevel 0
-  ]
-  
-  if (%playerFuelLevel > 100)
-  [
-    set %playerFuelLevel 100
-  ]
-  
+    
   if (%playerHealth < 0)
   [
     set %playerHealth 0
@@ -40,7 +31,7 @@ end
 to move-player
   if (action != 0)
     [
-      if (%playerFuelLevel > 0)
+      if (playerFuelLevel > 0)
       [
        if (action = 1)
          [ move-left ]
@@ -113,26 +104,24 @@ to move-down
 end
 
 to eatFuel
-  ask players
+  ask fuels
   [
-    if any? fuels-here
+    if any? players-here
     [
-      ask fuels
-      [
-        if any? players-here
-        [
-          set %playerFuelLevel %playerFuelLevel + 25
-          die
-        ]
-      ]
+      set playerFuelLevel playerFuelLevel + 25
+      die
+    ]
+    if (playerFuelLevel > 100)
+    [
+      set playerFuelLevel 100
     ]
   ]
 end
 
 to decrementFuel
-  if (%playerFuelLevel > 0)
+  if (playerFuelLevel > 0)
   [
-    set %playerFuelLevel %playerFuelLevel - 1
+    set playerFuelLevel playerFuelLevel - 1
   ]
 end
 

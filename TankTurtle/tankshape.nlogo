@@ -11,7 +11,7 @@ globals [
   max-health          ; maximum player health
   playerAmmo          ; current ammo
   max-ammo            ; maximum ammo you can carry
-  %playerFuelLevel    ; current fuel
+  playerFuelLevel     ; current fuel
   max-fuel            ; maximum fuel you can carry
   dead?               ; are you dead
   enemyHealth         ; the current health of the enemy
@@ -60,7 +60,7 @@ breed [ missiles missile ]
 breed [ bombs bomb ]
 
 to play ;; Forever button
-  if dead? or %playerFuelLevel = 0
+  if dead? or playerFuelLevel = 0
   [ user-message "YOU FAILED. YOU FAILURE"   toggleendgame ]
   
   ;;Displays win message if the enemy is destroyed.
@@ -287,7 +287,7 @@ MONITOR
 748
 598
 Fuel
-%playerFuelLevel
+playerFuelLevel
 17
 1
 11

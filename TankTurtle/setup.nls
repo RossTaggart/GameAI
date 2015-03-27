@@ -17,7 +17,7 @@ to new
   set lives 3
   set range 4
   set %playerHealth 100
-  set %playerFuelLevel 100
+  set playerFuelLevel 100
   set playerAmmo 5
   set max-ammo 5
   set enemyHealth 100
