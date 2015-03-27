@@ -1,5 +1,7 @@
 __includes [ "setup.nls" "playerProcedures.nls" "botProcedures.nls" ]
 
+extension [sound]
+
 ; global variables used
 globals [
   action              ; last button pressed
