@@ -3,10 +3,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 to new
-  __clear-all-and-reset-ticks ;; clear everything (the view and all the variables)
-  load-map ; load map procedure
-  setup-player ; initialise player
-  setup-bots ; initialise bots
+  clear-all     ; clear everything (the view and all the variables)
+  load-map      ; load map procedure
+  setup-player  ; initialise player
+  setup-bots    ; initialise bots
   setupFuels
   setupBombs
   setupAmmo
@@ -25,6 +25,10 @@ to new
   set end-game "false"
   set debug-state "N/A"
   set enemy-can-shoot? false
+  
+  set open []
+  set closed []
+  ask one-of bots [ set destination patch-here ]
 end
 
 to load-map

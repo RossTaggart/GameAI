@@ -19,11 +19,13 @@ globals [
   current-enemy-state ; the current state of the enemy tank
   end-game            ; the state of ended game
   debug-state         ; debug state for the enemy tank (temp)
-  enemy-can-shoot?     ; if the enemy can shoot or not
+  enemy-can-shoot?    ; if the enemy can shoot or not
   
-  open ; the open list of patches
-  closed ; the closed list of patches
-  optimal-path ; the optimal path, list of patches from source to destination
+  destination         ; the currently assigned destination for the bot
+  
+  open                ; the open list of patches
+  closed              ; the closed list of patches
+  optimal-path        ; the optimal path, list of patches from source to destination
 ]
 
 patches-own
@@ -377,6 +379,24 @@ enemyHealth
 17
 1
 11
+
+PLOT
+8
+657
+366
+834
+Heuristic performance
+Time
+Patches considered
+0.0
+10.0
+0.0
+1024.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot length open + length closed"
 
 @#$#@#$#@
 ## WHAT IS IT?

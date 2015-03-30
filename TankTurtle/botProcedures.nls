@@ -10,7 +10,13 @@ to update-states ;; this is going to be the defined states which tell the tank w
   
   ;; this state is for when the enemy can neither see nor is near the player
     if current-enemy-state = "seeking"
-    [ move-bot ]
+    [ 
+      if length current-path < 2
+      [
+        set destination one-of patches with [pcolor = white and distance myself > 15]
+      ]
+      move-bot 
+    ]
   
   ;; this state is for when the enemy tank is within "x" blocks of the player and can see him
     if current-enemy-state = "attacking"
@@ -54,13 +60,17 @@ end
 to check-current-state ;; this is going to be the transitions between states
     
   if enemyHealth = 0
-    [
-      set current-enemy-state "dead"
-      stop
-    ]
-    
+  [
+    set current-enemy-state "dead"
+    stop
+  ]
+  
+  let temp-distance 0
+  
+  ;ask one-of players [ set temp-distance [distance one-of bots] ]
+  
   ;; if the player is within range
-  if length current-path < 5
+  if [distance myself] of one-of patches with [any? players-here] < 5
   ;; if length < 10 and in sight - move to attacking else stay in seeking 
   ;; still need to check left and right
   ;; should try to use patch-at-heading-and-distance heading distance for telling the different sides (-90 = west 90 = east 180 = south 0 = north <- shouldnt need north though)
@@ -121,14 +131,13 @@ to input-bots  ; Observer Procedure
   find-shortest-path-to-destination
   ask bots
   [
-    if length current-path != 1 ;; if the enemy tank has not caught the player
+    if [distance myself] of one-of patches with [any? players-here] != 1;; if the enemy tank has not caught the player
     [
       check-current-state
       update-states
     ]
     
-    if length current-path = 1
-    [
+    if [distance myself] of one-of patches with [any? players-here] = 1    [
        user-message "YOU FAILED. Tank caught you"   toggleendgame ;; enemy tank has caught the player
     ]
   ]
@@ -179,7 +188,7 @@ to find-shortest-path-to-destination
   reset-ticks
   ask bots 
   [
-    set path find-a-path patch-here one-of players
+    set path find-a-path patch-here destination
     set optimal-path path
     set current-path path
   ]
