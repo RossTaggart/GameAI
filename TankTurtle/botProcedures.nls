@@ -49,6 +49,7 @@ end
 
 to revert-to-seeking
   set current-enemy-state "seeking"
+  set destination one-of patches with [pcolor = white and distance myself > 15]
 end
 
 to toggle-can-shoot
@@ -89,7 +90,7 @@ to check-current-state ;; this is going to be the transitions between states
   ]
   
   if length current-path > 5
-    [set current-enemy-state "seeking" set debug-state "out of range"]  
+    [revert-to-seeking set debug-state "out of range"]  
   
   ;; still need to think more about the other state transitions, write them down or something.
 end
