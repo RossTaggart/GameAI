@@ -16,13 +16,15 @@ to new
   set score 0
   set lives 3
   set range 4
-  set %playerHealth 100
+  set playerHealth 100
   set playerFuelLevel 100
   set playerAmmo 5
   set max-ammo 5
   set enemyHealth 100
+  set enemyAmmo 5
   set end-game "false"
   set debug-state "N/A"
+  set enemy-can-shoot? false
 end
 
 to load-map

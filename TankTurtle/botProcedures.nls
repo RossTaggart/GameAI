@@ -19,11 +19,36 @@ to update-states ;; this is going to be the defined states which tell the tank w
     ;; do we, attack once and then go back to seeking (therefore determining once again if it should attack)
     ;; or do we, attack every x seconds
     ;; attack -> wait for 2 seconds -> dont let enemy move while reloading, gives player time to get a tactical advantage
+    ;; Enemy-shoot
+    face player 0
+    
+      ask bots
+      [
+        toggle-can-shoot
+        ;;revert-to-seeking
+        stop
+      ]
     ]
   
   ;; when the player hits the enemy it will set the enemy state to dead
     if current-enemy-state = "dead"
       [ user-message "YOU WON, YOU WINNER"   toggleendgame ]
+end
+
+to revert-to-seeking
+  set current-enemy-state "seeking"
+end
+
+to toggle-can-shoot
+  if enemy-can-shoot? = true
+  [
+    set enemy-can-shoot?  false
+  ]
+  
+  if enemy-can-shoot? = false
+  [
+   set enemy-can-shoot?  true 
+  ]
 end
 
 to check-current-state ;; this is going to be the transitions between states
@@ -35,56 +60,58 @@ to check-current-state ;; this is going to be the transitions between states
     ]
     
   ;; if the player is within range
-  if length current-path < 10
+  if length current-path < 5
   ;; if length < 10 and in sight - move to attacking else stay in seeking 
   ;; still need to check left and right
   ;; should try to use patch-at-heading-and-distance heading distance for telling the different sides (-90 = west 90 = east 180 = south 0 = north <- shouldnt need north though)
     [
-      ;;set debug-state "in range, not in sight"
-      carefully
-        [
-          ask bots
-            [
-              ;; patches ahead of turtle
-              if any? players-on patch-ahead 3
-                [
-                  set current-enemy-state "attacking"
-                  stop 
-                ]
-              
-              if any? players-on patch-ahead 2
-                [
-                  set current-enemy-state "attacking"
-                  stop 
-                ] 
-                  
-              if any? players-on patch-ahead 1
-                [
-                  set current-enemy-state "attacking"
-                  stop 
-                ] 
-              
-              if not any? players-on patch-ahead 3
-                [
-                  if not any? players-on patch-ahead 2
-                    [
-                      if not any? players-on patch-ahead 1
-                      [
-                        set current-enemy-state "seeking"
-                        stop 
-                      ]  
-                    ] 
-                ]
-            ] ;; end ask bots
-        ] ;; end carefully - second command should only run if nobody is returned or if no player turtle
-      
-        [
-          set debug-state "edge of screen detected"
-          set current-enemy-state "seeking" 
-        ]
+      set current-enemy-state "attacking"
+      stop  
+;      ;;set debug-state "in range, not in sight"
+;      carefully
+;        [
+;          ask bots
+;            [
+;              ;; patches ahead of turtle
+;              if any? players-on patch-ahead 3
+;                [
+;                  set current-enemy-state "attacking"
+;                  stop 
+;                ]
+;              
+;              if any? players-on patch-ahead 2
+;                [
+;                  set current-enemy-state "attacking"
+;                  stop 
+;                ] 
+;                  
+;              if any? players-on patch-ahead 1
+;                [
+;                  set current-enemy-state "attacking"
+;                  stop 
+;                ] 
+;              
+;              if not any? players-on patch-ahead 3
+;                [
+;                  if not any? players-on patch-ahead 2
+;                    [
+;                      if not any? players-on patch-ahead 1
+;                      [
+;                        set current-enemy-state "seeking"
+;                        stop 
+;                      ]  
+;                    ] 
+;                ]
+;            ] ;; end ask bots
+;        ] ;; end carefully - second command should only run if nobody is returned or if no player turtle
+;      
+;        [
+;          set debug-state "edge of screen detected"
+;          set current-enemy-state "seeking" 
+;        ]
     ]
   
-  if length current-path > 10
+  if length current-path > 5
     [set current-enemy-state "seeking" set debug-state "out of range"]  
   
   ;; still need to think more about the other state transitions, write them down or something.
@@ -103,6 +130,14 @@ to input-bots  ; Observer Procedure
     if length current-path = 1
     [
        user-message "YOU FAILED. Tank caught you"   toggleendgame ;; enemy tank has caught the player
+    ]
+  ]
+  
+  if enemy-can-shoot? = true
+  [
+    every(1.5)
+    [
+      Enemy-shoot
     ]
   ]
 end
@@ -283,4 +318,76 @@ to move-bot
       pu
     ]
   ]   
+end
+
+;;;;;;;;;;;;;;;;;;;
+;;enemy shooting ;;
+;;;;;;;;;;;;;;;;;;;
+to Enemy-shoot
+  if (enemyAmmo > 0)
+  [
+    create-missiles 1 
+    [
+      setxy ([xcor] of bot 1) ([ycor] of bot 1)
+      set shape "missile"
+      set heading [heading] of bot 1
+      set size 2.5
+      set enemyAmmo enemyAmmo - 1
+    ]
+  ]
+end
+
+to Enemy-shoot-missiles
+  ask missiles
+  [
+    fd 1
+    if xcor >= 16 or xcor <= -16 or ycor >= 16 or ycor <= -16 [die]
+    if [pcolor] of patch-here = red [die]
+    if any? players-here
+    [
+      ask players-here
+      [
+        set playerHealth playerHealth - 25
+        if (playerHealth = 0) 
+        [
+          explodePlayerAnimation
+          die
+        ]
+        if (playerHealth != 0)
+        [
+          damagePlayerAnimation
+        ]
+      ]
+      ask missiles-here [die]
+    ]
+  ]
+end
+
+
+;;;;;;;;;;;;;;;;;;;;;
+;;enemy animations ;;
+;;;;;;;;;;;;;;;;;;;;;
+
+to explodeEnemyAnimation
+ ask bots [set shape "tank_dead_1"]
+ wait 0.2
+  ask bots [set shape "tank_dead_2"]
+ wait 0.2
+  ask bots [set shape "tank_dead_3"]
+ wait 0.2
+  ask bots [set shape "tank_dead_2"]
+ wait 0.2
+  ask bots [set shape "tank_dead_1"]
+ wait 0.2
+ ask bots [set shape "tank_dead"]
+end
+
+to damageEnemyAnimation
+   ask bots [set shape "tank_dead_1"]
+ wait 0.2
+   ask bots [set shape "tank_dead_2"]
+ wait 0.2
+    ask bots [set shape "tank_dead_1"]
+ wait 0.2
+  ask bots [set shape "tank"]
 end

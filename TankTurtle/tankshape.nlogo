@@ -7,7 +7,7 @@ globals [
   score               ; current score
   lives               ; remaining lives
   range               ; tank fire range
-  %playerHealth       ; player current health
+  playerHealth        ; player current health
   max-health          ; maximum player health
   playerAmmo          ; current ammo
   max-ammo            ; maximum ammo you can carry
@@ -15,9 +15,11 @@ globals [
   max-fuel            ; maximum fuel you can carry
   dead?               ; are you dead
   enemyHealth         ; the current health of the enemy
+  enemyAmmo           ; the current amount of ammo they have
   current-enemy-state ; the current state of the enemy tank
   end-game            ; the state of ended game
   debug-state         ; debug state for the enemy tank (temp)
+  enemy-can-shoot?     ; if the enemy can shoot or not
   
   open ; the open list of patches
   closed ; the closed list of patches
@@ -86,6 +88,7 @@ to play ;; Forever button
     ;;missiles is increased as the player is moved. Putting this here allows the missiles to
     ;;move at a steady speed independent of the player movement.
     shoot-missiles
+    Enemy-shoot-missiles
   ]
 end
 
@@ -282,10 +285,10 @@ NIL
 1
 
 MONITOR
-691
-553
-748
-598
+1094
+29
+1151
+74
 Fuel
 playerFuelLevel
 17
@@ -293,12 +296,12 @@ playerFuelLevel
 11
 
 MONITOR
-629
-553
-686
-598
+1032
+29
+1089
+74
 Health
-%playerHealth
+playerHealth
 17
 1
 11
@@ -343,10 +346,10 @@ NIL
 1
 
 MONITOR
-567
-552
-624
-597
+970
+28
+1027
+73
 Ammo
 playerAmmo
 17
@@ -354,10 +357,10 @@ playerAmmo
 11
 
 MONITOR
-461
-554
-562
-599
+864
+30
+965
+75
 Max Ammo Limit
 max-ammo
 17
@@ -365,10 +368,10 @@ max-ammo
 11
 
 MONITOR
-366
-553
-455
-598
+769
+29
+858
+74
 Enemy Health
 enemyHealth
 17
