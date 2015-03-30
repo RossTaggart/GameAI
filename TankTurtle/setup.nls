@@ -173,7 +173,7 @@ to setup-bots
   [
     sprout-bots 1
     [
-      set size 2.5
+      set size 2.0
       set current-enemy-state "idle"
       pd
     ]

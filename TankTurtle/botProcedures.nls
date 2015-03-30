@@ -21,6 +21,7 @@ to update-states ;; this is going to be the defined states which tell the tank w
     ;; attack -> wait for 2 seconds -> dont let enemy move while reloading, gives player time to get a tactical advantage
     ;; Enemy-shoot
     face player 0
+    ;;facexy ([xcor] of player 0) ([ycor] of player 0)
     
       ask bots
       [
@@ -340,12 +341,33 @@ end
 to Enemy-shoot-missiles
   ask missiles
   [
+    face player 0
     fd 1
     if xcor >= 16 or xcor <= -16 or ycor >= 16 or ycor <= -16 [die]
     if [pcolor] of patch-here = red [die]
+    ;ask patches with ([xcor] of player 0) ([ycor] of player 0)
+    ;if xcor = ([pxcor] of player 0) and ycor = ([pycor] of player 0)
+    ;[
+    ;    set playerHealth playerHealth - 25
+    ;    if (playerHealth = 0) 
+    ;    [
+    ;      explodePlayerAnimation
+    ;      ;ask players-here [die]
+    ;      die
+    ;    ]
+    ;    if (playerHealth != 0)
+    ;    [
+    ;      damagePlayerAnimation
+    ;    ]
+    ;]
+    ;ask missiles-here [die]
+  ;]
+
+       
+    
     if any? players-here
     [
-      ask players-here
+      ask players-here 
       [
         set playerHealth playerHealth - 25
         if (playerHealth = 0) 
