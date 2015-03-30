@@ -2,7 +2,7 @@
 ;;;     Bot Procedures     ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-to update-states ;; this is going to be the defined states which tell the tank what to do
+to update-states ;; this is going to be the defined states which tell the tank what to do ;; Basic version of game will only have 3 states - idle, attacking and seeking
   
   ;; this is the state that the enemy tank will begin in at setup
   if current-enemy-state = "idle"
@@ -10,17 +10,20 @@ to update-states ;; this is going to be the defined states which tell the tank w
   
   ;; this state is for when the enemy can neither see nor is near the player
     if current-enemy-state = "seeking"
-  [ move-bot ]
+    [ move-bot ]
   
   ;; this state is for when the enemy tank is within "x" blocks of the player and can see him
     if current-enemy-state = "attacking"
-  [
+    [
     ;;ask bots [show [distance playerTank]] ;;attack the player - awaiting implementation
-  ]
+    ;; do we, attack once and then go back to seeking (therefore determining once again if it should attack)
+    ;; or do we, attack every x seconds
+    ;; attack -> wait for 2 seconds -> dont let enemy move while reloading, gives player time to get a tactical advantage
+    ]
   
   ;; when the player hits the enemy it will set the enemy state to dead
-  if current-enemy-state = "dead"
-     [ user-message "YOU WON, YOU WINNER"   toggleendgame ]
+    if current-enemy-state = "dead"
+      [ user-message "YOU WON, YOU WINNER"   toggleendgame ]
 end
 
 to check-current-state ;; this is going to be the transitions between states
@@ -77,6 +80,8 @@ to check-current-state ;; this is going to be the transitions between states
       
       if length current-path > 10
       [set current-enemy-state "seeking" set debug-state "out of range"]  
+      
+      ;; still need to think more about the other state transitions, write them down or something.
 end
 
 to input-bots  ; Observer Procedure
