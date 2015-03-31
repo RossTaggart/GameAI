@@ -13,6 +13,7 @@ globals [
   max-ammo            ; maximum ammo you can carry
   playerFuelLevel     ; current fuel
   max-fuel            ; maximum fuel you can carry
+  playerState         ; the player's state
   dead?               ; are you dead
   enemyHealth         ; the current health of the enemy
   current-enemy-state ; the current state of the enemy tank
@@ -74,6 +75,7 @@ to play ;; Forever button
   every ( 0.25 )
   [ 
     input-player ;; Player move/fire
+    changePlayerState
   ]
   every ( 0.25 )
   [
@@ -159,12 +161,12 @@ NIL
 1
 
 BUTTON
-91
-344
-146
-377
+88
+384
+143
+417
 Up
-if dead? != true\n[\nset action 4\ninput-player\n]\n
+move-up
 NIL
 1
 T
@@ -176,12 +178,12 @@ NIL
 1
 
 BUTTON
-91
-379
-146
-412
+88
+419
+143
+452
 Down
-if dead? != true\n[\nset action 3\ninput-player\n]\n
+move-down
 NIL
 1
 T
@@ -193,12 +195,12 @@ NIL
 1
 
 BUTTON
-148
-379
-203
-412
+145
+419
+200
+452
 Right
-if dead? != true\n[\nset action 2\ninput-player\n]\n
+move-right
 NIL
 1
 T
@@ -210,12 +212,12 @@ NIL
 1
 
 BUTTON
-34
-379
-89
-412
+31
+419
+86
+452
 Left
-if dead? != true\n[\nset action 1\ninput-player\n]\n
+move-left
 NIL
 1
 T
@@ -371,6 +373,17 @@ MONITOR
 598
 Enemy Health
 enemyHealth
+17
+1
+11
+
+MONITOR
+19
+300
+145
+345
+Player's State
+playerState
 17
 1
 11
