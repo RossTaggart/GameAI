@@ -156,7 +156,7 @@ end
 to-report calc-tile
   
   random-seed new-seed
-  let chance random 7
+  let chance random 16
 
   report chance
   
@@ -196,6 +196,42 @@ to load-tile [chosenTile xoff yoff]
     if (chosenTile = 6)
     [
      defined-tile-7 xoff yoff 
+    ]
+    if (chosenTile = 7)
+    [
+     defined-tile-8 xoff yoff  
+    ]
+    if (chosenTile = 8)
+    [
+     defined-tile-9 xoff yoff 
+    ]
+    if (chosenTile = 9)
+    [
+     defined-tile-10 xoff yoff 
+    ]
+    if (chosenTile = 10)
+    [
+     defined-tile-11 xoff yoff 
+    ]
+    if (chosenTile = 11)
+    [
+     defined-tile-12 xoff yoff 
+    ]
+    if (chosenTile = 12)
+    [
+     defined-tile-13 xoff yoff 
+    ]
+    if (chosenTile = 13)
+    [
+      defined-tile-14 xoff yoff 
+    ]
+    if (chosenTile = 14)
+    [
+     defined-tile-15 xoff yoff 
+    ]
+    if (chosenTile = 15)
+    [
+     defined-tile-16 xoff yoff 
     ]
   
 end
@@ -601,6 +637,370 @@ to defined-tile-7 [xoff yoff]
   draw-obstacle pxcor xoff 4 pycor yoff 11
   draw-obstacle pxcor xoff 5 pycor yoff 11
   draw-obstacle pxcor xoff 6 pycor yoff 11
+  
+end
+
+;Holds the definition of tile-8.
+;Whilst this tile will look the same wherever it appears in the
+;game, an offset is needed so that all of the patches are drawn
+;in their correct locations regardless of where they will appear.
+;For clarity, the positions of the obstacles (before any offsets
+;have been applied) are as follows:
+;(6,1) (9,3) (3,4) (10,8) (1,9) (5,10) (6,10) (7,10)
+to defined-tile-8 [xoff yoff]
+  
+  
+  draw-obstacle pxcor xoff 6 pycor yoff 1
+  draw-obstacle pxcor xoff 9 pycor yoff 3
+  draw-obstacle pxcor xoff 3 pycor yoff 4
+  draw-obstacle pxcor xoff 10 pycor yoff 8
+  draw-obstacle pxcor xoff 1 pycor yoff 9
+  draw-obstacle pxcor xoff 5 pycor yoff 10
+  draw-obstacle pxcor xoff 6 pycor yoff 10
+  draw-obstacle pxcor xoff 7 pycor yoff 10
+  
+end
+
+;Holds the definition of tile-9.
+;Whilst this tile will look the same wherever it appears in the
+;game, an offset is needed so that all of the patches are drawn
+;in their correct locations regardless of where they will appear.
+;For clarity, the positions of the obstacles (before any offsets
+;have been applied) are as follows:
+;(1,2) (6,2) (11,2) (2,3) (6,3) (10,3) (3,4) (4,4) (6,4) (8,4) (9,4)
+;(3,5) (4,5) (6,5) (8,5) (9,5) (5,6) (6,6) (7,6) (3,7) (4,7) (6,7) 
+;(8,7) (9,7) (3,8) (4,8) (6,8) (8,8) (9,8) (2,9) (6,9) (10,9)
+;(1,10) (6,10) (11,10)
+to defined-tile-9 [xoff yoff]
+  
+  draw-obstacle pxcor xoff 1 pycor yoff 2
+  draw-obstacle pxcor xoff 6 pycor yoff 2
+  draw-obstacle pxcor xoff 11 pycor yoff 2
+  draw-obstacle pxcor xoff 2 pycor yoff 3
+  draw-obstacle pxcor xoff 6 pycor yoff 3
+  draw-obstacle pxcor xoff 10 pycor yoff 3
+  draw-obstacle pxcor xoff 3 pycor yoff 4
+  draw-obstacle pxcor xoff 4 pycor yoff 4
+  draw-obstacle pxcor xoff 6 pycor yoff 4
+  draw-obstacle pxcor xoff 8 pycor yoff 4
+  draw-obstacle pxcor xoff 9 pycor yoff 4
+  draw-obstacle pxcor xoff 3 pycor yoff 5
+  draw-obstacle pxcor xoff 4 pycor yoff 5
+  draw-obstacle pxcor xoff 6 pycor yoff 5
+  draw-obstacle pxcor xoff 8 pycor yoff 5
+  draw-obstacle pxcor xoff 9 pycor yoff 5
+  draw-obstacle pxcor xoff 5 pycor yoff 6
+  draw-obstacle pxcor xoff 6 pycor yoff 6
+  draw-obstacle pxcor xoff 7 pycor yoff 6
+  draw-obstacle pxcor xoff 3 pycor yoff 7
+  draw-obstacle pxcor xoff 4 pycor yoff 7
+  draw-obstacle pxcor xoff 6 pycor yoff 7
+  draw-obstacle pxcor xoff 8 pycor yoff 7
+  draw-obstacle pxcor xoff 9 pycor yoff 7
+  draw-obstacle pxcor xoff 3 pycor yoff 8
+  draw-obstacle pxcor xoff 4 pycor yoff 8
+  draw-obstacle pxcor xoff 6 pycor yoff 8
+  draw-obstacle pxcor xoff 8 pycor yoff 8
+  draw-obstacle pxcor xoff 9 pycor yoff 8
+  draw-obstacle pxcor xoff 2 pycor yoff 9
+  draw-obstacle pxcor xoff 6 pycor yoff 9
+  draw-obstacle pxcor xoff 10 pycor yoff 9
+  draw-obstacle pxcor xoff 1 pycor yoff 10
+  draw-obstacle pxcor xoff 6 pycor yoff 10
+  draw-obstacle pxcor xoff 11 pycor yoff 10
+  
+end
+
+;Holds the definition of tile-10.
+;Whilst this tile will look the same wherever it appears in the
+;game, an offset is needed so that all of the patches are drawn
+;in their correct locations regardless of where they will appear.
+;For clarity, the positions of the obstacles (before any offsets
+;have been applied) are as follows:
+;(5,3) (6,3) (5,4) (6,4) (5,5) (6,5) (5,6) (6,6) (5,7) (6,7)
+;(5,8) (6,8) (3,9) (4,9) (5,9) (6,9) (7,9) (8,9)
+to defined-tile-10 [xoff yoff]
+  
+  draw-obstacle pxcor xoff 5 pycor yoff 3
+  draw-obstacle pxcor xoff 6 pycor yoff 3
+  draw-obstacle pxcor xoff 5 pycor yoff 4
+  draw-obstacle pxcor xoff 6 pycor yoff 4
+  draw-obstacle pxcor xoff 5 pycor yoff 5
+  draw-obstacle pxcor xoff 6 pycor yoff 5
+  draw-obstacle pxcor xoff 5 pycor yoff 6
+  draw-obstacle pxcor xoff 6 pycor yoff 6
+  draw-obstacle pxcor xoff 5 pycor yoff 7
+  draw-obstacle pxcor xoff 6 pycor yoff 7
+  draw-obstacle pxcor xoff 5 pycor yoff 8
+  draw-obstacle pxcor xoff 6 pycor yoff 8
+  draw-obstacle pxcor xoff 3 pycor yoff 9
+  draw-obstacle pxcor xoff 4 pycor yoff 9
+  draw-obstacle pxcor xoff 5 pycor yoff 9
+  draw-obstacle pxcor xoff 6 pycor yoff 9
+  draw-obstacle pxcor xoff 7 pycor yoff 9
+  draw-obstacle pxcor xoff 8 pycor yoff 9
+  
+end
+
+;Holds the definition of tile-11.
+;Whilst this tile will look the same wherever it appears in the
+;game, an offset is needed so that all of the patches are drawn
+;in their correct locations regardless of where they will appear.
+;For clarity, the positions of the obstacles (before any offsets
+;have been applied) are as follows:
+;(2,2) (3,2) (4,2) (5,2) (6,2) (7,2) (8,2) (9,2) (2,3) (9,3) (2,4)
+;(9,4) (2,5) (5,5) (6,5) (9,5) (2,6) (5,6) (6,6) (9,6) (2,7) (9,7)
+;(2,8) (9,8) (2,9) (9,9)
+to defined-tile-11 [xoff yoff]
+  
+  draw-obstacle pxcor xoff 2 pycor yoff 2
+  draw-obstacle pxcor xoff 3 pycor yoff 2
+  draw-obstacle pxcor xoff 4 pycor yoff 2
+  draw-obstacle pxcor xoff 5 pycor yoff 2
+  draw-obstacle pxcor xoff 6 pycor yoff 2
+  draw-obstacle pxcor xoff 7 pycor yoff 2
+  draw-obstacle pxcor xoff 8 pycor yoff 2
+  draw-obstacle pxcor xoff 9 pycor yoff 2
+  draw-obstacle pxcor xoff 2 pycor yoff 3
+  draw-obstacle pxcor xoff 9 pycor yoff 3
+  draw-obstacle pxcor xoff 2 pycor yoff 4
+  draw-obstacle pxcor xoff 9 pycor yoff 4
+  draw-obstacle pxcor xoff 2 pycor yoff 5
+  draw-obstacle pxcor xoff 5 pycor yoff 5
+  draw-obstacle pxcor xoff 6 pycor yoff 5
+  draw-obstacle pxcor xoff 9 pycor yoff 5
+  draw-obstacle pxcor xoff 2 pycor yoff 6
+  draw-obstacle pxcor xoff 5 pycor yoff 6
+  draw-obstacle pxcor xoff 6 pycor yoff 6
+  draw-obstacle pxcor xoff 9 pycor yoff 6
+  draw-obstacle pxcor xoff 2 pycor yoff 7
+  draw-obstacle pxcor xoff 9 pycor yoff 7
+  draw-obstacle pxcor xoff 2 pycor yoff 8
+  draw-obstacle pxcor xoff 9 pycor yoff 8
+  draw-obstacle pxcor xoff 2 pycor yoff 9
+  draw-obstacle pxcor xoff 9 pycor yoff 9
+  
+end
+
+;Holds the definition of tile-12.
+;Whilst this tile will look the same wherever it appears in the
+;game, an offset is needed so that all of the patches are drawn
+;in their correct locations regardless of where they will appear.
+;For clarity, the positions of the obstacles (before any offsets
+;have been applied) are as follows:
+;(2,1) (5,1) (10,1) (2,4) (10,4) (6,5) (1,9) (5,9) (9,9)
+to defined-tile-12 [xoff yoff]
+  
+  draw-obstacle pxcor xoff 2 pycor yoff 1
+  draw-obstacle pxcor xoff 5 pycor yoff 1
+  draw-obstacle pxcor xoff 10 pycor yoff 1
+  draw-obstacle pxcor xoff 2 pycor yoff 4
+  draw-obstacle pxcor xoff 10 pycor yoff 4
+  draw-obstacle pxcor xoff 6 pycor yoff 5
+  draw-obstacle pxcor xoff 1 pycor yoff 9
+  draw-obstacle pxcor xoff 5 pycor yoff 9
+  draw-obstacle pxcor xoff 9 pycor yoff 9
+  
+end
+
+;Holds the definition of tile-13.
+;Whilst this tile will look the same wherever it appears in the
+;game, an offset is needed so that all of the patches are drawn
+;in their correct locations regardless of where they will appear.
+;For clarity, the positions of the obstacles (before any offsets
+;have been applied) are as follows:
+;(3,1) (4,1) (5,1) (6,1) (7,1) (8,1) (3,2) (4,2) (5,2) (6,2) (7,2)
+;(8,2) (3,3) (4,3) (5,3) (6,3) (7,3) (8,3) (7,4) (8,4) (7,5) (8,5)
+;(7,6) (8,6) (2,7) (3,7) (4,7) (7,7) (8,7) (2,8) (3,8) (4,8) (7,8)
+;(8,8) (2,9) (3,9) (4,9) (7,9) (8,9) (7,10) (8,10) (7,11) (8,11)
+to defined-tile-13 [xoff yoff]
+  
+  draw-obstacle pxcor xoff 3 pycor yoff 1
+  draw-obstacle pxcor xoff 4 pycor yoff 1
+  draw-obstacle pxcor xoff 5 pycor yoff 1
+  draw-obstacle pxcor xoff 6 pycor yoff 1
+  draw-obstacle pxcor xoff 7 pycor yoff 1
+  draw-obstacle pxcor xoff 8 pycor yoff 1
+  draw-obstacle pxcor xoff 3 pycor yoff 2
+  draw-obstacle pxcor xoff 4 pycor yoff 2
+  draw-obstacle pxcor xoff 5 pycor yoff 2
+  draw-obstacle pxcor xoff 6 pycor yoff 2
+  draw-obstacle pxcor xoff 7 pycor yoff 2
+  draw-obstacle pxcor xoff 8 pycor yoff 2
+  draw-obstacle pxcor xoff 3 pycor yoff 3
+  draw-obstacle pxcor xoff 4 pycor yoff 3
+  draw-obstacle pxcor xoff 5 pycor yoff 3
+  draw-obstacle pxcor xoff 6 pycor yoff 3
+  draw-obstacle pxcor xoff 7 pycor yoff 3
+  draw-obstacle pxcor xoff 8 pycor yoff 3
+  draw-obstacle pxcor xoff 7 pycor yoff 4
+  draw-obstacle pxcor xoff 8 pycor yoff 4
+  draw-obstacle pxcor xoff 7 pycor yoff 5
+  draw-obstacle pxcor xoff 8 pycor yoff 5
+  draw-obstacle pxcor xoff 7 pycor yoff 6
+  draw-obstacle pxcor xoff 8 pycor yoff 6
+  draw-obstacle pxcor xoff 2 pycor yoff 7
+  draw-obstacle pxcor xoff 3 pycor yoff 7
+  draw-obstacle pxcor xoff 4 pycor yoff 7
+  draw-obstacle pxcor xoff 7 pycor yoff 7
+  draw-obstacle pxcor xoff 8 pycor yoff 7
+  draw-obstacle pxcor xoff 2 pycor yoff 8
+  draw-obstacle pxcor xoff 3 pycor yoff 8
+  draw-obstacle pxcor xoff 4 pycor yoff 8
+  draw-obstacle pxcor xoff 7 pycor yoff 8
+  draw-obstacle pxcor xoff 8 pycor yoff 8
+  draw-obstacle pxcor xoff 2 pycor yoff 9
+  draw-obstacle pxcor xoff 3 pycor yoff 9
+  draw-obstacle pxcor xoff 4 pycor yoff 9
+  draw-obstacle pxcor xoff 7 pycor yoff 9
+  draw-obstacle pxcor xoff 8 pycor yoff 9
+  draw-obstacle pxcor xoff 7 pycor yoff 10
+  draw-obstacle pxcor xoff 8 pycor yoff 10
+  draw-obstacle pxcor xoff 7 pycor yoff 11
+  draw-obstacle pxcor xoff 8 pycor yoff 11
+  
+end
+
+;Holds the definition of tile-14.
+;Whilst this tile will look the same wherever it appears in the
+;game, an offset is needed so that all of the patches are drawn
+;in their correct locations regardless of where they will appear.
+;For clarity, the positions of the obstacles (before any offsets
+;have been applied) are as follows:
+;(1,1) (1,2) (1,3) (1,4) (1,5) (1,6) (1,7) (1,8) (1,9) (1,10)
+;(4,1) (4,2) (4,3) (4,4) (4,5) (4,6) (4,7) (4,8) (4,9) (4,10)
+;(7,1) (7,2) (7,3) (7,4) (7,5) (7,6) (7,7) (7,8) (7,9) (7,10)
+;(10,1) (10,2) (10,3) (10,4) (10,5) (10,6) (10,7) (10,8) (10,9)
+;(10,10)
+to defined-tile-14 [xoff yoff]
+  
+  draw-obstacle pxcor xoff 1 pycor yoff 1
+  draw-obstacle pxcor xoff 1 pycor yoff 2
+  draw-obstacle pxcor xoff 1 pycor yoff 3
+  draw-obstacle pxcor xoff 1 pycor yoff 4
+  draw-obstacle pxcor xoff 1 pycor yoff 5
+  draw-obstacle pxcor xoff 1 pycor yoff 6
+  draw-obstacle pxcor xoff 1 pycor yoff 7
+  draw-obstacle pxcor xoff 1 pycor yoff 8
+  draw-obstacle pxcor xoff 1 pycor yoff 9
+  draw-obstacle pxcor xoff 1 pycor yoff 10
+  draw-obstacle pxcor xoff 4 pycor yoff 1
+  draw-obstacle pxcor xoff 4 pycor yoff 2
+  draw-obstacle pxcor xoff 4 pycor yoff 2
+  draw-obstacle pxcor xoff 4 pycor yoff 3
+  draw-obstacle pxcor xoff 4 pycor yoff 4
+  draw-obstacle pxcor xoff 4 pycor yoff 5
+  draw-obstacle pxcor xoff 4 pycor yoff 6
+  draw-obstacle pxcor xoff 4 pycor yoff 7
+  draw-obstacle pxcor xoff 4 pycor yoff 8
+  draw-obstacle pxcor xoff 4 pycor yoff 9
+  draw-obstacle pxcor xoff 4 pycor yoff 10
+  draw-obstacle pxcor xoff 7 pycor yoff 1
+  draw-obstacle pxcor xoff 7 pycor yoff 2
+  draw-obstacle pxcor xoff 7 pycor yoff 3
+  draw-obstacle pxcor xoff 7 pycor yoff 4
+  draw-obstacle pxcor xoff 7 pycor yoff 5
+  draw-obstacle pxcor xoff 7 pycor yoff 6
+  draw-obstacle pxcor xoff 7 pycor yoff 7
+  draw-obstacle pxcor xoff 7 pycor yoff 8
+  draw-obstacle pxcor xoff 7 pycor yoff 9
+  draw-obstacle pxcor xoff 7 pycor yoff 10
+  draw-obstacle pxcor xoff 10 pycor yoff 1
+  draw-obstacle pxcor xoff 10 pycor yoff 2
+  draw-obstacle pxcor xoff 10 pycor yoff 3
+  draw-obstacle pxcor xoff 10 pycor yoff 4
+  draw-obstacle pxcor xoff 10 pycor yoff 5
+  draw-obstacle pxcor xoff 10 pycor yoff 6
+  draw-obstacle pxcor xoff 10 pycor yoff 7
+  draw-obstacle pxcor xoff 10 pycor yoff 8
+  draw-obstacle pxcor xoff 10 pycor yoff 9
+  draw-obstacle pxcor xoff 10 pycor yoff 10
+  
+  
+end
+
+;Holds the definition of tile-15.
+;Whilst this tile will look the same wherever it appears in the
+;game, an offset is needed so that all of the patches are drawn
+;in their correct locations regardless of where they will appear.
+;For clarity, the positions of the obstacles (before any offsets
+;have been applied) are as follows:
+;(4,3) (7,3) (3,4) (4,4) (7,4) (8,4) (2,5) (3,5) (4,5) (7,5) (8,5)
+;(9,5)(2,7) (3,7) (4,7) (7,7) (8,7) (9,7) (3,8) (4,8) (7,8) (8,8)
+; (4,9) (7,9)
+to defined-tile-15 [xoff yoff]
+  
+  draw-obstacle pxcor xoff 4 pycor yoff 3
+  draw-obstacle pxcor xoff 7 pycor yoff 3
+  draw-obstacle pxcor xoff 3 pycor yoff 4
+  draw-obstacle pxcor xoff 4 pycor yoff 4
+  draw-obstacle pxcor xoff 7 pycor yoff 4
+  draw-obstacle pxcor xoff 8 pycor yoff 4
+  draw-obstacle pxcor xoff 2 pycor yoff 5
+  draw-obstacle pxcor xoff 3 pycor yoff 5
+  draw-obstacle pxcor xoff 4 pycor yoff 5
+  draw-obstacle pxcor xoff 7 pycor yoff 5
+  draw-obstacle pxcor xoff 8 pycor yoff 5
+  draw-obstacle pxcor xoff 9 pycor yoff 5
+  draw-obstacle pxcor xoff 2 pycor yoff 7
+  draw-obstacle pxcor xoff 3 pycor yoff 7
+  draw-obstacle pxcor xoff 4 pycor yoff 7
+  draw-obstacle pxcor xoff 7 pycor yoff 7
+  draw-obstacle pxcor xoff 8 pycor yoff 7
+  draw-obstacle pxcor xoff 9 pycor yoff 7
+  draw-obstacle pxcor xoff 3 pycor yoff 8
+  draw-obstacle pxcor xoff 4 pycor yoff 8
+  draw-obstacle pxcor xoff 7 pycor yoff 8
+  draw-obstacle pxcor xoff 8 pycor yoff 8
+  draw-obstacle pxcor xoff 4 pycor yoff 9
+  draw-obstacle pxcor xoff 7 pycor yoff 9
+  
+  
+end
+
+;Holds the definition of tile-16.
+;Whilst this tile will look the same wherever it appears in the
+;game, an offset is needed so that all of the patches are drawn
+;in their correct locations regardless of where they will appear.
+;For clarity, the positions of the obstacles (before any offsets
+;have been applied) are as follows:
+;(2,1) (3,1) (4,1) (5,1) (6,1) (7,1) (8,1) (9,1) (2,4) (3,4) (4,4)
+;(5,4) (6,4) (7,4) (8,4) (9,4) (2,7) (3,7) (4,7) (5,7) (6,7) (7,7)
+;(8,7) (9,7) (2,10) (3,10) (4,10) (5,10) (6,10) (7,10) (8,10) (9,10)
+to defined-tile-16 [xoff yoff]
+  
+  draw-obstacle pxcor xoff 2 pycor yoff 1
+  draw-obstacle pxcor xoff 3 pycor yoff 1
+  draw-obstacle pxcor xoff 4 pycor yoff 1
+  draw-obstacle pxcor xoff 5 pycor yoff 1
+  draw-obstacle pxcor xoff 6 pycor yoff 1
+  draw-obstacle pxcor xoff 7 pycor yoff 1
+  draw-obstacle pxcor xoff 8 pycor yoff 1
+  draw-obstacle pxcor xoff 9 pycor yoff 1
+  draw-obstacle pxcor xoff 2 pycor yoff 4
+  draw-obstacle pxcor xoff 3 pycor yoff 4
+  draw-obstacle pxcor xoff 4 pycor yoff 4
+  draw-obstacle pxcor xoff 5 pycor yoff 4
+  draw-obstacle pxcor xoff 6 pycor yoff 4
+  draw-obstacle pxcor xoff 7 pycor yoff 4
+  draw-obstacle pxcor xoff 8 pycor yoff 4
+  draw-obstacle pxcor xoff 9 pycor yoff 4
+  draw-obstacle pxcor xoff 2 pycor yoff 7
+  draw-obstacle pxcor xoff 3 pycor yoff 7
+  draw-obstacle pxcor xoff 4 pycor yoff 7
+  draw-obstacle pxcor xoff 5 pycor yoff 7
+  draw-obstacle pxcor xoff 6 pycor yoff 7
+  draw-obstacle pxcor xoff 7 pycor yoff 7
+  draw-obstacle pxcor xoff 8 pycor yoff 7
+  draw-obstacle pxcor xoff 9 pycor yoff 7
+  draw-obstacle pxcor xoff 2 pycor yoff 10
+  draw-obstacle pxcor xoff 3 pycor yoff 10
+  draw-obstacle pxcor xoff 4 pycor yoff 10
+  draw-obstacle pxcor xoff 5 pycor yoff 10
+  draw-obstacle pxcor xoff 6 pycor yoff 10
+  draw-obstacle pxcor xoff 7 pycor yoff 10
+  draw-obstacle pxcor xoff 8 pycor yoff 10
+  draw-obstacle pxcor xoff 9 pycor yoff 10
   
 end
 @#$#@#$#@
