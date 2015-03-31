@@ -239,7 +239,7 @@ SWITCH
 100
 debug?
 debug?
-0
+1
 1
 -1000
 

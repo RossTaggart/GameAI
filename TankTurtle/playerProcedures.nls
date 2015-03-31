@@ -2,6 +2,9 @@
 ;;;   Player Procedures    ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+extensions [sound]
+
 to updateGlobals 
     
   if (playerHealth < 0)
@@ -110,6 +113,7 @@ to eatFuel
     if any? players-here
     [
       set playerFuelLevel playerFuelLevel + 25
+      sound:play-sound "tankPickUp2.wav"
     ]
   ]
 end
@@ -147,6 +151,7 @@ to damagePlayer
           if (playerHealth != 0)
           [
             damagePlayerAnimation
+            sound:play-sound "tankTakeDamage.wav"
           ]
         ]
       ]
@@ -164,7 +169,7 @@ to pickupAmmo
       if any? players-here
       [
         set playerAmmo playerAmmo + 1
-      ]
+        sound:play-sound "tankPickUp2.wav"      ]
     ]
   ]
 end
@@ -181,6 +186,7 @@ to shoot
       set heading [heading] of player 0
       set size 2.5
       set playerAmmo playerAmmo - 1
+      sound:play-sound "tankShoot.wav"
     ]
   ]
 end
