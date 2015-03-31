@@ -201,8 +201,10 @@ to shoot-missiles
   ask missiles
   [
     fd 1
-    if xcor > 36 or xcor <= 0 or ycor > 36 or ycor <= 0 [die]
+    
+    if xcor >= 36 or xcor <= 0 or ycor >= 36 or ycor <= 0 [die]
     if [pcolor] of patch-here = red [die]
+    
     if any? bots-here
     [
       ask bots-here
