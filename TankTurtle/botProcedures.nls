@@ -224,15 +224,8 @@ to-report find-a-path [ source-patch destination-patch]
               ; calculate new estimate heuristic value
               
               ; heuristic function for seeking state
-              ask myself [ 
-                if [pcolor] of myself = white [ 
-                  set h distance destination-patch 
-                ] 
-                if [pcolor] of myself = grey [
-                  set h distance destination-patch + 3
-                ]
-              
-              ]
+              set h distance destination-patch + move-rate
+
               ;set h distance destination-patch + ([move-rate] of myself) - 5
              
               ; calculate patch value

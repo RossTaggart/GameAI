@@ -16,15 +16,6 @@ to new
   setupAmmo
   setupInput
   
-  ask patches with [pcolor = white]
-  [
-    set move-rate 0.25
-  ]
-  ask patches with [pcolor = grey ]
-  [
-    set move-rate 3
-  ]
-  
   set dead? false
   set score 0
   set lives 3
@@ -39,6 +30,15 @@ to new
   set debug-state "N/A"
   set enemy-can-shoot? false
   ask one-of bots [ set destination patch-here ]
+  
+  ask patches with [pcolor = white]
+  [
+    set move-rate 0.25
+  ]
+  ask patches with [pcolor = grey]
+  [
+    set move-rate 1.5
+  ]
 end
 
 to load-map
