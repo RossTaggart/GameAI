@@ -4,11 +4,15 @@
 
 to new
   clear-all     ; clear everything (the view and all the variables)
-  load-map      ; load map procedure
+  ;;load-map      ; load map procedure
+     
+  set open []
+  set closed []
+  
+  generate-map
   setup-player  ; initialise player
   setup-bots    ; initialise bots
   setupFuels
-  setupBombs
   setupAmmo
   setupInput
   
@@ -25,9 +29,6 @@ to new
   set end-game "false"
   set debug-state "N/A"
   set enemy-can-shoot? false
-  
-  set open []
-  set closed []
   ask one-of bots [ set destination patch-here ]
 end
 
@@ -144,10 +145,6 @@ end
  
 to clear-screen
   cd
-  ask patches with [pcolor != black]
-  [
-    set pcolor black
-  ]
   ask patches with [plabel = "tankSpawn"]
   [
     set plabel ""
@@ -156,12 +153,16 @@ to clear-screen
   [
    set plabel ""
   ]
+  ask patches with [pcolor != white]
+  [
+    set pcolor white
+  ]
  
 end
 
 to setup-player
   set-default-shape players "tank"
-  ask one-of patches with [plabel = "playerSpawn"]
+  ask one-of patches with [pcolor = blue]
   [
     sprout-players 1
     [
@@ -173,7 +174,7 @@ end
 
 to setup-bots
   set-default-shape bots "tank"
-  ask one-of patches with [plabel = "tankSpawn"]
+  ask one-of patches with [pcolor = yellow ]
   [
     sprout-bots 1
     [
@@ -186,20 +187,18 @@ end
 
 ;;Creates 2 fuel pickups and places them randomly on white patches
 to setupFuels
-  create-fuels 2
+  
+  create-fuels 4
   [
-    move-to one-of patches with [pcolor = white]
-    set shape "target"
-    set size 1.0
-  ]
-end
-
-;;Creates 2 bombs and places them randomly on white patches
-to setupBombs
-  create-bombs 2
-  [
-    move-to one-of patches with [pcolor = white]
-    set size 1.0
+    set shape "fuelshape"
+    set size 2.5
+    
+    move-to one-of patches with [pcolor = black]
+    
+    if any? other fuels-on patch-here
+    [
+     move-to one-of patches with [pcolor = black] 
+    ]
   ]
 end
 
@@ -207,9 +206,9 @@ end
 to setupAmmo
   create-ammos 4
   [
-    move-to one-of patches with [pcolor = white]
-    set shape "box"
-    set size 1.0
+    move-to one-of patches with [pcolor = green]
+    set shape "ammoShape"
+    set size 2.5
   ]
 end
 

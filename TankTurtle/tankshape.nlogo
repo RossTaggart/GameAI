@@ -1,9 +1,8 @@
-__includes [ "setup.nls" "playerProcedures.nls" "botProcedures.nls" ]
+__includes [ "setup.nls" "playerProcedures.nls" "botProcedures.nls" "ProceduralGeneration.nls" ]
 
 ; global variables used
 globals [
   action              ; last button pressed
-    
   score               ; current score
   lives               ; remaining lives
   range               ; tank fire range
@@ -106,11 +105,11 @@ end
 GRAPHICS-WINDOW
 244
 22
-749
-548
-16
-16
-15.0
+735
+534
+-1
+-1
+13.0
 1
 10
 1
@@ -120,10 +119,10 @@ GRAPHICS-WINDOW
 0
 0
 1
--16
-16
--16
-16
+0
+36
+0
+36
 0
 0
 1
@@ -382,10 +381,10 @@ enemyHealth
 11
 
 PLOT
-8
-657
-366
-834
+913
+94
+1271
+271
 Heuristic performance
 Time
 Patches considered
@@ -461,8 +460,8 @@ Polygon -7500403 true true 150 0 135 15 120 60 120 105 15 165 15 195 120 180 135
 
 ammoshape
 true
-0
-Rectangle -7500403 true true 60 75 255 225
+15
+Rectangle -10899396 true false 60 75 255 225
 Circle -955883 true false 75 120 30
 Rectangle -1184463 true false 75 135 105 195
 Circle -955883 true false 120 120 30
