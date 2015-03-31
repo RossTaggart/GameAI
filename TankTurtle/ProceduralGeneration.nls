@@ -345,7 +345,7 @@ to place-enemy-spawns
   let xcord random-pxcor
   let ycord random-pycor
  
-  let no-of-enemy-spawns 4
+  let no-of-enemy-spawns 1
   let no-of-enemies-spawned 0
  
   while [no-of-enemies-spawned < no-of-enemy-spawns]
