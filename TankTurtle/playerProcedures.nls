@@ -2,6 +2,8 @@
 ;;;   Player Procedures    ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+extensions [sound]
+
 to updateGlobals 
     
   if (playerHealth < 0)
@@ -167,6 +169,7 @@ to pickupAmmo
       if any? players-here
       [
         set playerAmmo playerAmmo + 1
+        sound:play-sound "tankPickUp2.wav"
       ]
     ]
   ]
@@ -184,6 +187,7 @@ to shoot
       set heading [heading] of player 0
       set size 2.5
       set playerAmmo playerAmmo - 1
+      sound:play-sound "tankShoot.wav"
     ]
   ]
 end

@@ -343,11 +343,13 @@ to Enemy-shoot-missiles
         if (playerHealth = 0) 
         [
           explodePlayerAnimation
+          sound:play-sound "tankDeath.wav"
           die
         ]
         if (playerHealth != 0)
         [
           damagePlayerAnimation
+          sound:play-sound "tankTakeDamage.wav"
         ]
       ]
       ask missiles-here [die]
