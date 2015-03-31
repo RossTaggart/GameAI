@@ -171,6 +171,8 @@ end
 
 to setup-player
   set-default-shape players "tank"
+  carefully
+  [
   ask one-of patches with [pcolor = blue]
   [
     sprout-players 1
@@ -178,6 +180,20 @@ to setup-player
       set size 2.0
       set breed players
     ]
+  ]
+  ]
+  [
+    place-player-spawn
+    
+    ask one-of patches with [pcolor = blue]
+  [
+    sprout-players 1
+    [
+      set size 2.0
+      set breed players
+    ]
+  ]
+    
   ]
 end
 
