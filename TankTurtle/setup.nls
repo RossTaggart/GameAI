@@ -13,6 +13,7 @@ to new
   setupInput
   
   set dead? false
+  set enemyDead? false
   set score 0
   set lives 3
   set range 4

@@ -201,7 +201,7 @@ to shoot-missiles
         if (enemyHealth = 0) 
         [
           explodeEnemyAnimation
-          die
+          set enemyDead? true
         ]
         if (enemyHealth != 0)
         [

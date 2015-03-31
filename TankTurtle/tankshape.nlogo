@@ -15,6 +15,7 @@ globals [
   max-fuel            ; maximum fuel you can carry
   playerState         ; the player's state
   dead?               ; are you dead
+  enemyDead?          ; is the enemy dead?
   enemyHealth         ; the current health of the enemy
   current-enemy-state ; the current state of the enemy tank
   end-game            ; the state of ended game
@@ -65,7 +66,7 @@ to play ;; Forever button
   [ user-message "YOU FAILED. YOU FAILURE"   toggleendgame ]
   
   ;;Displays win message if the enemy is destroyed.
-  if enemyHealth = 0
+  if enemyDead? or enemyHealth = 0
   [ user-message "Congratulations, you win!" toggleendgame ]
   
   if end-game = "true"
