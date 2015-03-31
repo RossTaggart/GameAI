@@ -85,7 +85,7 @@ to draw
     [
       if mouse-down?
       [
-        if [pcolor] of patch mouse-xcor mouse-ycor = black or [pcolor] of patch mouse-xcor mouse-ycor = red
+        if [pcolor] of patch mouse-xcor mouse-ycor = black or [pcolor] of patch mouse-xcor mouse-ycor = red or [pcolor] of patch mouse-xcor mouse-ycor = grey
         [
           ask patch mouse-xcor mouse-ycor
           [
