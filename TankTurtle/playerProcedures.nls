@@ -16,36 +16,68 @@ to updateGlobals
 end
 
 to input-player  ;; Observer Procedure
-  move-player
+  ;move-player
+  
   eatFuel
   capFuelLimit
   pickupAmmo
   damagePlayer
+  ;changePlayerState
   ;;shoot-missiles
   display
+end
+
+
+to changePlayerState  
+  ;if (action != 0)
+  ;[
+  ; set playerState "Movement State"
+  ;]
+  ;report [move-player]
+  
+  ;;if playerState = 
+  ;if playerState = "Movement State"
+  ;[
+  ;  move-player
+  ;]
+  ;if (action = 0)
+  ;[
+   ; set playerState "Idle"
+  ;]
+  set playerState "Idle"
+  if %playerHealth = 0
+  [
+    set playerState "Death State"
+  ]
 end
 
 ;;;;;;;;;;;;;;;;
 ;;player stuff;;
 ;;;;;;;;;;;;;;;;
 
-to move-player
-  if (action != 0)
-    [
-      if (playerFuelLevel > 0)
-      [
-       if (action = 1)
-         [ move-left ]
-       if (action = 2)
-         [ move-right ]
-       if (action = 3)
-         [ move-down ]
-       if (action = 4)
-         [ move-up ]
-       set action 0
-      ]
-    ]
-end
+;to move-player
+  ;if (action != 0)
+  ;  [
+  ;    if (playerFuelLevel > 0)
+  ;    [
+  ;     if (action = 1)
+  ;       [ move-left ]
+  ;     if (action = 2)
+  ;       [ move-right ]
+  ;     if (action = 3)
+  ;       [ move-down ]
+  ;     if (action = 4)
+  ;       [ move-up ]
+  ;     set action 0
+  ;     ;set playerState "Movement State"
+  ;     ;set 
+  ;    ]
+  ;  ]
+    ;if (action = 0)
+    ;[
+    ;  set playerState "Idle State"
+    ;]
+;end
 
 to move-left
   ask players with [xcor != min-pxcor]
@@ -57,8 +89,8 @@ to move-left
       [ 
         fd 1 
         decrementFuel
+        set playerState "Movement State"
       ]
-      
     ]
 end
 
@@ -72,6 +104,7 @@ to move-right
       [ 
         fd 1 
         decrementFuel
+        set playerState "Movement State"
       ]
     ]
 end
@@ -86,6 +119,7 @@ to move-up
       [ 
         fd 1 
         decrementFuel
+        set playerState "Movement State"
       ]
     ]
 end
@@ -100,6 +134,7 @@ to move-down
       [ 
         fd 1 
         decrementFuel
+        set playerState "Movement State"
       ]
     ]
 end
@@ -184,6 +219,7 @@ to shoot
       set heading [heading] of player 0
       set size 2.5
       set playerAmmo playerAmmo - 1
+      set playerState "Firing State"
     ]
   ]
 end
