@@ -325,6 +325,7 @@ to Enemy-shoot
       set heading [heading] of bot 1
       set size 2.5
       set enemyAmmo enemyAmmo - 1
+      sound:play-sound "tankShoot.wav"
     ]
   ]
 end

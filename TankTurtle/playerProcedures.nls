@@ -215,6 +215,7 @@ to shoot-missiles
         if (enemyHealth != 0)
         [
           damageEnemyAnimation
+          sound:play-sound "tankTakeDamage.wav"
         ]
       ]
       ask missiles-here [die]
