@@ -30,7 +30,7 @@ to update-states ;; this is going to be the defined states which tell the tank w
       face player 0
       ask bots
       [
-        toggle-can-shoot
+        set enemy-can-shoot?  true
         stop
       ]
     ]
@@ -53,19 +53,14 @@ to revert-to-seeking
   ]
 end
 
-to toggle-can-shoot
-  if enemy-can-shoot? = true
+to check-current-state ;; this is going to be the transitions between states
+  
+  ;; if the enemy leavesthe attack state
+  if current-enemy-state != "attacking"
   [
-    set enemy-can-shoot?  false
+    set enemy-can-shoot? false
   ]
   
-  if enemy-can-shoot? = false
-  [
-   set enemy-can-shoot?  true 
-  ]
-end
-
-to check-current-state ;; this is going to be the transitions between states
   ;;if the bot has no health - die
   if enemyHealth = 0
   [
@@ -115,7 +110,7 @@ to input-bots  ; Observer Procedure
   
   if enemy-can-shoot? = true
   [
-    every(1.5)
+    every(2.0)
     [
       Enemy-shoot
     ]

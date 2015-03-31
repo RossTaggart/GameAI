@@ -239,7 +239,7 @@ SWITCH
 100
 debug?
 debug?
-0
+1
 1
 -1000
 
@@ -399,6 +399,17 @@ false
 PENS
 "default" 1.0 0 -16777216 true "" "plot length open + length closed"
 
+MONITOR
+770
+73
+857
+118
+Enemy Ammo
+enemyAmmo
+17
+1
+11
+
 @#$#@#$#@
 ## WHAT IS IT?
 
@@ -447,6 +458,19 @@ airplane
 true
 0
 Polygon -7500403 true true 150 0 135 15 120 60 120 105 15 165 15 195 120 180 135 240 105 270 120 285 150 270 180 285 210 270 165 240 180 180 285 195 285 165 180 105 180 60 165 15
+
+ammoshape
+true
+0
+Rectangle -7500403 true true 60 75 255 225
+Circle -955883 true false 75 120 30
+Rectangle -1184463 true false 75 135 105 195
+Circle -955883 true false 120 120 30
+Circle -955883 true false 165 120 30
+Circle -955883 true false 210 120 30
+Rectangle -1184463 true false 210 135 240 195
+Rectangle -1184463 true false 165 135 195 195
+Rectangle -1184463 true false 120 135 150 195
 
 arrow
 true
@@ -584,6 +608,28 @@ Circle -7500403 true true 96 51 108
 Circle -16777216 true false 113 68 74
 Polygon -10899396 true false 189 233 219 188 249 173 279 188 234 218
 Polygon -10899396 true false 180 255 150 210 105 210 75 240 135 240
+
+fuelshape
+true
+0
+Rectangle -10899396 true false 90 45 210 255
+Rectangle -13840069 true false 105 60 195 240
+Rectangle -10899396 true false 120 75 180 225
+Rectangle -16777216 false false 105 60 195 240
+Rectangle -16777216 false false 120 75 180 225
+Rectangle -16777216 false false 90 45 210 255
+Line -16777216 false 135 90 165 90
+Line -16777216 false 165 90 165 105
+Line -16777216 false 150 90 150 105
+Line -16777216 false 165 120 135 120
+Line -16777216 false 135 120 135 135
+Line -16777216 false 135 135 165 135
+Line -16777216 false 165 150 165 165
+Line -16777216 false 165 150 135 150
+Line -16777216 false 135 150 135 165
+Line -16777216 false 150 150 150 165
+Line -16777216 false 165 180 135 180
+Line -16777216 false 135 180 135 195
 
 house
 false
