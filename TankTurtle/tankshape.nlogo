@@ -16,6 +16,7 @@ globals [
   dead?               ; are you dead
   enemyHealth         ; the current health of the enemy
   enemyAmmo           ; the current amount of ammo they have
+  enemyFuel           ; enemy fuel level
   current-enemy-state ; the current state of the enemy tank
   end-game            ; the state of ended game
   debug-state         ; debug state for the enemy tank (temp)
@@ -64,7 +65,7 @@ breed [ missiles missile ]
 breed [ bombs bomb ]
 
 to play ;; Forever button
-  if dead? or playerFuelLevel = 0
+  if playerHealth = 0 or playerFuelLevel = 0
   [ user-message "YOU FAILED. YOU FAILURE"   toggleendgame ]
   
   ;;Displays win message if the enemy is destroyed.
@@ -238,7 +239,7 @@ SWITCH
 100
 debug?
 debug?
-1
+0
 1
 -1000
 

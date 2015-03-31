@@ -110,7 +110,6 @@ to eatFuel
     if any? players-here
     [
       set playerFuelLevel playerFuelLevel + 25
-      die
     ]
   ]
 end
@@ -149,7 +148,6 @@ to damagePlayer
           [
             damagePlayerAnimation
           ]
-          die
         ]
       ]
     ]
@@ -166,7 +164,6 @@ to pickupAmmo
       if any? players-here
       [
         set playerAmmo playerAmmo + 1
-        die
       ]
     ]
   ]
@@ -207,7 +204,6 @@ to shoot-missiles
         if (enemyHealth = 0) 
         [
           explodeEnemyAnimation
-          die
         ]
         if (enemyHealth != 0)
         [

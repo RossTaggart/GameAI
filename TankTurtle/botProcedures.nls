@@ -27,19 +27,17 @@ to update-states ;; this is going to be the defined states which tell the tank w
   ;; this state is for when the enemy tank is within "x" blocks of the player and can see him
     if current-enemy-state = "attacking"
     [
-    ;;ask bots [show [distance playerTank]] ;;attack the player - awaiting implementation
-    ;; do we, attack once and then go back to seeking (therefore determining once again if it should attack)
-    ;; or do we, attack every x seconds
-    ;; attack -> wait for 2 seconds -> dont let enemy move while reloading, gives player time to get a tactical advantage
-    ;; Enemy-shoot
-    face player 0
-    
+      face player 0
       ask bots
       [
         toggle-can-shoot
-        ;;revert-to-seeking
         stop
       ]
+    ]
+    
+    if current-enemy-state = "low-ammo"
+    [
+     ;;seek da ammos 
     ]
   
   ;; when the player hits the enemy it will set the enemy state to dead
@@ -48,8 +46,11 @@ to update-states ;; this is going to be the defined states which tell the tank w
 end
 
 to revert-to-seeking
-  set current-enemy-state "seeking"
-  set destination one-of patches with [pcolor = white and distance myself > 15]
+  if current-enemy-state != "seeking"
+  [
+    set current-enemy-state "seeking"
+    set destination one-of patches with [pcolor = white and distance myself > 15]
+  ]
 end
 
 to toggle-can-shoot
@@ -65,34 +66,36 @@ to toggle-can-shoot
 end
 
 to check-current-state ;; this is going to be the transitions between states
-    
+  ;;if the bot has no health - die
   if enemyHealth = 0
   [
     set current-enemy-state "dead"
     stop
   ]
   
-  ;ask one-of players [ set temp-distance [distance one-of bots] ]
+  ;; if the bot is low on ammo - seek ammo instead of player
+  if enemyAmmo = 0
+  [
+   set current-enemy-state "low-ammo" 
+   stop
+  ]
   
-  ;; if the player is within range
+  ;; if the player is in attacking distance- stops enemy and gets ready to fire
   if [distance myself] of one-of patches with [any? players-here] < 5
-  ;; if length < 10 and in sight - move to attacking else stay in seeking 
-  ;; still need to check left and right
-  ;; should try to use patch-at-heading-and-distance heading distance for telling the different sides (-90 = west 90 = east 180 = south 0 = north <- shouldnt need north though)
     [
       set current-enemy-state "attacking"
       stop  
     ]
+  ;; if the player is in chasing distance- gives the enemy the players exact location
   if [distance myself] of one-of patches with [any? players-here] < 10
   [
     set current-enemy-state "chasing"
     stop
   ]
   
+  ;; player has went back out of attacking/chasing range
   if length current-path > 5
     [revert-to-seeking set debug-state "out of range"]  
-  
-  ;; still need to think more about the other state transitions, write them down or something.
 end
 
 to input-bots  ; Observer Procedure
