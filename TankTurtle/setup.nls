@@ -117,7 +117,7 @@ to draw
       [
         if [pcolor] of patch mouse-xcor mouse-ycor = white 
         [
-          ask patches with [plabel = "playerSpawn"]
+          ask patches with [pcolor = blue]
           [
             set pcolor white
             set plabel ""  
@@ -125,8 +125,6 @@ to draw
           ask patch mouse-xcor mouse-ycor
           [
             set pcolor blue
-            set plabel "playerSpawn"
-            set plabel-color red
           ]
         ]
       ]
@@ -139,15 +137,33 @@ to draw
       [
         if [pcolor] of patch mouse-xcor mouse-ycor = white
         [
+          ask patches with [pcolor = yellow]
+          [
+            set pcolor white
+            set plabel ""  
+          ]  
+          
           ask patch mouse-xcor mouse-ycor
           [
-            set pcolor green
-            set plabel "tankSpawn"
-            set plabel-color red
+            set pcolor yellow
           ]
         ]
       ]
     ]
+    if DrawElements = "Slow Ground"
+    [
+      if mouse-down?
+      [
+        if [pcolor] of patch mouse-xcor mouse-ycor = white or [pcolor] of patch mouse-xcor mouse-ycor = red
+        [
+          ask patch mouse-xcor mouse-ycor
+          [
+            set pcolor grey
+          ]
+        ]
+      ]
+    ]
+   
   ]
  
 end

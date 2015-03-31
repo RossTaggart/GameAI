@@ -106,6 +106,23 @@ to toggleendgame
    if end-game = "false"
   [set end-game "true"]
 end
+
+to verify-map
+  
+  ask bots
+  [
+   die 
+  ]
+  
+  ask players
+  [
+   die 
+  ]
+  
+  setup-bots
+  setup-player
+  
+end
 @#$#@#$#@
 GRAPHICS-WINDOW
 244
@@ -271,8 +288,8 @@ CHOOSER
 189
 DrawElements
 DrawElements
-"Path" "Obstacle" "Player Spawn" "Tank Spawn"
-0
+"Path" "Obstacle" "Player Spawn" "Tank Spawn" "Slow Ground"
+2
 
 BUTTON
 126
@@ -413,6 +430,23 @@ enemyAmmo
 17
 1
 11
+
+BUTTON
+150
+171
+240
+204
+Verify Map
+verify-map
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
