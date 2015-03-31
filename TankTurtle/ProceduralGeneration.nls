@@ -374,7 +374,7 @@ to place-slow-tiles
   let xcord random-pxcor
   let ycord random-pycor
  
-  let no-of-slow-tiles 20
+  let no-of-slow-tiles 30
   let no-of-slow-tiles-spawned 0
  
   while [no-of-slow-tiles-spawned < no-of-slow-tiles]

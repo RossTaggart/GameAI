@@ -58,7 +58,7 @@ to move-left
         fd 1 
         decrementFuel
       ]
-      
+      set current-player-move-rate [move-rate] of patch-here
     ]
 end
 
@@ -73,6 +73,7 @@ to move-right
         fd 1 
         decrementFuel
       ]
+      set current-player-move-rate [move-rate] of patch-here
     ]
 end
 
@@ -87,6 +88,7 @@ to move-up
         fd 1 
         decrementFuel
       ]
+      set current-player-move-rate [move-rate] of patch-here
     ]
 end
 
@@ -101,6 +103,7 @@ to move-down
         fd 1 
         decrementFuel
       ]
+      set current-player-move-rate [move-rate] of patch-here
     ]
 end
 

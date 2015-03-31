@@ -2,30 +2,34 @@ __includes [ "setup.nls" "playerProcedures.nls" "botProcedures.nls" "ProceduralG
 
 ; global variables used
 globals [
-  action              ; last button pressed
-  score               ; current score
-  lives               ; remaining lives
-  range               ; tank fire range
-  playerHealth        ; player current health
-  max-health          ; maximum player health
-  playerAmmo          ; current ammo
-  max-ammo            ; maximum ammo you can carry
-  playerFuelLevel     ; current fuel
-  max-fuel            ; maximum fuel you can carry
-  dead?               ; are you dead
-  enemyHealth         ; the current health of the enemy
-  enemyAmmo           ; the current amount of ammo they have
-  enemyFuel           ; enemy fuel level
-  current-enemy-state ; the current state of the enemy tank
-  end-game            ; the state of ended game
-  debug-state         ; debug state for the enemy tank (temp)
-  enemy-can-shoot?    ; if the enemy can shoot or not
+  action                ; last button pressed
+  score                 ; current score
+  lives                 ; remaining lives
+  range                 ; tank fire range
+  playerHealth          ; player current health
+  max-health            ; maximum player health
+  playerAmmo            ; current ammo
+  max-ammo              ; maximum ammo you can carry
+  playerFuelLevel       ; current fuel
+  max-fuel              ; maximum fuel you can carry
+  dead?                 ; are you dead
+  enemyHealth           ; the current health of the enemy
+  enemyAmmo             ; the current amount of ammo they have
+  enemyFuel             ; enemy fuel level
+  current-enemy-state   ; the current state of the enemy tank
+  end-game              ; the state of ended game
+  debug-state           ; debug state for the enemy tank (temp)
+  enemy-can-shoot?      ; if the enemy can shoot or not
   
-  destination         ; the currently assigned destination for the bot
+  destination              ; the currently assigned destination for the bot
+  current-bot-move-rate    ; the bot's currently set movement rate
+  current-player-move-rate ; the player's currently set movement rate
   
-  open                ; the open list of patches
-  closed              ; the closed list of patches
-  optimal-path        ; the optimal path, list of patches from source to destination
+  open                     ; the open list of patches
+  closed                   ; the closed list of patches
+  optimal-path             ; the optimal path, list of patches from source to destination
+  
+  heuristic-value
 ]
 
 patches-own
@@ -34,6 +38,7 @@ patches-own
   f ; g + h
   g ; distance so far (knowledge)
   h ; estimated distance to go (heuristic)
+  move-rate ; turtle move-rate on this patch
 ]
   
 ;; A breed of turtle (bots)
@@ -75,11 +80,11 @@ to play ;; Forever button
   [
     stop 
   ]
-  every ( 0.25 )
+  every ( current-player-move-rate )
   [ 
     input-player ;; Player move/fire
   ]
-  every ( 0.25 )
+  every ( current-bot-move-rate )
   [
     input-bots ;; Bots move/fire
   ]
@@ -169,7 +174,7 @@ BUTTON
 146
 377
 Up
-if dead? != true\n[\nset action 4\ninput-player\n]\n
+if dead? != true\n[\nset action 4\n]\n
 NIL
 1
 T
@@ -186,7 +191,7 @@ BUTTON
 146
 412
 Down
-if dead? != true\n[\nset action 3\ninput-player\n]\n
+if dead? != true\n[\nset action 3\n]\n
 NIL
 1
 T
@@ -203,7 +208,7 @@ BUTTON
 203
 412
 Right
-if dead? != true\n[\nset action 2\ninput-player\n]\n
+if dead? != true\n[\nset action 2\n]\n
 NIL
 1
 T
@@ -220,7 +225,7 @@ BUTTON
 89
 412
 Left
-if dead? != true\n[\nset action 1\ninput-player\n]\n
+if dead? != true\n[\nset action 1\n]\n
 NIL
 1
 T
@@ -267,7 +272,7 @@ CHOOSER
 DrawElements
 DrawElements
 "Path" "Obstacle" "Player Spawn" "Tank Spawn"
-2
+0
 
 BUTTON
 126

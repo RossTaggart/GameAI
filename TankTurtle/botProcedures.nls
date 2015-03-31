@@ -37,6 +37,9 @@ to update-states ;; this is going to be the defined states which tell the tank w
     
     if current-enemy-state = "low-ammo"
     [
+      let closest-ammo min-one-of ammos [distance myself]
+      set destination closest-ammo
+      move-bot
      ;;seek da ammos 
     ]
   
@@ -217,14 +220,20 @@ to-report find-a-path [ source-patch destination-patch]
               ; set the parent patch before we assess a new patch
               set parent-patch current-patch 
               ; set new distance
-              set g [g] of parent-patch  + 1
+              set g [g] of parent-patch + 1
               ; calculate new estimate heuristic value
               
               ; heuristic function for seeking state
-              if current-enemy-state = "seeking" or current-enemy-state = "chasing"
-              [
-                set h distance destination-patch
+              ask myself [ 
+                if [pcolor] of myself = white [ 
+                  set h distance destination-patch 
+                ] 
+                if [pcolor] of myself = grey [
+                  set h distance destination-patch + 3
+                ]
+              
               ]
+              ;set h distance destination-patch + ([move-rate] of myself) - 5
              
               ; calculate patch value
               set f (g + h)
@@ -292,12 +301,14 @@ to move-bot
         move-to first current-path
         set current-path remove-item 0 current-path
         pd
+        set current-bot-move-rate [move-rate] of patch-here 
       ]
     ]
     if length current-path = 0
     [
       pu
     ]
+  
   ]   
 end
 
