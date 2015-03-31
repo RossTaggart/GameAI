@@ -98,6 +98,7 @@ to generate-map
   place-fuel
   place-player-spawn
   place-enemy-spawns
+  place-slow-tiles
   
   reset-ticks
   
@@ -366,6 +367,35 @@ to place-enemy-spawns
       [
         set pcolor yellow
         set no-of-enemies-spawned no-of-enemies-spawned + 1
+      ]
+      [
+       set xcord random-pxcor
+       set ycord random-pycor 
+      ]
+     ] 
+    ]
+  ] 
+    
+end
+
+to place-slow-tiles
+  
+  let xcord random-pxcor
+  let ycord random-pycor
+  
+  let no-of-slow-tiles 20
+  let no-of-slow-tiles-spawned 0
+  
+  while [no-of-slow-tiles-spawned < no-of-slow-tiles]
+  [
+    ask patches
+    [
+     if (pcolor = white)
+     [
+      ifelse (pxcor = xcord and pycor = ycord)
+      [
+        set pcolor grey
+        set no-of-slow-tiles-spawned no-of-slow-tiles-spawned + 1
       ]
       [
        set xcord random-pxcor
