@@ -60,13 +60,41 @@ to changePlayerState
     ]
   ]
   
-  ask ammos
+;  ;ask patches with [pcolor = black]
+;  ;[
+;  ask fuels
+;  [
+;  ;  if any? fuels-here
+;  ;  [
+;      if any? players-here 
+;   ;   [
+;  ;      set playerState "Fuel Pickup State"
+;      ]
+;    ]
+;  ;]
+
+
+  ask patches with [pcolor = black]
   [
-    if any? players-here and playerAmmo < 5
+    if any? ammos
     [
-      set playerState "Ammo Pickup State"
+      ask ammos
+      [
+        if any? players-here and playerAmmo < 5
+        [
+          set playerState "Ammo Pickup State"
+        ]
+      ]
     ]
   ]
+  
+;  ask ammos
+;  [
+;    if any? players-here and playerAmmo < 5
+;    [
+;      set playerState "Ammo Pickup State"
+;    ]
+;  ]
 end
 
 to setPlayerState
@@ -185,6 +213,7 @@ to eatFuel
   [
     if any? players-here
     [
+      ;set playerState "Pickup Fuel State"
       set playerFuelLevel playerFuelLevel + 25
       die
     ]
@@ -205,45 +234,24 @@ to decrementFuel
   ]
 end
 
-to damagePlayer
-  ask players
-  [
-    if any? bombs-here
-    [
-      ask bombs
-      [
-        if any? players-here
-        [
-          set playerHealth playerHealth - 50
-          if (playerHealth = 0)
-          [
-            explodePlayerAnimation
-            set dead? true
-          ]
-          
-          if (playerHealth != 0)
-          [
-            damagePlayerAnimation
-          ]
-          die
-        ]
-      ]
-    ]
-  ]
-end
-
 ;;Allows the player to pickup ammo if they have an ammo value of < 5. Each ammo crate
 ;;increases ammo by 1 and if the player has the limit of 5 ammo, the ammo will not be picked up.
 to pickupAmmo
   if (playerAmmo < 5)
   [
-    ask ammos
+    ask patches with [pcolor = black]
     [
-      if any? players-here
+      if any? ammos
       [
-        set playerAmmo playerAmmo + 1
-        die
-        sound:play-sound "tankPickUp2.wav"
+        ask ammos
+        [
+          if any? players-here
+          [
+            set playerAmmo playerAmmo + 1
+            die
+            sound:play-sound "tankPickUp2.wav"
+          ]
+        ]
       ]
     ]
   ]
