@@ -405,10 +405,10 @@ enemyHealth
 11
 
 PLOT
-913
-94
-1271
-271
+769
+125
+1127
+302
 Heuristic performance
 Time
 Patches considered
@@ -461,28 +461,64 @@ playerState
 1
 11
 
+TEXTBOX
+774
+315
+924
+371
+Floor Tiles\nRed = Obstacle\nWhite = Drivable(FullSpeed)\nGrey = Drivable(Slow)\n
+11
+0.0
+1
+
+TEXTBOX
+774
+387
+924
+457
+Pickups:\n(These are custom shapes, but appear too small to see)\nGreen with yellow = Ammo\nGreen with black = Fuel
+11
+0.0
+1
+
 @#$#@#$#@
 ## WHAT IS IT?
 
-A basic A* implementation on 1 agent which follows the player (the player can move around)
+A top down tank game,
+You play a tank with a given fuel level and ammo amount, you must destroy the enemy tank before he destroys you!
+You can pick up extra ammo and fuel along the way - but watch, the enemy can also pick it up!
 
 ## HOW IT WORKS
 
-The player and enemy both spawn on random black patches, the bot then uses A* with a distance heuristic to prioritise patches in the open list and calculate a new path towards the player before each movement.
+The player and enemy will both spawn on random patches - unless you use the level editor to create your own, in which case they will spawn in their respective places.
+The enemy will being to search for the player - it will roam around different patches until it gets close to the player then it will start to seek the players exact location, if the player gets close enough it will stop and start firing at you.
+
 
 ## HOW TO USE IT
 
-Press the new button to spawn
+Press the setup button to create the level - or use the level editor to create a level.
++ select the patches you would like to place and place them
++ you MUST have one and only one player patch and enemy spawn patch
++ delete or do not add fuel or ammo to make the game more challenging
 
-+ obstacle patches
-+ player turtle
-+ enemy bot turtle
+Press the go button - the enemy tank will start to search for you
++ click on the white space to allow you to use the keyboard
++ wasd is the movement control
++ f to fire
+
++ if you are low on fuel, head to a fuel pickup
++ if you are low on ammo, head to an ammo pickup
+
++ kill the enemy before it kills you!
 
 ## THINGS TO NOTICE
 
-Black patches are walkable
-White patches are obstacles
-Enemy turtle is red
++ White patches are walkable at full speed
++ Red patches are obstacles
++ Grey patches are walkable at a lesser speed
++ Enemy tank can seek randomly, chase precisely and attack player
++ Sound is implemented with multiple different sound effects
++ animations are also implemented when the player or enemy gets hit
 
 ## THINGS TO TRY
 
@@ -491,14 +527,17 @@ Enable debug mode to see open/closed lists (note that this will remove some obst
 ## EXTENDING THE MODEL
 
 + line of sight recognition and behavioural heuristics
-+ patches which slow down the enemy bot and consideration of these patches effect on pathing time in a heuristic
-+ multiple possible goal nodes, nodes assessed on the fly as potential goals and when more than one goal is found, a heuristic could be used to prioritise one which is found to be more desirable
 
 ## CREDITS AND REFERENCES
 
 Netlogo dictionary
 Netlogo user-manual
 http://ccl.northwestern.edu/netlogo/models/community/Astardemo1
+
+Alexander Malcolm
+Elliot Pryde
+Imran Shafiq
+Ross Taggart
 @#$#@#$#@
 default
 true
