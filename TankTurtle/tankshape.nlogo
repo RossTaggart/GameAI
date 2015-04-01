@@ -76,6 +76,7 @@ to play ;; Forever button
   [ 
     input-player ;; Player move/fire
     changePlayerState
+    setPlayerState
   ]
   every ( 0.25 )
   [
@@ -166,7 +167,7 @@ BUTTON
 143
 417
 Up
-move-up
+set action 4
 NIL
 1
 T
@@ -183,7 +184,7 @@ BUTTON
 143
 452
 Down
-move-down
+set action 2
 NIL
 1
 T
@@ -200,7 +201,7 @@ BUTTON
 200
 452
 Right
-move-right
+set action 3
 NIL
 1
 T
@@ -217,7 +218,7 @@ BUTTON
 86
 452
 Left
-move-left
+set action 1
 NIL
 1
 T
@@ -333,7 +334,7 @@ BUTTON
 221
 144
 Fire
-shoot
+set action \"f\"
 NIL
 1
 T
