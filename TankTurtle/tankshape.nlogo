@@ -85,6 +85,7 @@ to play ;; Forever button
   [ 
     input-player ;; Player move/fire
     changePlayerState
+    setPlayerState
   ]
   every ( current-bot-move-rate )
   [
@@ -193,7 +194,7 @@ BUTTON
 148
 389
 Up
-move-up
+set action 4
 NIL
 1
 T
@@ -210,7 +211,7 @@ BUTTON
 148
 424
 Down
-move-down
+set action 2
 NIL
 1
 T
@@ -227,7 +228,7 @@ BUTTON
 205
 424
 Right
-move-right
+set action 3
 NIL
 1
 T
@@ -244,7 +245,7 @@ BUTTON
 91
 424
 Left
-move-left
+set action 1
 NIL
 1
 T
@@ -291,7 +292,7 @@ CHOOSER
 DrawElements
 DrawElements
 "Path" "Obstacle" "Player Spawn" "Tank Spawn" "Slow Ground"
-1
+2
 
 BUTTON
 126
@@ -360,7 +361,7 @@ BUTTON
 221
 144
 Fire
-shoot
+set action \"f\"
 NIL
 1
 T
@@ -453,7 +454,7 @@ NIL
 MONITOR
 17
 299
-106
+139
 344
 Player's State
 playerState

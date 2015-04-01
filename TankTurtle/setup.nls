@@ -227,26 +227,22 @@ to setup-bots
 end
 
 ;;Creates 2 fuel pickups and places them randomly on white patches
-to setupFuels 
-  ask patches with [pcolor = black]
+to setupFuels
+  create-fuels 2
   [
-   sprout-fuels 1
-   [
-     set shape "fuelshape"
-     set size 2.5
-   ] 
+    move-to one-of patches with [pcolor = white]
+    set shape "fuelshape"
+    set size 2.5
   ]
 end
 
 ;;Creates 4 ammo pickups and places them randomly on white patches
 to setupAmmo
-  ask patches with [pcolor = green]
+  create-ammos 4
   [
-   sprout-fuels 1
-   [
+    move-to one-of patches with [pcolor = white]
     set shape "ammoShape"
     set size 2.5
-   ]
   ]
 end
 
