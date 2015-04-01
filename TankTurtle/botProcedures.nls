@@ -253,7 +253,7 @@ to-report find-a-path [ source-patch destination-patch]
               ; calculate new estimate heuristic value
               
               ; heuristic function for seeking state
-              set h distance destination-patch + move-rate
+              set h distance destination-patch + (move-rate * 4)
 
               ;set h distance destination-patch + ([move-rate] of myself) - 5
              

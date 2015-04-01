@@ -383,10 +383,10 @@ playerAmmo
 11
 
 MONITOR
-891
-48
-980
-93
+902
+30
+991
+75
 Enemy Health
 enemyHealth
 17
@@ -404,7 +404,7 @@ Patches considered
 0.0
 10.0
 0.0
-1024.0
+1296.0
 true
 false
 "" ""
@@ -412,10 +412,10 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot length open + length closed"
 
 MONITOR
-894
-107
-981
-152
+903
+79
+990
+124
 Enemy Ammo
 enemyAmmo
 17
@@ -423,10 +423,10 @@ enemyAmmo
 11
 
 BUTTON
-893
-272
-983
-305
+871
+267
+961
+300
 Verify Map
 verify-map
 NIL
