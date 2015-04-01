@@ -154,10 +154,10 @@ ticks
 30.0
 
 BUTTON
-11
-22
-121
-62
+754
+185
+864
+225
 Setup
 new
 NIL
@@ -171,10 +171,10 @@ NIL
 1
 
 BUTTON
-124
-22
-232
-62
+867
+185
+975
+225
 Play
 play
 T
@@ -188,10 +188,10 @@ NIL
 1
 
 BUTTON
-93
-356
-148
-389
+86
+90
+141
+123
 Up
 move-up
 NIL
@@ -205,10 +205,10 @@ NIL
 1
 
 BUTTON
-93
-391
-148
-424
+86
+125
+141
+158
 Down
 move-down
 NIL
@@ -222,10 +222,10 @@ NIL
 1
 
 BUTTON
-150
-391
-205
-424
+143
+125
+198
+158
 Right
 move-right
 NIL
@@ -239,10 +239,10 @@ NIL
 1
 
 BUTTON
-36
-391
-91
-424
+29
+125
+84
+158
 Left
 move-left
 NIL
@@ -256,10 +256,10 @@ NIL
 1
 
 SWITCH
-16
-67
-119
-100
+759
+230
+862
+263
 debug?
 debug?
 1
@@ -267,10 +267,10 @@ debug?
 -1000
 
 BUTTON
-11
-105
-124
-138
+754
+268
+867
+301
 Draw Elements
 Draw
 T
@@ -284,20 +284,20 @@ NIL
 1
 
 CHOOSER
-10
-144
-148
-189
+753
+307
+891
+352
 DrawElements
 DrawElements
 "Path" "Obstacle" "Player Spawn" "Tank Spawn" "Slow Ground"
 1
 
 BUTTON
-126
-67
-189
-100
+869
+230
+932
+263
 Clear
 __clear-all-and-reset-ticks\nask patches [ set pcolor white ]
 NIL
@@ -311,10 +311,10 @@ NIL
 1
 
 MONITOR
-1094
-29
-1151
-74
+150
+24
+207
+69
 Fuel
 playerFuelLevel
 17
@@ -322,10 +322,10 @@ playerFuelLevel
 11
 
 MONITOR
-1032
-29
-1089
-74
+88
+24
+145
+69
 Health
 playerHealth
 17
@@ -333,10 +333,10 @@ playerHealth
 11
 
 MONITOR
-14
-200
-140
-245
+757
+29
+883
+74
 current enemy state
 current-enemy-state
 17
@@ -344,10 +344,10 @@ current-enemy-state
 11
 
 MONITOR
-18
-250
-138
-295
+761
+79
+881
+124
 enemy state debug
 debug-state
 17
@@ -355,10 +355,10 @@ debug-state
 11
 
 BUTTON
-158
-111
-221
-144
+80
+179
+143
+212
 Fire
 shoot
 NIL
@@ -372,10 +372,10 @@ NIL
 1
 
 MONITOR
-970
-28
-1027
-73
+26
+23
+83
+68
 Ammo
 playerAmmo
 17
@@ -383,21 +383,10 @@ playerAmmo
 11
 
 MONITOR
-864
-30
-965
-75
-Max Ammo Limit
-max-ammo
-17
-1
-11
-
-MONITOR
-769
-29
-858
-74
+891
+48
+980
+93
 Enemy Health
 enemyHealth
 17
@@ -405,10 +394,10 @@ enemyHealth
 11
 
 PLOT
-769
-125
-1127
-302
+752
+361
+1110
+538
 Heuristic performance
 Time
 Patches considered
@@ -423,10 +412,10 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot length open + length closed"
 
 MONITOR
-770
-73
-857
-118
+894
+107
+981
+152
 Enemy Ammo
 enemyAmmo
 17
@@ -434,10 +423,10 @@ enemyAmmo
 11
 
 BUTTON
-150
-171
-240
-204
+893
+272
+983
+305
 Verify Map
 verify-map
 NIL
@@ -451,10 +440,10 @@ NIL
 1
 
 MONITOR
-17
-299
-106
-344
+760
+128
+849
+173
 Player's State
 playerState
 17
@@ -462,20 +451,20 @@ playerState
 11
 
 TEXTBOX
-774
-315
-924
-371
+51
+250
+201
+306
 Floor Tiles\nRed = Obstacle\nWhite = Drivable(FullSpeed)\nGrey = Drivable(Slow)\n
 11
 0.0
 1
 
 TEXTBOX
-774
-387
-924
-457
+51
+322
+201
+392
 Pickups:\n(These are custom shapes, but appear too small to see)\nGreen with yellow = Ammo\nGreen with black = Fuel
 11
 0.0
