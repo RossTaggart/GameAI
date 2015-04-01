@@ -58,20 +58,20 @@ end
 
 to check-current-state ;; this is going to be the transitions between states
   
-  ;; if the enemy leavesthe attack state
+  ;; if the enemy leavesthe attack state - this one should be 100% not a probability
   if current-enemy-state != "attacking"
   [
     set enemy-can-shoot? false
   ]
   
-  ;;if the bot has no health - die
+  ;;if the bot has no health - die - this one should be 100% not a probability
   if enemyHealth = 0
   [
-    set current-enemy-state "dead"
-    stop
+      set current-enemy-state "dead"
+      stop
   ]
   
-  ;; if the bot is low on ammo - seek ammo instead of player
+  ;; if the bot is low on ammo - seek ammo instead of player - this one should be 100% not a probability
   if enemyAmmo = 0
   [
    set current-enemy-state "low-ammo" 
@@ -81,19 +81,48 @@ to check-current-state ;; this is going to be the transitions between states
   ;; if the player is in attacking distance- stops enemy and gets ready to fire
   if [distance myself] of one-of patches with [any? players-here] < 5
     [
-      set current-enemy-state "attacking"
-      stop  
+      let p random 101
+      ifelse p < 41
+      [
+        set current-enemy-state "attacking"
+        stop  
+      ]
+      
+      ;; else do nothing - dont change state
+      [
+        stop
+      ]
     ]
   ;; if the player is in chasing distance- gives the enemy the players exact location
   if [distance myself] of one-of patches with [any? players-here] < 10
   [
+    let p random 101
+    ifelse p < 41
+    [
     set current-enemy-state "chasing"
     stop
+    ]
+    
+    ;; else do nothing - dont change state
+    [
+     stop 
+    ]
   ]
   
   ;; player has went back out of attacking/chasing range
   if length current-path > 5
-    [revert-to-seeking set debug-state "out of range"]  
+    [
+      let p random 101
+      ifelse p < 50
+      [
+        revert-to-seeking set debug-state "out of range"
+      ] 
+      
+      ;; else do nothing - dont change state
+      [
+       stop 
+      ]
+    ] 
 end
 
 to input-bots  ; Observer Procedure
