@@ -18,7 +18,7 @@ to updateGlobals
 end
 
 to input-player  ;; Observer Procedure
-  ;eatFuel
+  eatFuel
   capFuelLimit
   ;pickupAmmo
   ;damagePlayer
@@ -52,13 +52,30 @@ to changePlayerState
     set playerState "Firing State"
   ]
   
-  ask fuels
-  [
-    if any? players-here
-    [
-      set playerState "Fuel Pickup State"
-    ]
-  ]
+  
+  ask patches with [pcolor = black]
+  ;[
+    ;if any? fuels-here
+    ;[
+      ;ask fuels
+      [    
+        if any? players-here ;and [pcolor] of patch-here = black
+        [
+          set playerState "Fuel Pickup State"
+        ]
+      ]
+    ;]
+  ;]
+  
+  
+;  ask fuels
+;  [
+;    if any? players-here 
+;    [
+;      set playerState "Fuel Pickup State"
+;    ]
+;  ]
+  
   
   ask ammos
   [
@@ -181,6 +198,36 @@ to move-down
 end
 
 to eatFuel
+;  ask patches with [pcolor = black]
+;  [
+;    if any? fuels-here
+;    [
+;      ask fuels
+;      [
+;        if any? players-here
+;        [
+;          set playerFuelLevel playerFuelLevel + 25
+;          die
+;        ]
+;      ]
+;    ]
+;  ]
+
+;  ask fuels
+;  [
+;    if [pcolor] of patch-here = black and any? players-here
+;    [
+;      set playerFuelLevel playerFuelLevel + 25
+;      die
+;    ]
+;  ]
+  
+  
+  
+  
+  
+  
+  
   ask fuels
   [
     if any? players-here
