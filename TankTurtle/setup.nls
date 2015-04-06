@@ -35,6 +35,22 @@ to new
   [
     set move-rate 0.25
   ]
+  ask patches with [pcolor = green]
+  [
+    set move-rate 0.25
+  ]
+  ask patches with [pcolor = blue]
+  [
+    set move-rate 0.25
+  ]
+  ask patches with [pcolor = yellow]
+  [
+    set move-rate 0.25
+  ]
+  ask patches with [pcolor = black]
+  [
+    set move-rate 0.25
+  ]
   ask patches with [pcolor = grey]
   [
     set move-rate 1.5
@@ -226,25 +242,85 @@ to setup-bots
   ]
 end
 
+;;;Creates 2 fuel pickups and places them randomly on white patches
+;to setupFuels
+;  ;let pcount [count patches with [pcolor = black]]
+;  create-fuels count patches with [pcolor = black]
+;  [
+;    move-to one-of patches with [pcolor = green]
+;    ;move-to patches with [pcolor = black]
+;    
+;    ;ask patches with [pcolor = black]
+;    
+;    ;ask n-of N
+;    ;move-to n-of count patches with [pcolor = black]
+;   
+;    ;move-to one-of patch with [pcolor = black]
+;    set shape "fuelshape"
+;    set size 2.5
+;    
+;    
+;  ]
+;end
+;
+;;;Creates 4 ammo pickups and places them randomly on white patches
+;to setupAmmo
+;  create-ammos count patches with [pcolor = black]
+;  [
+;    move-to one-of patches with [pcolor = white]
+;    set shape "ammoShape"
+;    set size 2.5
+;  ]
+;end
+
+
+
 ;;Creates 2 fuel pickups and places them randomly on white patches
 to setupFuels
-  create-fuels 2
+  ask patches with [pcolor = black]
   [
-    move-to one-of patches with [pcolor = white]
-    set shape "fuelshape"
-    set size 2.5
+    sprout-fuels 1
+    [
+      set shape "fuelshape"
+      set size 2.5
+    ]
   ]
 end
 
 ;;Creates 4 ammo pickups and places them randomly on white patches
 to setupAmmo
-  create-ammos 4
+  ask patches with [pcolor = green]
   [
-    move-to one-of patches with [pcolor = white]
-    set shape "ammoShape"
-    set size 2.5
+    sprout-ammos 1
+    [
+      set shape "ammoShape"
+      set size 2.5
+    ]
   ]
 end
+
+;;;Creates 2 fuel pickups and places them randomly on white patches
+;to setupFuels
+;  let fcount count patches with [pcolor = black]
+;  create-fuels fcount
+;  [
+;    move-to one-of patches with [pcolor = black]
+;    set shape "fuelshape"
+;    set size 2.5
+;  ]
+;end
+;
+;;;Creates 4 ammo pickups and places them randomly on white patches
+;to setupAmmo
+;  create-ammos 1
+;  [
+;    move-to one-of patches with [pcolor = green]
+;    set shape "ammoShape"
+;    set size 2.5
+;  ]
+;end
+
+
 
 to setupInput
     set action 0
