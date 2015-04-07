@@ -259,6 +259,7 @@ to shoot-missiles
         if (enemyHealth = 0) 
         [
           explodeEnemyAnimation
+          sound:play-sound "tankDeath.wav"
         ]
         if (enemyHealth != 0)
         [

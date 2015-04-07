@@ -377,7 +377,8 @@ to Enemy-shoot-missiles
         [
           explodePlayerAnimation
           sound:play-sound "tankDeath.wav"
-          die
+          set dead? true
+          ;die
         ]
         if (playerHealth != 0)
         [
