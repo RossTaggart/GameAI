@@ -117,28 +117,30 @@ end
 
 to verify-map
   
-  ask bots
-  [
-   die 
-  ]
+  clear-turtles
   
-  ask players
-  [
-   die 
-  ]
+;  ask bots
+;  [
+;   die 
+;  ]
+;  
+;  ask players
+;  [
+;   die 
+;  ]
+;  
+;  ask ammos
+;  [
+;    die
+;  ]
+;  
+;  ask fuels
+;  [
+;    die
+;  ]
   
-  ask ammos
-  [
-    die
-  ]
-  
-  ask fuels
-  [
-    die
-  ]
-  
-  setup-bots
   setup-player
+  setup-bots
   setupAmmo
   setupFuels
   
