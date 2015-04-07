@@ -203,7 +203,7 @@ to draw
         ]
         if count patches with [pcolor = green] >= 4
           [
-            user-message "You have placed your last available ammo spawn point, can't place any more than 4 ammo pickups"
+            user-message "You have placed your last available ammo spawn point, can't place any more than 4 ammo pickups. To place a new spawn point, use the 'Path' tool to remove an existing spawn point."
           ]
       ]
     ]
@@ -230,10 +230,10 @@ to draw
 ;            user-message "This is your last available ammo spawn point, can't place any more than 4 ammo pickups"
 ;          ]
         ]
-        ;if count patches with [pcolor = green] >= 4
-        ;  [
-        ;    user-message "You have placed your last available ammo spawn point, can't place any more than 4 ammo pickups"
-        ;  ]
+        if count patches with [pcolor = orange] >= 4
+          [
+            user-message "You have placed your last available fuel spawn point, can't place any more than 4 fuel pickups. To place a new spawn point, use the 'Path' tool to remove an existing spawn point."
+          ]
       ]
     ]
     

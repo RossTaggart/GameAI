@@ -311,7 +311,7 @@ CHOOSER
 DrawElements
 DrawElements
 "Path" "Obstacle" "Player Spawn" "Tank Spawn" "Slow Ground" "Ammo Pickup" "Fuel Pickup"
-3
+6
 
 BUTTON
 869
