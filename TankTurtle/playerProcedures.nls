@@ -33,6 +33,7 @@ to changePlayerState
   if playerHealth = 0 or playerFuelLevel = 0
   [ 
     set playerState "Death State"
+    stop
   ]
   
   if (action = 1) or (action = 2) or (action = 3) or (action = 4)
@@ -108,11 +109,16 @@ to setPlayerState
     pickupAmmo
   ]
   
-  ;if playerState = "Death State"
-  ;[
-  ;  user-message "YOU FAILED. YOU FAILURE"   
-  ;  toggleendgame 
-  ;]
+  if playerState = "Death State"
+  [
+    ;set enemy-can-shoot? false
+    user-message "YOU FAILED. YOU FAILURE"   
+    ;toggleendgame
+    ;set current-enemy-state "idle"
+    ;set enemy-can-shoot? false
+    toggleendgame
+    ;stop
+  ]
 end
 
 to move-left

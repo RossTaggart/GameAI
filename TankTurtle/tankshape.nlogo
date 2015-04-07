@@ -70,8 +70,8 @@ breed [ missiles missile ]
 breed [ bombs bomb ]
 
 to play ;; Forever button
-  if dead? or playerFuelLevel = 0
-  [ user-message "YOU FAILED. YOU FAILURE"   toggleendgame ]
+  ;if playerHealth = 0 or playerFuelLevel = 0
+  ;[ user-message "YOU FAILED. YOU FAILURE"   toggleendgame ]
   
   ;;Displays win message if the enemy is destroyed.
   if enemyHealth = 0
