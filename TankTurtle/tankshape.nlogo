@@ -127,8 +127,20 @@ to verify-map
    die 
   ]
   
+  ask ammos
+  [
+    die
+  ]
+  
+  ask fuels
+  [
+    die
+  ]
+  
   setup-bots
   setup-player
+  setupAmmo
+  setupFuels
   
 end
 @#$#@#$#@
@@ -296,8 +308,8 @@ CHOOSER
 352
 DrawElements
 DrawElements
-"Path" "Obstacle" "Player Spawn" "Tank Spawn" "Slow Ground"
-1
+"Path" "Obstacle" "Player Spawn" "Tank Spawn" "Slow Ground" "Ammo Pickup" "Fuel Pickup"
+3
 
 BUTTON
 869

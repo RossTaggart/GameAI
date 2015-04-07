@@ -284,7 +284,7 @@ to place-fuel
      [
       ifelse (pxcor = xcord and pycor = ycord)
       [
-        set pcolor black
+        set pcolor orange
         set no-of-fuel-spawned no-of-fuel-spawned + 1
       ]
       [

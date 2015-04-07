@@ -101,7 +101,7 @@ to draw
     [
       if mouse-down?
       [
-        if [pcolor] of patch mouse-xcor mouse-ycor = black or [pcolor] of patch mouse-xcor mouse-ycor = red or [pcolor] of patch mouse-xcor mouse-ycor = grey
+        if [pcolor] of patch mouse-xcor mouse-ycor = black or [pcolor] of patch mouse-xcor mouse-ycor = red or [pcolor] of patch mouse-xcor mouse-ycor = grey or [pcolor] of patch mouse-xcor mouse-ycor = orange or [pcolor] of patch mouse-xcor mouse-ycor = green
         [
           ask patch mouse-xcor mouse-ycor
           [
@@ -180,6 +180,85 @@ to draw
       ]
     ]
    
+   if DrawElements = "Ammo Pickup"
+    [
+      if mouse-down?
+      [
+        if [pcolor] of patch mouse-xcor mouse-ycor = white and count patches with [pcolor = green] < 4
+        [
+          ;ask patches with [pcolor = green]
+          ;[
+          ;  set pcolor white
+          ;  set plabel ""
+          ;] 
+          ask patch mouse-xcor mouse-ycor
+          [
+            set pcolor green 
+          ]
+          
+;          if count patches with [pcolor = green] = 4
+;          [
+;            user-message "This is your last available ammo spawn point, can't place any more than 4 ammo pickups"
+;          ]
+        ]
+        if count patches with [pcolor = green] >= 4
+          [
+            user-message "You have placed your last available ammo spawn point, can't place any more than 4 ammo pickups"
+          ]
+      ]
+    ]
+    
+    
+    if DrawElements = "Fuel Pickup"
+    [
+      if mouse-down?
+      [
+        if [pcolor] of patch mouse-xcor mouse-ycor = white and count patches with [pcolor = orange] < 4
+        [
+          ;ask patches with [pcolor = green]
+          ;[
+          ;  set pcolor white
+          ;  set plabel ""
+          ;] 
+          ask patch mouse-xcor mouse-ycor
+          [
+            set pcolor orange 
+          ]
+          
+;          if count patches with [pcolor = green] = 4
+;          [
+;            user-message "This is your last available ammo spawn point, can't place any more than 4 ammo pickups"
+;          ]
+        ]
+        ;if count patches with [pcolor = green] >= 4
+        ;  [
+        ;    user-message "You have placed your last available ammo spawn point, can't place any more than 4 ammo pickups"
+        ;  ]
+      ]
+    ]
+    
+    
+    
+    
+;    if DrawElements = "Fuel Pickup"
+;    [
+;      if mouse-down?
+;      [
+;        if [pcolor] of patch mouse-xcor mouse-ycor = white
+;        [
+;          ask patches with [pcolor = black]
+;          [
+;            set pcolor white
+;            set plabel ""
+;          ] 
+;          ask patch mouse-xcor mouse-ycor
+;          [
+;            set pcolor black
+;          ]
+;        ]
+;      ]
+;    ]
+   
   ]
  
 end
@@ -244,11 +323,12 @@ end
 
 ;;Creates 2 fuel pickups and places them randomly on white patches
 to setupFuels 
-  ask patches with [pcolor = black]
+  set-default-shape fuels "fuelshape"
+  ask patches with [pcolor = orange]
   [
    sprout-fuels 1
    [
-     set shape "fuelshape"
+     ;set shape "fuelshape"
      set size 2.5
    ] 
   ]
@@ -256,11 +336,12 @@ end
 
 ;;Creates 4 ammo pickups and places them randomly on white patches
 to setupAmmo
+  set-default-shape ammos "ammoShape"
   ask patches with [pcolor = green]
   [
    sprout-ammos 1
    [
-    set shape "ammoShape"
+    ;set shape "ammoShape"
     set size 2.5
    ]
   ]
