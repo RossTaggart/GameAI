@@ -332,7 +332,7 @@ to move-bot
         face first current-path
         move-to first current-path
         set current-path remove-item 0 current-path
-        pd
+        ;pd
         set current-bot-move-rate [move-rate] of patch-here 
       ]
     ]
