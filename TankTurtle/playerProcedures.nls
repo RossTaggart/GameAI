@@ -18,9 +18,10 @@ to updateGlobals
 end
 
 to input-player  ;; Observer Procedure
-  ;eatFuel
+  eatFuel
   capFuelLimit
-  ;pickupAmmo
+  pickupAmmo
+  damagePlayer
   ;;shoot-missiles
   display
 end
@@ -30,89 +31,11 @@ end
 ;;;;;;;;;;;;;;;;
 
 to changePlayerState
-  if playerHealth = 0 or playerFuelLevel = 0
-  [ 
+  set playerState "Idle State"
+  if playerHealth = 0
+  [
     set playerState "Death State"
   ]
-  
-  if (action = 1) or (action = 2) or (action = 3) or (action = 4)
-  [
-    set playerState "Movement State"
-  ]
-  
-  if (action = 0)
-  [
-    set playerState "Idle State"
-  ]
-  
-  if action = "f" and playerAmmo > 0
-  [
-    set playerState "Firing State"
-  ]
-  
-  ask fuels
-  [
-    if any? players-here
-    [
-      set playerState "Fuel Pickup State"
-    ]
-  ]
-  
-  ask ammos
-  [
-    if any? players-here and playerAmmo < 5
-    [
-      set playerState "Ammo Pickup State"
-    ]
-  ]
-end
-
-to setPlayerState
-  if playerState = "Movement State"
-  [
-    if (action != 0)
-    [
-      if action = 1
-      [
-        move-left
-      ]
-      if action = 2
-      [
-        move-down
-      ]
-      if action = 3
-      [
-        move-right
-      ]
-      if action = 4
-      [
-        move-up
-      ]
-      set action 0
-    ]
-  ]
-  
-  if playerState = "Firing State"
-  [
-    shoot
-    set action 0
-  ]
-  
-  if playerState = "Fuel Pickup State"
-  [
-    eatFuel
-  ]
-  
-  if playerState = "Ammo Pickup State"
-  [
-    pickupAmmo
-  ]
-  
-  ;if playerState = "Death State"
-  ;[
-  ;  user-message "YOU FAILED. YOU FAILURE"   
-  ;  toggleendgame 
-  ;]
 end
 
 to move-left
@@ -125,6 +48,7 @@ to move-left
       [ 
         fd 1 
         decrementFuel
+        set playerState "Movement State"
       ]
       set current-player-move-rate [move-rate] of patch-here
     ]
@@ -140,6 +64,7 @@ to move-right
       [ 
         fd 1 
         decrementFuel
+        set playerState "Movement State"
       ]
       set current-player-move-rate [move-rate] of patch-here
     ]
@@ -155,6 +80,7 @@ to move-up
       [ 
         fd 1 
         decrementFuel
+        set playerState "Movement State"
       ]
       set current-player-move-rate [move-rate] of patch-here
     ]
@@ -170,6 +96,7 @@ to move-down
       [ 
         fd 1 
         decrementFuel
+        set playerState "Movement State"
       ]
       set current-player-move-rate [move-rate] of patch-here
     ]
@@ -181,7 +108,6 @@ to eatFuel
     if any? players-here
     [
       set playerFuelLevel playerFuelLevel + 25
-      die
     ]
   ]
 end
@@ -200,6 +126,32 @@ to decrementFuel
   ]
 end
 
+to damagePlayer
+  ask players
+  [
+    if any? bombs-here
+    [
+      ask bombs
+      [
+        if any? players-here
+        [
+          set playerHealth playerHealth - 50
+          if (playerHealth = 0)
+          [
+            explodePlayerAnimation
+            set dead? true
+          ]
+          
+          if (playerHealth != 0)
+          [
+            damagePlayerAnimation
+          ]
+        ]
+      ]
+    ]
+  ]
+end
+
 ;;Allows the player to pickup ammo if they have an ammo value of < 5. Each ammo crate
 ;;increases ammo by 1 and if the player has the limit of 5 ammo, the ammo will not be picked up.
 to pickupAmmo
@@ -210,7 +162,6 @@ to pickupAmmo
       if any? players-here
       [
         set playerAmmo playerAmmo + 1
-        die
         sound:play-sound "tankPickUp2.wav"
       ]
     ]
@@ -229,6 +180,7 @@ to shoot
       set heading [heading] of player 0
       set size 2.5
       set playerAmmo playerAmmo - 1
+      set playerState "Firing State"
       sound:play-sound "tankShoot.wav"
     ]
   ]
