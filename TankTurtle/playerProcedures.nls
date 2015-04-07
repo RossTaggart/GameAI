@@ -33,6 +33,7 @@ to changePlayerState
   if playerHealth = 0 or playerFuelLevel = 0
   [ 
     set playerState "Death State"
+    stop
   ]
   
   if (action = 1) or (action = 2) or (action = 3) or (action = 4)
@@ -108,11 +109,11 @@ to setPlayerState
     pickupAmmo
   ]
   
-  ;if playerState = "Death State"
-  ;[
-  ;  user-message "YOU FAILED. YOU FAILURE"   
-  ;  toggleendgame 
-  ;]
+  if playerState = "Death State"
+  [
+    user-message "YOU FAILED. YOU FAILURE"   
+    toggleendgame 
+  ]
 end
 
 to move-left
@@ -259,6 +260,7 @@ to shoot-missiles
         if (enemyHealth = 0) 
         [
           explodeEnemyAnimation
+          sound:play-sound "tankDeath.wav"
         ]
         if (enemyHealth != 0)
         [
