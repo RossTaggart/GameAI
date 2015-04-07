@@ -209,7 +209,7 @@ to pickupAmmo
     [
       if any? players-here
       [
-        set playerAmmo playerAmmo + 5
+        set playerAmmo playerAmmo + 2
         die
         sound:play-sound "tankPickUp2.wav"
       ]
@@ -220,6 +220,10 @@ end
 ;; Creates the missiles which are fired by the player tank if the player's ammo is > 0.
 ;;Decrements the player's ammo by 1 every time a missile is fired. 
 to shoot
+  ask players
+  [
+    face bot 1
+  ]
   if (playerAmmo > 0)
   [
     create-missiles 1 

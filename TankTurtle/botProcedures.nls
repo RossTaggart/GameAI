@@ -46,7 +46,7 @@ to update-states ;; this is going to be the defined states which tell the tank w
         [
           set destination one-of players
           set current-enemy-state "seeking"
-          set enemyAmmo enemyAmmo + 5
+          set enemyAmmo enemyAmmo + 2
           
           die
           
