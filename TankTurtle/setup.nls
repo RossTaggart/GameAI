@@ -35,6 +35,22 @@ to new
   [
     set move-rate 0.25
   ]
+  ask patches with [pcolor = green]
+  [
+    set move-rate 0.25
+  ]
+  ask patches with [pcolor = blue]
+  [
+    set move-rate 0.25
+  ]
+  ask patches with [pcolor = yellow]
+  [
+    set move-rate 0.25
+  ]
+  ask patches with [pcolor = black]
+  [
+    set move-rate 0.25
+  ]
   ask patches with [pcolor = grey]
   [
     set move-rate 1.5
@@ -242,7 +258,7 @@ end
 to setupAmmo
   ask patches with [pcolor = green]
   [
-   sprout-fuels 1
+   sprout-ammos 1
    [
     set shape "ammoShape"
     set size 2.5

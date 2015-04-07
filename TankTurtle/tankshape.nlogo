@@ -85,6 +85,7 @@ to play ;; Forever button
   [ 
     input-player ;; Player move/fire
     changePlayerState
+    setPlayerState
   ]
   every ( current-bot-move-rate )
   [
@@ -193,7 +194,7 @@ BUTTON
 141
 123
 Up
-move-up
+set action 4
 NIL
 1
 T
@@ -210,7 +211,7 @@ BUTTON
 141
 158
 Down
-move-down
+set action 2
 NIL
 1
 T
@@ -227,7 +228,7 @@ BUTTON
 198
 158
 Right
-move-right
+set action 3
 NIL
 1
 T
@@ -244,7 +245,7 @@ BUTTON
 84
 158
 Left
-move-left
+set action 1
 NIL
 1
 T
@@ -360,7 +361,7 @@ BUTTON
 143
 212
 Fire
-shoot
+set action \"f\"
 NIL
 1
 T
@@ -442,7 +443,7 @@ NIL
 MONITOR
 760
 128
-849
+882
 173
 Player's State
 playerState
