@@ -284,7 +284,7 @@ to-report find-a-path [ source-patch destination-patch]
     [
       ; if a path is not found (search is incomplete) and the open list is exhausted 
       ; display a user message and report an empty search path list.
-      user-message( "A path from the source to the destination does not exist." )
+      user-message( "No path exists from the bots current location to the destination" )
       report []
     ]
   ]
