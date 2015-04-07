@@ -209,7 +209,7 @@ to pickupAmmo
     [
       if any? players-here
       [
-        set playerAmmo playerAmmo + 1
+        set playerAmmo playerAmmo + 5
         die
         sound:play-sound "tankPickUp2.wav"
       ]

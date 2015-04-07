@@ -40,7 +40,19 @@ to update-states ;; this is going to be the defined states which tell the tank w
       let closest-ammo min-one-of ammos [distance myself]
       set destination closest-ammo
       move-bot
-     ;;seek da ammos 
+      ask ammos
+      [
+        if any? bots-here
+        [
+          set destination one-of players
+          set current-enemy-state "seeking"
+          set enemyAmmo enemyAmmo + 5
+          
+          die
+          
+        ]
+      ]
+      ;;seek da ammos 
     ]
   
   ;; when the player hits the enemy it will set the enemy state to dead

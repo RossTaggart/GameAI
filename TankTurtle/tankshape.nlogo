@@ -77,6 +77,11 @@ to play ;; Forever button
   if enemyHealth = 0
   [ user-message "Congratulations, you win!" toggleendgame ]
   
+  if enemyAmmo = 0 and playerAmmo = 0 and not any? ammos
+  [
+    user-message "YOU FAILED. Theres no ammo left at all!"   toggleendgame
+  ]
+  
   if end-game = "true"
   [
     stop 
