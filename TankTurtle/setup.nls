@@ -47,7 +47,7 @@ to new
   [
     set move-rate 0.25
   ]
-  ask patches with [pcolor = black]
+  ask patches with [pcolor = orange]
   [
     set move-rate 0.25
   ]
@@ -101,7 +101,7 @@ to draw
     [
       if mouse-down?
       [
-        if [pcolor] of patch mouse-xcor mouse-ycor = black or [pcolor] of patch mouse-xcor mouse-ycor = red or [pcolor] of patch mouse-xcor mouse-ycor = grey
+        if [pcolor] of patch mouse-xcor mouse-ycor = black or [pcolor] of patch mouse-xcor mouse-ycor = red or [pcolor] of patch mouse-xcor mouse-ycor = grey or [pcolor] of patch mouse-xcor mouse-ycor = orange or [pcolor] of patch mouse-xcor mouse-ycor = green
         [
           ask patch mouse-xcor mouse-ycor
           [
@@ -166,6 +166,8 @@ to draw
         ]
       ]
     ]
+    
+    ;;draw slow ground
     if DrawElements = "Slow Ground"
     [
       if mouse-down?
@@ -180,8 +182,44 @@ to draw
       ]
     ]
    
+   ;;draw ammo spawn points
+   if DrawElements = "Ammo Pickup"
+    [
+      if mouse-down?
+      [
+        if [pcolor] of patch mouse-xcor mouse-ycor = white and count patches with [pcolor = green] < 4
+        [
+          ask patch mouse-xcor mouse-ycor
+          [
+            set pcolor green 
+          ]
+        ]
+        if count patches with [pcolor = green] >= 4
+        [
+           user-message "You have placed your last available ammo spawn point, can't place any more than 4 ammo pickups. To place a new spawn point, use the 'Path' tool to remove an existing spawn point."
+        ]
+      ]
+    ]
+     
+    ;;draw fuel spawn points    
+    if DrawElements = "Fuel Pickup"
+    [
+      if mouse-down?
+      [
+        if [pcolor] of patch mouse-xcor mouse-ycor = white and count patches with [pcolor = orange] < 4
+        [
+          ask patch mouse-xcor mouse-ycor
+          [
+            set pcolor orange 
+          ]
+        ]
+        if count patches with [pcolor = orange] >= 4
+        [
+           user-message "You have placed your last available fuel spawn point, can't place any more than 4 ammo pickups. To place a new spawn point, use the 'Path' tool to remove an existing spawn point."
+        ]
+      ]
+    ]  
   ]
- 
 end
  
 to clear-screen
@@ -244,7 +282,7 @@ end
 
 ;;Creates 2 fuel pickups and places them randomly on white patches
 to setupFuels 
-  ask patches with [pcolor = black]
+  ask patches with [pcolor = orange]
   [
    sprout-fuels 1
    [
