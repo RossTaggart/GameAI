@@ -29,6 +29,7 @@ end
 ;;player stuff;;
 ;;;;;;;;;;;;;;;;
 
+;;change the player's state depending on input
 to changePlayerState
   if playerHealth = 0 or playerFuelLevel = 0
   [ 
@@ -68,6 +69,7 @@ to changePlayerState
   ]
 end
 
+;;sets the actions to be carried out by each state
 to setPlayerState
   if playerState = "Movement State"
   [
@@ -202,7 +204,7 @@ to decrementFuel
 end
 
 ;;Allows the player to pickup ammo if they have an ammo value of < 5. Each ammo crate
-;;increases ammo by 1 and if the player has the limit of 5 ammo, the ammo will not be picked up.
+;;increases ammo by 2 and if the player has the limit of 5 ammo, the ammo will not be picked up.
 to pickupAmmo
   if (playerAmmo < 5)
   [
@@ -218,7 +220,7 @@ to pickupAmmo
   ]
 end
 
-;; Creates the missiles which are fired by the player tank if the player's ammo is > 0.
+;;Makes the player face the enemy and then creates the missiles which are fired by the player tank if the player's ammo is > 0.
 ;;Decrements the player's ammo by 1 every time a missile is fired. 
 to shoot
   ask players
@@ -240,10 +242,11 @@ to shoot
 end
 
 ;;Actually makes the missiles move and destroys the missiles when they: reach
-;;patch 16 of any of the boundaries, hit an obstacle or hit the enemy tank.
+;;patch 36 of any of the boundaries, hit an obstacle or hit the enemy tank.
 ;;If the missiles hit the enemy tank, the missile is destroyed and the enemy
 ;;tank's health is decreased by 25 by each hit. When the enemy tank's health is 
-;;0, the enemy tank is destroyed. 
+;;0, the enemy tank is destroyed. Also plays the animations for the tank taking 
+;;damage and getting destroyed.
 to shoot-missiles
   ask missiles
   [
