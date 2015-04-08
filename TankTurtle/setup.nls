@@ -47,7 +47,7 @@ to new
   [
     set move-rate 0.25
   ]
-  ask patches with [pcolor = black]
+  ask patches with [pcolor = orange]
   [
     set move-rate 0.25
   ]
