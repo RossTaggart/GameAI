@@ -510,6 +510,8 @@ Press the go button - the enemy tank will start to search for you
 + Sound is implemented with multiple different sound effects
 + animations are also implemented when the player or enemy gets hit
 
+If you wish to use the level editor to change how your game works, this is okay. However, after you have made your changes, before pressing Play, you must press the Verify Map button, or else the game will not work correctly. Not pressing the Verify Map will cause some very unusual behaviour.
+
 ## THINGS TO TRY
 
 Enable debug mode to see open/closed lists (note that this will remove some obstacles)
