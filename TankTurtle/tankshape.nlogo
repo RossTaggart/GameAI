@@ -501,6 +501,10 @@ Press the go button - the enemy tank will start to search for you
 
 + kill the enemy before it kills you!
 
+## WHY IS OUR GAME FUN?
+
+This game is fun due to the level of strategy you have to employ in order to win against the enemy. The patches that slow you down essentially make you a sitting duck, so avoiding them is key to making you succeed. Also, the enemy is faster than you and essentially better than you, so you need to seriously concentrate to win at this game!
+
 ## THINGS TO NOTICE
 
 + White patches are walkable at full speed
