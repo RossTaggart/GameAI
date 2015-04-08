@@ -518,7 +518,9 @@ Enable debug mode to see open/closed lists (note that this will remove some obst
 
 ## EXTENDING THE MODEL
 
-+ line of sight recognition and behavioural heuristics
+If you wish to extend the model, you could allow Line of Sight recognition for the Enemy, meaning that it will try and shoot you if it can see you within X amounts of patches from itself.
+
+Also, potentially loading and saving levels is an option that you could choose to explore. If you created a level that you really, really liked, then this would be a way of keeping that level for further use in the future.
 
 ## CREDITS AND REFERENCES
 
